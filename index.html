@@ -51,8 +51,9 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  padding-top: 100px;
-  padding-bottom: 30px;
+  padding-top: 75px;
+  padding-bottom: 15px;
+  box-sizing: border-box;
 }
 
 /* ── Navbar ── */
@@ -105,6 +106,10 @@ body {
 }
 .view-section.active { display: flex; }
 
+#infoView {
+  padding-top: 15vh;
+}
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -118,15 +123,6 @@ body {
   pointer-events: none;
   background: radial-gradient(circle at var(--x, 50vw) var(--y, 50vh), rgba(255, 255, 255, 0.12) 0%, transparent 120px);
   z-index: 0;
-  animation: lightningFlicker 2s infinite;
-}
-@keyframes lightningFlicker {
-  0%,94%,100% { opacity: 1; }
-  95%  { opacity: 1.8; }
-  96%  { opacity: 0.4; }
-  97%  { opacity: 2.2; }
-  98%  { opacity: 0.6; }
-  99%  { opacity: 1.5; }
 }
 
 /* ── Profile ── */
@@ -135,12 +131,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 12px;
-  margin-bottom: 40px;
+  gap: 8px;
+  margin-bottom: 12px;
 }
 .avatar-snake-wrap {
   position: relative;
-  width: 190px; height: 190px;
+  width: 125px; height: 125px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -159,7 +155,7 @@ body {
 .profile-pic {
   position: relative;
   z-index: 1;
-  width: 180px; height: 180px;
+  width: 118px; height: 118px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(18, 14, 28, 0.9);
@@ -174,21 +170,26 @@ body {
 }
 .profile-name {
   font-family: 'Poppins', 'Heebo', sans-serif;
-  font-size: 32px;
+  font-size: 22px;
   font-weight: 800;
   background: linear-gradient(45deg, #00d2ff, #9d4edd, #facc15);
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
   text-transform: uppercase;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  direction: ltr;
 }
-.profile-subtitle {
-  font-size: 14px;
-  color: #a19bb5;
-  font-weight: 600;
-  letter-spacing: 1px;
-  margin-top: -6px;
+.fortnite-icon {
+  width: 22px;
+  height: 22px;
+  fill: #00d2ff;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0 0 6px rgba(0, 210, 255, 0.6));
 }
 
 /* ── Live badge ── */
@@ -196,16 +197,16 @@ body {
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  padding: 6px 18px;
+  gap: 7px;
+  padding: 4px 14px;
   border-radius: 20px;
   font-family: 'Poppins', system-ui, sans-serif;
-  font-size: 13px;
+  font-size: 11.5px;
   font-weight: 700;
-  letter-spacing: 1.5px;
+  letter-spacing: 1.2px;
   direction: ltr;
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  margin-top: 4px;
+  margin-top: 2px;
   user-select: none;
 }
 .kick-status-badge.offline {
@@ -216,7 +217,7 @@ body {
   box-shadow: none;
 }
 .kick-status-badge.offline .status-text { color: #ff3333; }
-.kick-status-badge.offline .status-dot { width:8px;height:8px;border-radius:50%;background:#ff3333;display:inline-block; }
+.kick-status-badge.offline .status-dot { width:7px;height:7px;border-radius:50%;background:#ff3333;display:inline-block; }
 .kick-status-badge.live {
   background-color: #122114;
   border: 1px solid rgba(83, 252, 24, 0.5);
@@ -227,7 +228,7 @@ body {
 .kick-status-badge.live:hover { transform: scale(1.06); filter: brightness(1.15); box-shadow: 0 0 22px rgba(83, 252, 24, 0.6); }
 .kick-status-badge.live .status-text { color: #53fc18; }
 .kick-status-badge.live .status-dot {
-  width:8px;height:8px;border-radius:50%;background:#ff0000;display:inline-block;
+  width:7px;height:7px;border-radius:50%;background:#ff0000;display:inline-block;
   animation: liveRecPulse 1.4s infinite ease-in-out;
 }
 @keyframes liveRecPulse {
@@ -241,20 +242,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 18px;
+  gap: 10px;
   width: 100%;
-  max-width: 440px;
+  max-width: 410px;
   direction: ltr;
 }
 
 /* ── Snake buttons ── */
 .link-btn {
   position: relative;
-  display: flex; justify-content: center; align-items: center; gap: 14px;
-  padding: 19px 18px; border-radius: 14px; text-decoration: none;
-  font-weight: 700; font-size: 18px; font-family: 'Poppins', system-ui, sans-serif;
+  display: flex; justify-content: center; align-items: center; gap: 12px;
+  padding: 12.5px 16px; border-radius: 12px; text-decoration: none;
+  font-weight: 700; font-size: 15.5px; font-family: 'Poppins', system-ui, sans-serif;
   overflow: hidden;
-  -webkit-clip-path: inset(0 round 14px); clip-path: inset(0 round 14px);
+  -webkit-clip-path: inset(0 round 12px); clip-path: inset(0 round 12px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 1; border: none; cursor: pointer; outline: none;
@@ -267,15 +268,15 @@ body {
   animation: snakeSpin 3s linear infinite; z-index: 0; pointer-events: none;
 }
 .link-btn::after {
-  content: ''; position: absolute; inset: 2px; border-radius: 12px;
+  content: ''; position: absolute; inset: 2px; border-radius: 10px;
   background: var(--btn-bg); z-index: 1; pointer-events: none; transition: background 0.2s ease;
 }
 .link-btn > * { position: relative; z-index: 2; color: var(--text-color-btn, #ffffff); }
 .link-btn span { letter-spacing: 0.5px; }
-.link-btn i { font-size: 24px; }
+.link-btn i { font-size: 20px; }
 
 .btn-kick      { --btn-bg:#0d1e11; --text-color-btn:#53fc18; --snake-main:#53fc18; --snake-tail:rgba(83,252,24,0.3);  --snake-glow:rgba(83,252,24,0.45); }
-.kick-svg-icon { width:24px;height:24px;fill:currentColor;display:inline-block;vertical-align:middle; }
+.kick-svg-icon { width:20px;height:20px;fill:currentColor;display:inline-block;vertical-align:middle; }
 .btn-discord   { --btn-bg:#11142b; --text-color-btn:#8ea1ff; --snake-main:#5865f2; --snake-tail:rgba(88,101,242,0.3); --snake-glow:rgba(88,101,242,0.45); }
 .btn-youtube   { --btn-bg:#220d0d; --text-color-btn:#ff5e5e; --snake-main:#ff0000; --snake-tail:rgba(255,0,0,0.3);    --snake-glow:rgba(255,0,0,0.45); }
 .btn-tiktok    { --btn-bg:#12171c; --text-color-btn:#25f4ee; --snake-main:#fe2c55; --snake-tail:rgba(37,244,238,0.4); --snake-glow:rgba(254,44,85,0.45); }
@@ -532,7 +533,9 @@ body {
 
 /* ── Footer ── */
 .footer-container {
-  margin-top: 50px;
+  margin-top: auto;
+  padding-top: 25px;
+  padding-bottom: 20px;
   width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;
   font-family: 'Poppins', sans-serif, system-ui; font-size: 14px; color: #ffffff;
   font-weight: 600; z-index: 10; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
@@ -542,14 +545,6 @@ body {
 .footer-links a { color: #ffffff; text-decoration: none; transition: color 0.2s; font-weight: 700; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9); }
 .footer-links a:hover { color: #00d2ff; }
 .footer-links .separator { opacity: 0.7; }
-
-/* ── Lightning Canvas ── */
-#lightningCanvas {
-  position: fixed; top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: 0; pointer-events: none;
-  -webkit-mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
-  mask-image: radial-gradient(ellipse at center, transparent 35%, black 75%);
-}
 
 /* ── Accessibility ── */
 .accessibility-open {
@@ -611,18 +606,20 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .links-list { gap: 14px; }
-  .link-btn   { padding: 17px 14px; font-size: 16px; }
+  .site-wrapper { padding-top: 70px; }
+  .links-list { gap: 8px; }
+  .link-btn   { padding: 11px 12px; font-size: 14.5px; border-radius: 10px; }
   .setup-inner-grid { flex-direction: column; gap: 20px; }
   .setup-divider    { width: 100%; height: 1px; }
-  .avatar-snake-wrap { width: 160px; height: 160px; }
-  .profile-pic       { width: 150px; height: 150px; }
+  .avatar-snake-wrap { width: 105px; height: 105px; }
+  .profile-pic       { width: 98px; height: 98px; }
   .top-navbar        { width: 90%; justify-content: center; }
-  .nav-tab           { padding: 10px 20px; flex: 1; text-align: center; }
-  .badges-container  { gap: 12px; }
-  .badge-item        { width: 60px; }
-  .badge-img         { width: 46px; height: 46px; }
-  .badge-item span   { font-size: 11px; }
+  .nav-tab           { padding: 9px 18px; flex: 1; text-align: center; font-size: 14px; }
+  .badges-container  { gap: 10px; }
+  .badge-item        { width: 55px; }
+  .badge-img         { width: 42px; height: 42px; }
+  .badge-item span   { font-size: 10.5px; }
+  #infoView          { padding-top: 12vh; }
 }
 @media (max-width: 500px) {
   .accessibility-panel { width: 100%; }
@@ -634,7 +631,6 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 </head>
 <body>
 
-<canvas id="lightningCanvas"></canvas>
 <div class="spotlight" id="spotlight"></div>
 
 <div class="site-wrapper">
@@ -647,13 +643,17 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   <div id="homeView" class="view-section active">
     <div class="profile-section">
       <div class="avatar-snake-wrap">
-        <img src="avatar.png"
+        <img src="Backgrounds/profile.webp"
              class="profile-pic" alt="תמונת הפרופיל של GalGM"
              draggable="false"
-             onerror="this.onerror=null; this.src='https://ui-avatars.com/api/?name=GalGM&background=00d2ff&color=0c0a14&size=256&bold=true';">
+             onerror="this.onerror=null; this.src='/Backgrounds/profile.webp'; this.onerror=function(){this.src='profile.webp';};">
       </div>
-      <div class="profile-name">GalGM</div>
-      <div class="profile-subtitle">Content Creator & Streamer</div>
+      <div class="profile-name">
+        <svg class="fortnite-icon" viewBox="0 0 24 24" role="img" aria-label="Fortnite">
+          <path d="M4 2h16l-1.2 4.8h-9.2l-.6 3.2h8.5l-1.2 4.8h-7.3l-1.5 7.2H3.5L7.5 2z"/>
+        </svg>
+        Code: IGM
+      </div>
       <div id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="GalGM is OFFLINE">
         <span class="status-dot"></span>
         <span class="status-text" id="kickStatusText">OFFLINE</span>
@@ -979,51 +979,6 @@ async function checkKickLiveStatus() {
 }
 checkKickLiveStatus();
 setInterval(checkKickLiveStatus, 60000);
-
-/* ── Lightning Animation ── */
-const canvas = document.getElementById('lightningCanvas');
-const ctx    = canvas.getContext('2d');
-function resizeCanvas() { canvas.width = window.innerWidth; canvas.height = window.innerHeight; }
-window.addEventListener('resize', resizeCanvas);
-resizeCanvas();
-
-function drawBolt(sx, sy, length, angle, bp, depth, color) {
-  if (depth > 3) return;
-  let cx = sx, cy = sy;
-  ctx.beginPath(); ctx.moveTo(cx, cy);
-  ctx.shadowBlur = depth === 0 ? 15 : 5; ctx.shadowColor = color;
-  ctx.strokeStyle = `rgba(255, 255, 255, ${1 - depth * 0.2})`; ctx.lineWidth = Math.max(1, 3 - depth);
-  for (let i = 0; i < Math.floor(length / 10); i++) {
-    const sa = angle + (Math.random() - 0.5) * 1.5;
-    cx += Math.cos(sa) * 10; cy += Math.sin(sa) * 10; ctx.lineTo(cx, cy);
-    if (Math.random() < bp) {
-      drawBolt(cx, cy, length * 0.5, angle + (Math.random() > 0.5 ? 1 : -1) * (0.5 + Math.random() * 0.5), bp * 0.5, depth + 1, color);
-      ctx.moveTo(cx, cy);
-    }
-  }
-  ctx.stroke();
-}
-
-function strike() {
-  ctx.clearRect(0, 0, canvas.width, canvas.height);
-  let sx, sy, angle;
-  const edge = Math.random();
-  if      (edge < 0.25) { sx = Math.random()*canvas.width;  sy = 0;             angle = Math.PI/2; }
-  else if (edge < 0.5)  { sx = canvas.width;                sy = Math.random()*canvas.height; angle = Math.PI; }
-  else if (edge < 0.75) { sx = Math.random()*canvas.width;  sy = canvas.height; angle = -Math.PI/2; }
-  else                  { sx = 0;                            sy = Math.random()*canvas.height; angle = 0; }
-  angle = Math.atan2(canvas.height/2 - sy, canvas.width/2 - sx) + (Math.random()-0.5)*0.5;
-  const lc = sx < canvas.width/2 ? '#00d2ff' : '#9d4edd';
-  const ff = sx < canvas.width/2 ? 'rgba(0, 210, 255, 0.03)' : 'rgba(157, 78, 221, 0.03)';
-  drawBolt(sx, sy, canvas.height*0.6, angle, 0.1, 0, lc);
-  ctx.fillStyle = ff; ctx.fillRect(0, 0, canvas.width, canvas.height);
-  setTimeout(() => {
-    ctx.clearRect(0, 0, canvas.width, canvas.height);
-    if (Math.random() < 0.3) { setTimeout(strike, 50 + Math.random()*100); return; }
-    setTimeout(strike, 2000 + Math.random()*6000);
-  }, 1000);
-}
-setTimeout(strike, 1500);
 
 /* ── Spotlight ── */
 const spotlight = document.getElementById('spotlight');
