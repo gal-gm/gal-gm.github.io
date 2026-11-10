@@ -1,3 +1,35 @@
+Ran copy uploaded Background.gif into Backgrounds directory
+Analyzed index.html:L30-100
+Analyzed index.html:L135-280
+Edited index.html
+Analyzed index.html:L135-285
+Edited index.html
+Analyzed index.html:L635-675
+Edited index.html
+Analyzed index.html:L720-745
+Edited index.html
+Analyzed accessibility.html:L1-50
+Edited accessibility.html
+Analyzed privacy.html:L1-47
+Edited privacy.html
+Analyzed index.html:L1-120
+Analyzed index.html:L675-765
+
+ביצעתי את כל השינויים שביקשת:
+
+1. **הורדת התמונה והכפתורים למטה:** הגדלתי את הריווח העליון (`padding-top: 130px;`), כך שהתמונה והכפתורים יושבים כעת נמוך ומאוזן יותר בדף, עם מרווח נקי ויפה מתחת לכפתורי ה-`HOME` / `INFO`.
+2. **הגדלת התמונה והכפתורים:**
+   - **התמונה:** גדלה ל-`118px` (תמונה פנימית `110px`), הכותרת של `Code: IGM` והלוגו של Fortnite הוגדלו בהתאם.
+   - **הכפתורים:** הורחבו (`max-width: 440px`), גובה הפדינג והפונטים הוגדלו (`padding: 12px 18px; font-size: 15.5px;`), כך שהם בולטים ותופסים נוכחות מרשימה.
+3. **רקע אנימציית ה-GIF (`Background.gif`):** 
+   - הוגדר `url('Backgrounds/Background.gif')` כרקע מלא לכל המסך (`background-size: cover; background-attachment: fixed; center center`), שמתפרס בצורה חלקה גם ב-`index.html`, `accessibility.html` ו-`privacy.html`.
+   - הקובץ `Background.gif` שהעלית הועתק ונשמר כבר ישירות בתיקיית `Backgrounds/Background.gif` בפרויקט.
+
+---
+
+### הקוד המלא והמעודכן לקובץ `index.html` (להעתקה ישירה ל-GitHub):
+
+```html
 <!DOCTYPE html>
 <html lang="he" dir="rtl">
 <head>
@@ -26,11 +58,11 @@
 body {
   background-color: var(--bg-color);
   background-image: 
-    radial-gradient(circle at 50% 20%, rgba(120, 50, 220, 0.15) 0%, transparent 60%),
-    radial-gradient(circle at 80% 80%, rgba(0, 210, 255, 0.08) 0%, transparent 50%),
-    url('bg.jpg');
+    radial-gradient(circle at 50% 25%, rgba(120, 50, 220, 0.2) 0%, transparent 65%),
+    url('Backgrounds/Background.gif');
   background-size: cover;
-  background-position: center;
+  background-position: center center;
+  background-repeat: no-repeat;
   background-attachment: fixed;
   color: var(--text-color);
   font-family: 'Heebo', system-ui, -apple-system, sans-serif;
@@ -51,8 +83,8 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  padding-top: 100px;
-  padding-bottom: 8px;
+  padding-top: 130px;
+  padding-bottom: 12px;
   box-sizing: border-box;
 }
 
@@ -131,12 +163,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 5px;
-  margin-bottom: 8px;
+  gap: 6px;
+  margin-bottom: 12px;
 }
 .avatar-snake-wrap {
   position: relative;
-  width: 92px; height: 92px;
+  width: 118px; height: 118px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -155,11 +187,11 @@ body {
 .profile-pic {
   position: relative;
   z-index: 1;
-  width: 86px; height: 86px;
+  width: 110px; height: 110px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(18, 14, 28, 0.9);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 22px rgba(0, 0, 0, 0.85);
   -webkit-user-drag: none;
   display: block;
   background: #1a1528;
@@ -170,17 +202,17 @@ body {
 }
 .profile-name {
   font-family: 'Poppins', 'Heebo', sans-serif;
-  font-size: 19px;
+  font-size: 21px;
   font-weight: 800;
   display: inline-flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
+  gap: 9px;
   direction: ltr;
-  margin-top: 2px;
+  margin-top: 3px;
 }
 .fortnite-logo-img {
-  height: 20px;
+  height: 23px;
   width: auto;
   vertical-align: middle;
   filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(0, 210, 255, 0.7));
@@ -208,15 +240,15 @@ body {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  padding: 3px 13px;
+  padding: 4px 15px;
   border-radius: 20px;
   font-family: 'Poppins', system-ui, sans-serif;
-  font-size: 11px;
+  font-size: 11.5px;
   font-weight: 700;
   letter-spacing: 1.2px;
   direction: ltr;
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  margin-top: 1px;
+  margin-top: 2px;
   user-select: none;
 }
 .kick-status-badge.offline {
@@ -252,20 +284,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 6.5px;
+  gap: 8.5px;
   width: 100%;
-  max-width: 390px;
+  max-width: 440px;
   direction: ltr;
 }
 
 /* ── Snake buttons ── */
 .link-btn {
   position: relative;
-  display: flex; justify-content: center; align-items: center; gap: 11px;
-  padding: 9.5px 14px; border-radius: 11px; text-decoration: none;
-  font-weight: 700; font-size: 14.5px; font-family: 'Poppins', system-ui, sans-serif;
+  display: flex; justify-content: center; align-items: center; gap: 12px;
+  padding: 12px 18px; border-radius: 12px; text-decoration: none;
+  font-weight: 700; font-size: 15.5px; font-family: 'Poppins', system-ui, sans-serif;
   overflow: hidden;
-  -webkit-clip-path: inset(0 round 11px); clip-path: inset(0 round 11px);
+  -webkit-clip-path: inset(0 round 12px); clip-path: inset(0 round 12px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 1; border: none; cursor: pointer; outline: none;
@@ -283,7 +315,7 @@ body {
 }
 .link-btn > * { position: relative; z-index: 2; color: var(--text-color-btn, #ffffff); }
 .link-btn span { letter-spacing: 0.5px; }
-.link-btn i { font-size: 20px; }
+.link-btn i { font-size: 21px; }
 
 .btn-kick      { --btn-bg:#0d1e11; --text-color-btn:#53fc18; --snake-main:#53fc18; --snake-tail:rgba(83,252,24,0.3);  --snake-glow:rgba(83,252,24,0.45); }
 .kick-svg-icon { width:24px;height:24px;fill:currentColor;display:inline-block;vertical-align:middle; }
@@ -679,13 +711,13 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .site-wrapper { padding-top: 96px; }
-  .links-list { gap: 6px; }
-  .link-btn   { padding: 9px 12px; font-size: 13.5px; border-radius: 10px; }
+  .site-wrapper { padding-top: 105px; }
+  .links-list { gap: 7px; width: 92%; }
+  .link-btn   { padding: 11px 14px; font-size: 14.5px; border-radius: 11px; }
   .setup-inner-grid { flex-direction: column; gap: 20px; }
   .setup-divider    { width: 100%; height: 1px; }
-  .avatar-snake-wrap { width: 84px; height: 84px; }
-  .profile-pic       { width: 78px; height: 78px; }
+  .avatar-snake-wrap { width: 98px; height: 98px; }
+  .profile-pic       { width: 92px; height: 92px; }
   .top-navbar        { width: 90%; justify-content: center; }
   .nav-tab           { padding: 9px 18px; flex: 1; text-align: center; font-size: 14px; }
   .badges-container  { gap: 10px; }
@@ -694,14 +726,14 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   .badge-item span   { font-size: 10.5px; }
   #infoView          { padding-top: 10vh; }
 }
-@media (max-height: 720px) {
-  .site-wrapper { padding-top: 88px; }
-  .avatar-snake-wrap { width: 76px; height: 76px; }
-  .profile-pic { width: 70px; height: 70px; }
-  .profile-name { font-size: 16px; }
-  .fortnite-logo-img { height: 17px; }
-  .links-list { gap: 5px; }
-  .link-btn { padding: 7.5px 12px; font-size: 13px; }
+@media (max-height: 750px) {
+  .site-wrapper { padding-top: 96px; }
+  .avatar-snake-wrap { width: 90px; height: 90px; }
+  .profile-pic { width: 84px; height: 84px; }
+  .profile-name { font-size: 18px; }
+  .fortnite-logo-img { height: 19px; }
+  .links-list { gap: 6px; }
+  .link-btn { padding: 9px 14px; font-size: 14px; }
 }
 @media (max-width: 500px) {
   .accessibility-panel { width: 100%; }
@@ -780,7 +812,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
       <!-- Bit Donation Button -->
       <button type="button" onclick="openBitModal()" class="link-btn btn-bit" aria-label="תרומה ב-Bit לגל מתתיהו">
         <i class="fa-solid fa-qrcode"></i>
-        <span>תרומה ב-Bit (ביט)</span>
+        <span dir="rtl">תרומה ב-Bit (ביט)</span>
       </button>
     </div>
   </div>
@@ -1199,3 +1231,4 @@ document.addEventListener('keydown', e => {
 </div>
 </body>
 </html>
+```
