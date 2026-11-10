@@ -749,6 +749,30 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   font-size: 13.5px;
   padding: 30px 16px !important;
 }
+
+.kick-coin-icon {
+  width: 18px;
+  height: 18px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 4px;
+  filter: drop-shadow(0 0 4px rgba(83, 252, 24, 0.6));
+}
+.kick-coin-title-img {
+  width: 22px;
+  height: 22px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 6px;
+  filter: drop-shadow(0 0 6px rgba(83, 252, 24, 0.7));
+}
+.amount-wrap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 3px;
+  direction: ltr;
+}
 </style>
 </head>
 <body>
@@ -971,53 +995,53 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
     <!-- Dual Leaderboards Grid -->
     <div class="leaderboards-grid">
 
-      <!-- Table 1: Top 10 Sub Gifts -->
-      <div class="lb-card gifts-card">
+      <!-- Table 1: Lifetime top KICKers (Right side) -->
+      <div class="lb-card kicks-card">
         <div class="lb-card-header">
           <div class="lb-card-title">
-            <span class="lb-title-icon">👑</span>
-            <span>All-Time Top Gifters</span>
-            <span class="lb-title-icon">🎁</span>
+            <span class="lb-title-icon">🏆</span>
+            <span>Lifetime top KICKers</span>
+            <img src="kick_coin.png" class="kick-coin-title-img" alt="Kicks" onerror="this.onerror=null; this.src='Backgrounds/kick_coin.png';">
           </div>
-          <div class="lb-card-subtitle">טופ 10 תורמי מנויים (Sub Gifts)</div>
+          <div class="lb-card-subtitle">טופ 10 תורמי קיקס (כל הזמנים)</div>
         </div>
         <div class="lb-table-wrapper">
           <table class="lb-table">
             <thead>
               <tr>
-                <th class="col-rank">#</th>
-                <th class="col-user">שם משתמש</th>
                 <th class="col-amount">כמות</th>
+                <th class="col-user">שם משתמש</th>
+                <th class="col-rank">#</th>
               </tr>
             </thead>
-            <tbody id="giftsTableBody">
-              <tr><td colspan="3" class="lb-loading-row">טוען נתוני תורמים מ-Kick...</td></tr>
+            <tbody id="kicksTableBody">
+              <tr><td colspan="3" class="lb-loading-row">טוען נתוני תורמים מ-Kick... <i class="fa-solid fa-circle-notch lb-spinner"></i></td></tr>
             </tbody>
           </table>
         </div>
       </div>
 
-      <!-- Table 2: Top 10 Kicks -->
-      <div class="lb-card kicks-card">
+      <!-- Table 2: Lifetime top Gifters (Left side) -->
+      <div class="lb-card gifts-card">
         <div class="lb-card-header">
           <div class="lb-card-title">
-            <span class="lb-title-icon">🏆</span>
-            <span>Top 10 Kicks</span>
-            <span class="lb-title-icon">💚</span>
+            <span class="lb-title-icon">👑</span>
+            <span>Lifetime top Gifters</span>
+            <span class="lb-title-icon">🎁</span>
           </div>
-          <div class="lb-card-subtitle">טופ 10 תורמי קיקס (Kicks)</div>
+          <div class="lb-card-subtitle">טופ 10 תורמי מנויים (כל הזמנים)</div>
         </div>
         <div class="lb-table-wrapper">
           <table class="lb-table">
             <thead>
               <tr>
-                <th class="col-rank">#</th>
-                <th class="col-user">שם משתמש</th>
                 <th class="col-amount">כמות</th>
+                <th class="col-user">שם משתמש</th>
+                <th class="col-rank">#</th>
               </tr>
             </thead>
-            <tbody id="kicksTableBody">
-              <tr><td colspan="3" class="lb-loading-row">טוען נתוני תורמים מ-Kick...</td></tr>
+            <tbody id="giftsTableBody">
+              <tr><td colspan="3" class="lb-loading-row">טוען נתוני תורמים מ-Kick... <i class="fa-solid fa-circle-notch lb-spinner"></i></td></tr>
             </tbody>
           </table>
         </div>
@@ -1193,13 +1217,15 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
 
     const uname = item.username || (item.user && item.user.username) || 'Anonymous';
     const num = Number(item.quantity || item.amount || 0);
-    const formattedAmount = isKicks ? `${num.toLocaleString()} ⚡` : num.toLocaleString();
+    const formattedAmount = isKicks 
+      ? `<span class="amount-wrap"><img src="kick_coin.png" class="kick-coin-icon" alt="Kicks" onerror="this.onerror=null; this.src='Backgrounds/kick_coin.png';">${num.toLocaleString()}</span>` 
+      : `<span class="amount-wrap">${num.toLocaleString()}</span>`;
 
     return `
       <tr class="${rankClass}">
-        <td class="col-rank">${rankDisplay}</td>
-        <td class="col-user">${uname}</td>
         <td class="col-amount">${formattedAmount}</td>
+        <td class="col-user">${uname}</td>
+        <td class="col-rank">${rankDisplay}</td>
       </tr>
     `;
   }).join('');
@@ -1237,7 +1263,7 @@ async function fetchKickLeaderboards(isManual = false) {
   }
 
   if (rawData) {
-    let giftsList = rawData.gifts || rawData.gifts_week || [];
+    let giftsList = rawData.gifts || [];
     if (Array.isArray(giftsList) && giftsList.length > 0) {
       giftsList.sort((a, b) => (Number(b.quantity) || 0) - (Number(a.quantity) || 0));
       renderLeaderboardTable('giftsTableBody', giftsList, false);
@@ -1245,7 +1271,7 @@ async function fetchKickLeaderboards(isManual = false) {
       renderLeaderboardTable('giftsTableBody', defaultGiftsSeed, false);
     }
 
-    let kicksList = rawData.kicks || rawData.kicks_leaderboard || [];
+    let kicksList = rawData.kicks || rawData.kicks_all_time || rawData.kicks_leaderboard || [];
     if (Array.isArray(kicksList) && kicksList.length > 0) {
       kicksList.sort((a, b) => (Number(b.quantity || b.amount) || 0) - (Number(a.quantity || a.amount) || 0));
       renderLeaderboardTable('kicksTableBody', kicksList, true);
