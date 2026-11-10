@@ -193,7 +193,7 @@ body {
   width: 100%;
 }
 
-/* ── Contact Section (Section 5) ── */
+/* ── Contact Section ── */
 .contact-channels {
   display: flex;
   flex-direction: column;
@@ -231,9 +231,18 @@ body {
   direction: ltr;
   display: inline-block;
   background: rgba(192, 132, 252, 0.08);
-  padding: 4px 10px;
+  padding: 4px 12px;
   border-radius: 6px;
-  border: 1px solid rgba(192, 132, 252, 0.2);
+  border: 1px solid rgba(192, 132, 252, 0.25);
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+.email-val:hover {
+  background: rgba(192, 132, 252, 0.22);
+  border-color: rgba(192, 132, 252, 0.55);
+  transform: translateY(-1px);
+  box-shadow: 0 4px 12px rgba(192, 132, 252, 0.25);
 }
 
 .discord-link-badge {
@@ -263,11 +272,71 @@ body {
 /* ── Footer ── */
 .footer-note {
   margin-top: 26px;
-  font-size: 13px;
-  color: rgba(255, 255, 255, 0.45);
+  font-size: 13.5px;
+  color: var(--accent-purple);
   font-family: 'Poppins', 'Heebo', sans-serif;
   text-align: center;
+  font-weight: 600;
+  letter-spacing: 0.5px;
 }
+
+/* ── Accessibility Widget Styling ── */
+.accessibility-open {
+  position: fixed; left: 20px; bottom: 20px;
+  width: 58px; height: 58px; border: 0;
+  border-radius: 50%; background: #00d2ff; color: #0c0a14;
+  cursor: pointer; z-index: 999999;
+  display: flex; align-items: center; justify-content: center;
+  font-size: 28px; box-shadow: 0 4px 18px rgba(0, 210, 255, 0.4); transition: .15s;
+}
+.accessibility-open:hover { transform: scale(1.05); background: #38e1ff; }
+.accessibility-panel {
+  position: fixed; left: 0; top: 0;
+  width: 380px; max-width: 100vw; height: 100vh;
+  background: #fff; z-index: 1000000;
+  box-shadow: 5px 0 25px rgba(0, 0, 0, .25);
+  transform: translateX(-100%); transition: transform .25s ease;
+  display: flex; flex-direction: column;
+  font-family: Arial, "Segoe UI", sans-serif; direction: rtl;
+}
+.accessibility-panel.open { transform: translateX(0); }
+.accessibility-header { height: 60px; min-height: 60px; background: #2161ff; color: #fff; display: flex; align-items: center; position: relative; padding: 0 18px; }
+.accessibility-title  { width: 100%; text-align: center; font-size: 22px; font-weight: bold; }
+.accessibility-close  { position: absolute; left: 10px; top: 10px; width: 38px; height: 38px; border: 0; border-radius: 9px; background: rgba(255, 255, 255, .15); color: #fff; font-size: 30px; line-height: 30px; cursor: pointer; }
+.accessibility-close:hover { background: rgba(255, 255, 255, .25); }
+.accessibility-content { overflow-y: auto; overflow-x: hidden; flex: 1; padding: 15px 18px 20px; }
+.accessibility-content::-webkit-scrollbar { width: 8px; }
+.accessibility-content::-webkit-scrollbar-thumb { background: #999; border-radius: 10px; }
+.accessibility-section-title { font-size: 14px; font-weight: bold; color: #666; margin: 12px 5px 10px; text-align: right; }
+.accessibility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.accessibility-item { min-height: 108px; border: 0; border-radius: 14px; background: #f2f4fa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px; font-family: inherit; transition: background .15s, transform .15s; color: #333; }
+.accessibility-item:hover { background: #e9edfa; }
+.accessibility-item:active { transform: scale(.98); }
+.accessibility-item.active { background: #e3ebff; box-shadow: inset 0 0 0 2px #2161ff; }
+.accessibility-icon  { width: 30px; height: 30px; margin-bottom: 10px; color: #2161ff; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+.accessibility-label { font-size: 15px; color: #222; font-weight: 500; line-height: 1.3; }
+.accessibility-reset { width: 100%; height: 50px; margin-top: 18px; background: #fff; border: 2px solid #e0e3ea; border-radius: 10px; font-family: inherit; font-size: 16px; font-weight: bold; color: #222; cursor: pointer; }
+.accessibility-reset:hover { background: #f5f6f8; }
+.accessibility-statement { display: block; text-align: center; margin-top: 14px; margin-bottom: 5px; color: #777; font-size: 13px; text-decoration: underline; cursor: pointer; }
+
+body.access-large-text { font-size: 120% !important; }
+body.access-line-spacing * { line-height: 2 !important; }
+body.access-readable-font, body.access-readable-font * { font-family: Arial, sans-serif !important; }
+body.access-letter-spacing * { letter-spacing: 2px !important; }
+body.access-headings h1,body.access-headings h2,body.access-headings h3,body.access-headings h4,body.access-headings h5,body.access-headings h6 { outline: 3px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-links a { text-decoration: underline !important; font-weight: bold !important; }
+body.access-high-contrast { filter: contrast(160%) !important; }
+body.access-invert { filter: invert(1) hue-rotate(180deg) !important; }
+body.access-grayscale { filter: grayscale(100%) !important; }
+body.access-saturation { filter: saturate(180%) !important; }
+body.access-hide-images img { visibility: hidden !important; }
+body.access-no-animation *,body.access-no-animation *::before,body.access-no-animation *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+body.access-focus *:focus { outline: 4px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M4 2L42 25L27 28L38 43L31 47L20 32L12 42Z' fill='black' stroke='white' stroke-width='3'/%3E%3C/svg%3E") 4 2, auto !important; }
+
+#reading-guide { position: fixed; left: 0; right: 0; height: 4px; background: #2161ff; pointer-events: none; z-index: 999999; display: none; }
+#reading-mask  { position: fixed; left: 0; right: 0; top: 40%; height: 80px; background: rgba(0,0,0,.15); border-top: 3px solid #2161ff; border-bottom: 3px solid #2161ff; pointer-events: none; z-index: 999998; display: none; }
+.speech-status { position: fixed; bottom: 90px; left: 20px; max-width: 320px; padding: 12px 18px; background: #2161ff; color: #fff; border-radius: 10px; font-family: Arial, sans-serif; font-size: 14px; z-index: 1000001; display: none; box-shadow: 0 4px 15px rgba(0,0,0,.25); }
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
@@ -278,6 +347,7 @@ body {
   .contact-channels { padding-right: 0; }
   .contact-row { flex-direction: column; align-items: flex-start; gap: 6px; }
   .contact-label { min-width: auto; }
+  .accessibility-panel { width: 100%; }
 }
 </style>
 </head>
@@ -368,18 +438,18 @@ body {
       </p>
 
       <div class="contact-channels">
-        <!-- אימייל -->
+        <!-- אימייל לחיץ -->
         <div class="contact-row">
           <span class="contact-label"><i class="fa-solid fa-envelope"></i> דואר אלקטרוני:</span>
-          <span class="email-val">+++++++++</span>
+          <a href="mailto:+++++++++" class="email-val" title="שליחת אימייל">+++++++++</a>
         </div>
 
-        <!-- דיסקורד לחיץ ליוזר -->
+        <!-- דיסקורד לחיץ ליוזר (שם בלבד ללא ה-ID) -->
         <div class="contact-row">
           <span class="contact-label"><i class="fa-brands fa-discord"></i> דיסקורד:</span>
-          <a href="https://discord.com/users/207762411845844992" target="_blank" rel="noopener noreferrer" class="discord-link-badge" title="פתיחת פרופיל דיסקורד">
+          <a href="https://discord.com/users/207762411845844992" target="_blank" rel="noopener noreferrer" class="discord-link-badge" title="פתיחת פרופיל דיסקורד של GalGM">
             <i class="fa-brands fa-discord"></i>
-            <span>GalGM (207762411845844992)</span>
+            <span>GalGM</span>
             <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i>
           </a>
         </div>
@@ -391,6 +461,156 @@ body {
   <div class="footer-note">
     עודכן לאחרונה: 2026
   </div>
+
+  <!-- ═══════════════ ACCESSIBILITY WIDGET ═══════════════ -->
+  <button class="accessibility-open" id="accessibilityOpen" aria-label="פתח תפריט נגישות">
+    <i class="fa-solid fa-universal-access"></i>
+  </button>
+
+  <div class="accessibility-panel" id="accessibilityPanel" role="dialog" aria-modal="true" aria-label="תפריט נגישות">
+    <div class="accessibility-header">
+      <div class="accessibility-title">תפריט נגישות</div>
+      <button class="accessibility-close" id="accessibilityClose" aria-label="סגור תפריט נגישות">×</button>
+    </div>
+    <div class="accessibility-content">
+      <div class="accessibility-section-title">התאמת טקסט ותצוגה</div>
+      <div class="accessibility-grid">
+        <button class="accessibility-item" data-action="text-to-speech"><div class="accessibility-icon">🔊</div><div class="accessibility-label">הקראת טקסט</div></button>
+        <button class="accessibility-item" data-action="large-text"><div class="accessibility-icon">🔍</div><div class="accessibility-label">הגדלת טקסט</div></button>
+        <button class="accessibility-item" data-action="line-spacing"><div class="accessibility-icon">↕</div><div class="accessibility-label">ריווח שורות</div></button>
+        <button class="accessibility-item" data-action="letter-spacing"><div class="accessibility-icon">↔</div><div class="accessibility-label">ריווח אותיות</div></button>
+        <button class="accessibility-item" data-action="readable-font"><div class="accessibility-icon">🔤</div><div class="accessibility-label">גופן קריא</div></button>
+        <button class="accessibility-item" data-action="align"><div class="accessibility-icon">📄</div><div class="accessibility-label">יישור טקסט</div></button>
+      </div>
+      <div class="accessibility-section-title">התאמת צבעים וניגודיות</div>
+      <div class="accessibility-grid">
+        <button class="accessibility-item" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות גבוהה</div></button>
+        <button class="accessibility-item" data-action="invert"><div class="accessibility-icon">🔄</div><div class="accessibility-label">היפוך צבעים</div></button>
+        <button class="accessibility-item" data-action="grayscale"><div class="accessibility-icon">⬛</div><div class="accessibility-label">מונוכרום</div></button>
+        <button class="accessibility-item" data-action="saturation"><div class="accessibility-icon">🎨</div><div class="accessibility-label">רוויה מוגברת</div></button>
+        <button class="accessibility-item" data-action="headings"><div class="accessibility-icon">🔲</div><div class="accessibility-label">הדגשת כותרות</div></button>
+        <button class="accessibility-item" data-action="links"><div class="accessibility-icon">🔗</div><div class="accessibility-label">הדגשת קישורים</div></button>
+        <button class="accessibility-item" data-action="hide-images"><div class="accessibility-icon">🚫</div><div class="accessibility-label">הסתרת תמונות</div></button>
+      </div>
+      <div class="accessibility-section-title">ניווט וסיוע</div>
+      <div class="accessibility-grid">
+        <button class="accessibility-item" data-action="big-cursor"><div class="accessibility-icon">↖</div><div class="accessibility-label">סמן גדול</div></button>
+        <button class="accessibility-item" data-action="no-animation"><div class="accessibility-icon">▥</div><div class="accessibility-label">עצירת אנימציות</div></button>
+        <button class="accessibility-item" data-action="reading-guide"><div class="accessibility-icon">↔</div><div class="accessibility-label">מדריך קריאה</div></button>
+        <button class="accessibility-item" data-action="focus"><div class="accessibility-icon">⛶</div><div class="accessibility-label">הדגשת פוקוס</div></button>
+        <button class="accessibility-item" data-action="reading-mask"><div class="accessibility-icon">▤</div><div class="accessibility-label">מסכת קריאה</div></button>
+      </div>
+      <button class="accessibility-reset" id="accessibilityReset">איפוס כל ההגדרות</button>
+      <a class="accessibility-statement" href="accessibility.html">הצהרת נגישות</a>
+    </div>
+  </div>
+  <div id="reading-guide"></div>
+  <div id="reading-mask"></div>
+  <div id="speechStatus" class="speech-status">🔊 הקראת טקסט פעילה</div>
+
+  <script>
+  /* ── Accessibility Scripts ── */
+  const openButton   = document.getElementById('accessibilityOpen');
+  const closeButton  = document.getElementById('accessibilityClose');
+  const panel        = document.getElementById('accessibilityPanel');
+  const speechStatus = document.getElementById('speechStatus');
+  const readingGuide = document.getElementById('reading-guide');
+  const readingMask  = document.getElementById('reading-mask');
+  const items        = document.querySelectorAll('.accessibility-item');
+
+  openButton.addEventListener('click',  () => panel.classList.add('open'));
+  closeButton.addEventListener('click', () => panel.classList.remove('open'));
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape') { panel.classList.remove('open'); window.speechSynthesis.cancel(); }
+  });
+  items.forEach(item => item.addEventListener('click', () => handleAccessibilityAction(item.dataset.action, item)));
+
+  function handleAccessibilityAction(action, item) {
+    switch(action) {
+      case 'text-to-speech': toggleTextToSpeech(item); break;
+      case 'large-text':     document.body.classList.toggle('access-large-text');    item.classList.toggle('active'); break;
+      case 'line-spacing':   document.body.classList.toggle('access-line-spacing');  item.classList.toggle('active'); break;
+      case 'readable-font':  document.body.classList.toggle('access-readable-font'); item.classList.toggle('active'); break;
+      case 'letter-spacing': document.body.classList.toggle('access-letter-spacing');item.classList.toggle('active'); break;
+      case 'headings':       document.body.classList.toggle('access-headings');      item.classList.toggle('active'); break;
+      case 'links':          document.body.classList.toggle('access-links');         item.classList.toggle('active'); break;
+      case 'contrast':       document.body.classList.toggle('access-high-contrast'); item.classList.toggle('active'); break;
+      case 'invert':         document.body.classList.toggle('access-invert');        item.classList.toggle('active'); break;
+      case 'grayscale':      document.body.classList.toggle('access-grayscale');     item.classList.toggle('active'); break;
+      case 'saturation':     document.body.classList.toggle('access-saturation');    item.classList.toggle('active'); break;
+      case 'hide-images':    document.body.classList.toggle('access-hide-images');   item.classList.toggle('active'); break;
+      case 'big-cursor':     document.body.classList.toggle('access-big-cursor');    item.classList.toggle('active'); break;
+      case 'no-animation':   document.body.classList.toggle('access-no-animation');  item.classList.toggle('active'); break;
+      case 'focus':          document.body.classList.toggle('access-focus');         item.classList.toggle('active'); break;
+      case 'reading-guide':  toggleReadingGuide(item); break;
+      case 'reading-mask':   toggleReadingMask(item);  break;
+      case 'align':          toggleTextAlignment(item); break;
+    }
+  }
+
+  let textToSpeechEnabled = false;
+  function toggleTextToSpeech(item) {
+    textToSpeechEnabled = !textToSpeechEnabled;
+    item.classList.toggle('active', textToSpeechEnabled);
+    speechStatus.style.display = textToSpeechEnabled ? 'block' : 'none';
+    if (!textToSpeechEnabled) window.speechSynthesis.cancel();
+  }
+  function speakText(text) {
+    if (!text || !text.trim()) return;
+    window.speechSynthesis.cancel();
+    const u = new SpeechSynthesisUtterance(text.trim());
+    u.lang = 'he-IL'; u.rate = 0.9; u.pitch = 1; u.volume = 1;
+    window.speechSynthesis.speak(u);
+  }
+  document.addEventListener('click', e => {
+    if (!textToSpeechEnabled) return;
+    if (e.target.closest('.accessibility-panel') || e.target.closest('.accessibility-open')) return;
+    const text = (e.target.innerText || e.target.textContent || '').trim();
+    if (text.length > 0) speakText(text);
+  }, true);
+  document.addEventListener('mouseup', () => {
+    if (!textToSpeechEnabled) return;
+    const sel = window.getSelection();
+    if (sel) { const t = sel.toString().trim(); if (t.length > 0) speakText(t); }
+  });
+
+  let guideEnabled = false;
+  function toggleReadingGuide(item) {
+    guideEnabled = !guideEnabled;
+    readingGuide.style.display = guideEnabled ? 'block' : 'none';
+    item.classList.toggle('active', guideEnabled);
+  }
+  let maskEnabled = false;
+  function toggleReadingMask(item) {
+    maskEnabled = !maskEnabled;
+    readingMask.style.display = maskEnabled ? 'block' : 'none';
+    item.classList.toggle('active', maskEnabled);
+  }
+  document.addEventListener('mousemove', e => {
+    if (guideEnabled) readingGuide.style.top = (e.clientY - 2)  + 'px';
+    if (maskEnabled)  readingMask.style.top  = (e.clientY - 40) + 'px';
+  });
+
+  let currentAlignment = 0;
+  function toggleTextAlignment(item) {
+    currentAlignment = (currentAlignment + 1) % 4;
+    document.body.style.textAlign = ['','right','center','left'][currentAlignment];
+    item.classList.toggle('active', currentAlignment !== 0);
+  }
+
+  document.getElementById('accessibilityReset').addEventListener('click', () => {
+    ['access-large-text','access-line-spacing','access-readable-font','access-letter-spacing',
+     'access-headings','access-links','access-high-contrast','access-invert','access-grayscale',
+     'access-saturation','access-hide-images','access-big-cursor','access-no-animation','access-focus'
+    ].forEach(c => document.body.classList.remove(c));
+    currentAlignment = 0; document.body.style.textAlign = '';
+    guideEnabled = false; readingGuide.style.display = 'none';
+    maskEnabled  = false; readingMask.style.display  = 'none';
+    textToSpeechEnabled = false; speechStatus.style.display = 'none';
+    window.speechSynthesis.cancel();
+    items.forEach(i => i.classList.remove('active'));
+  });
+  </script>
 
 </body>
 </html>
