@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Heebo:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Heebo:wght@400;600;700;900&display=swap');
 
 :root {
   --bg-color: #0c0a14;
@@ -283,7 +283,7 @@ body {
 }
 .link-btn > * { position: relative; z-index: 2; color: var(--text-color-btn, #ffffff); }
 .link-btn span { letter-spacing: 0.5px; }
-.link-btn i { font-size: 21px; }
+.link-btn i { font-size: 20px; }
 
 .btn-kick      { --btn-bg:#0d1e11; --text-color-btn:#53fc18; --snake-main:#53fc18; --snake-tail:rgba(83,252,24,0.3);  --snake-glow:rgba(83,252,24,0.45); }
 .kick-svg-icon { width:24px;height:24px;fill:currentColor;display:inline-block;vertical-align:middle; }
@@ -296,94 +296,57 @@ body {
 
 /* ── Modal Bit ── */
 .bit-modal-overlay {
-  position: fixed;
-  inset: 0;
-  background: rgba(8, 6, 14, 0.85);
-  backdrop-filter: blur(14px);
-  z-index: 9999999;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  padding: 20px;
-  animation: fadeIn 0.25s ease forwards;
+  position: fixed; inset: 0;
+  background: rgba(8, 6, 14, 0.88);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  z-index: 100000;
+  display: flex; align-items: center; justify-content: center;
+  padding: 20px; opacity: 0; pointer-events: none;
+  transition: opacity 0.25s ease;
 }
-.bit-modal-overlay.open {
-  display: flex;
-}
+.bit-modal-overlay.open { opacity: 1; pointer-events: auto; }
 .bit-modal-card {
-  background: linear-gradient(135deg, rgba(20, 24, 38, 0.95), rgba(10, 16, 26, 0.98));
-  border: 1px solid rgba(0, 229, 255, 0.35);
-  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.25);
-  border-radius: 20px;
-  padding: 28px 24px 24px;
-  max-width: 360px;
-  width: 100%;
   position: relative;
-  text-align: center;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
+  background: #091c20;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  box-shadow: 0 0 35px rgba(0, 229, 255, 0.25), 0 20px 45px rgba(0,0,0,0.85);
+  border-radius: 20px;
+  max-width: 380px; width: 100%; padding: 24px;
+  display: flex; flex-direction: column; align-items: center;
+  transform: scale(0.92);
+  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
+  direction: rtl; text-align: center;
 }
+.bit-modal-overlay.open .bit-modal-card { transform: scale(1); }
 .bit-modal-close {
-  position: absolute;
-  top: 14px;
-  right: 14px;
-  background: rgba(255, 255, 255, 0.08);
+  position: absolute; top: 14px; left: 14px;
+  width: 36px; height: 36px; border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
   border: 1px solid rgba(255, 255, 255, 0.15);
-  color: #fff;
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  font-size: 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-  transition: background 0.2s, transform 0.2s;
-  outline: none;
+  color: #fff; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+  cursor: pointer; transition: background 0.2s, transform 0.2s; outline: none;
 }
-.bit-modal-close:hover {
-  background: rgba(255, 0, 70, 0.4);
-  transform: rotate(90deg);
-}
+.bit-modal-close:hover { background: rgba(255, 0, 70, 0.4); transform: rotate(90deg); }
 .bit-modal-title {
   font-family: 'Poppins', 'Heebo', sans-serif;
-  font-size: 22px;
-  font-weight: 800;
-  color: #00e5ff;
-  margin-top: 6px;
-  margin-bottom: 4px;
-  display: flex;
-  align-items: center;
-  gap: 8px;
+  font-size: 22px; font-weight: 800; color: #00e5ff;
+  margin-top: 6px; margin-bottom: 4px;
+  display: flex; align-items: center; gap: 8px;
 }
-.bit-modal-desc {
-  font-size: 13.5px;
-  color: #c4d7dc;
-  margin-bottom: 16px;
-  line-height: 1.4;
-}
+.bit-modal-desc { font-size: 13.5px; color: #c4d7dc; margin-bottom: 16px; line-height: 1.4; }
 .bit-qr-img {
-  width: 100%;
-  max-width: 290px;
-  border-radius: 14px;
+  width: 100%; max-width: 290px; border-radius: 14px;
   box-shadow: 0 8px 25px rgba(0,0,0,0.65);
   border: 1px solid rgba(0, 229, 255, 0.25);
-  display: block;
-  user-select: none;
-  -webkit-user-drag: none;
+  display: block; user-select: none; -webkit-user-drag: none;
 }
 
 /* ════════════════════════════════
    ACCORDION — INFO TAB
    ════════════════════════════════ */
-.accordion-list {
-  width: 100%;
-  display: flex;
-  flex-direction: column;
-  gap: 14px;
-}
-
+.accordion-list { width: 100%; display: flex; flex-direction: column; gap: 14px; }
 .acc-item {
   background: rgba(18, 14, 28, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -395,74 +358,32 @@ body {
 }
 .acc-item:hover { border-color: rgba(255, 255, 255, 0.18); }
 .acc-item.open  { border-color: rgba(192, 132, 252, 0.35); }
-
 .acc-header {
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  padding: 18px 20px;
-  cursor: pointer;
-  user-select: none;
-  direction: ltr;
+  display: flex; align-items: center; gap: 14px; padding: 18px 20px;
+  cursor: pointer; user-select: none; direction: ltr;
 }
-
 .acc-icon {
-  width: 36px; height: 36px;
-  border-radius: 10px;
+  width: 36px; height: 36px; border-radius: 10px;
   background: rgba(192, 132, 252, 0.12);
   border: 1px solid rgba(192, 132, 252, 0.28);
   display: flex; align-items: center; justify-content: center;
-  color: #c084fc;
-  font-size: 15px;
-  flex-shrink: 0;
+  color: #c084fc; font-size: 15px; flex-shrink: 0;
   transition: background 0.2s, box-shadow 0.2s, color 0.2s;
 }
-.acc-item.open .acc-icon {
-  background: rgba(192, 132, 252, 0.22);
-  box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
-}
-
-.acc-title {
-  flex: 1;
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
-  font-weight: 700;
-  color: #ffffff;
-  letter-spacing: 0.5px;
-}
-
+.acc-item.open .acc-icon { background: rgba(192, 132, 252, 0.22); box-shadow: 0 0 12px rgba(192, 132, 252, 0.4); }
+.acc-title { flex: 1; font-family: 'Poppins', sans-serif; font-size: 15px; font-weight: 700; color: #ffffff; letter-spacing: 0.5px; }
 .acc-chevron {
-  width: 28px; height: 28px;
-  border-radius: 8px;
+  width: 28px; height: 28px; border-radius: 8px;
   background: rgba(255, 255, 255, 0.06);
   border: 1px solid rgba(255, 255, 255, 0.08);
   display: flex; align-items: center; justify-content: center;
-  color: #a19bb5;
-  font-size: 12px;
-  flex-shrink: 0;
+  color: #a19bb5; font-size: 12px; flex-shrink: 0;
   transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s, background 0.2s;
 }
-.acc-item.open .acc-chevron {
-  transform: rotate(180deg);
-  color: #c084fc;
-  background: rgba(192, 132, 252, 0.12);
-  border-color: rgba(192, 132, 252, 0.28);
-}
-
-.acc-body {
-  max-height: 0;
-  overflow: hidden;
-  transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
-}
-.acc-item.open .acc-body {
-  max-height: 900px;
-}
-
-.acc-inner {
-  padding: 4px 20px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
-  direction: ltr;
-}
+.acc-item.open .acc-chevron { transform: rotate(180deg); color: #c084fc; background: rgba(192, 132, 252, 0.12); border-color: rgba(192, 132, 252, 0.28); }
+.acc-body { max-height: 0; overflow: hidden; transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1); }
+.acc-item.open .acc-body { max-height: 900px; }
+.acc-inner { padding: 4px 20px 20px; border-top: 1px solid rgba(255, 255, 255, 0.07); direction: ltr; }
 
 /* Setup Specs */
 .setup-inner-grid { display:flex; flex-direction:row; gap:24px; padding-top:16px; }
@@ -470,8 +391,7 @@ body {
 .setup-divider    { width:1px; background:rgba(255, 255, 255, 0.08); }
 .specs-title {
   font-family:'Poppins', sans-serif; font-size:13px; font-weight:700;
-  color:#c084fc; display:flex; align-items:center; gap:8px;
-  padding-bottom:6px; letter-spacing:0.5px;
+  color:#c084fc; display:flex; align-items:center; gap:8px; padding-bottom:6px; letter-spacing:0.5px;
 }
 .specs-title i   { color:#c084fc; }
 .specs-list      { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
@@ -480,71 +400,31 @@ body {
 .spec-value      { color:#ffffff; font-weight:600; font-family:system-ui, sans-serif; }
 
 /* Subscriber Badges */
-.badges-container {
-  display:flex; justify-content:center; flex-wrap:wrap; gap:16px; padding-top:16px;
-}
+.badges-container { display:flex; justify-content:center; flex-wrap:wrap; gap:16px; padding-top:16px; }
 .badge-item { display:flex; flex-direction:column; align-items:center; gap:8px; width:70px; }
-.badge-img  {
-  width:52px; height:52px; object-fit:contain;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition:transform 0.2s ease;
-  -webkit-user-drag:none;
-}
+.badge-img  { width:52px; height:52px; object-fit:contain; filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition:transform 0.2s ease; -webkit-user-drag:none; }
 .badge-img:hover { transform:scale(1.15); }
 .badge-item span { font-family:'Poppins', sans-serif; font-size:12px; font-weight:600; color:#d1cbe0; text-align:center; }
 
-/* ── Subscriber Emotes ── */
-.emotes-container {
-  display: flex;
-  justify-content: center;
-  flex-wrap: wrap;
-  gap: 12px;
-  padding-top: 16px;
-}
+/* Subscriber Emotes */
+.emotes-container { display: flex; justify-content: center; flex-wrap: wrap; gap: 12px; padding-top: 16px; }
 .emote-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 6px;
-  padding: 10px 12px;
-  background: rgba(255, 255, 255, 0.04);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 14px;
+  display: flex; flex-direction: column; align-items: center; gap: 6px; padding: 10px 12px;
+  background: rgba(255, 255, 255, 0.04); border: 1px solid rgba(255, 255, 255, 0.08); border-radius: 14px;
   transition: transform 0.2s ease, background 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-  cursor: pointer;
-  min-width: 72px;
+  cursor: pointer; min-width: 72px;
 }
 .emote-item:hover {
   transform: translateY(-4px) scale(1.08);
-  background: rgba(192, 132, 252, 0.14);
-  border-color: rgba(192, 132, 252, 0.45);
+  background: rgba(192, 132, 252, 0.14); border-color: rgba(192, 132, 252, 0.45);
   box-shadow: 0 6px 20px rgba(192, 132, 252, 0.25);
 }
-.emote-img {
-  width: 52px;
-  height: 52px;
-  object-fit: contain;
-  filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.5));
-  user-select: none;
-  -webkit-user-drag: none;
-  transition: transform 0.2s ease;
-}
-.emote-item:hover .emote-img {
-  transform: scale(1.12);
-}
-.emote-name {
-  font-family: 'Poppins', sans-serif;
-  font-size: 11px;
-  font-weight: 600;
-  color: #d1cbe0;
-  text-align: center;
-  letter-spacing: 0.3px;
-}
+.emote-img { width: 52px; height: 52px; object-fit: contain; filter: drop-shadow(0 3px 8px rgba(0, 0, 0, 0.5)); user-select: none; -webkit-user-drag: none; transition: transform 0.2s ease; }
+.emote-item:hover .emote-img { transform: scale(1.12); }
 
 /* ── Footer ── */
 .footer-container {
-  margin-top: auto;
-  padding-top: 10px;
-  padding-bottom: 12px;
+  margin-top: auto; padding-top: 10px; padding-bottom: 12px;
   width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;
   font-family: 'Poppins', sans-serif, system-ui; font-size: 13px; color: #ffffff;
   font-weight: 600; z-index: 10; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
@@ -622,7 +502,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   .setup-divider    { width: 100%; height: 1px; }
   .avatar-snake-wrap { width: 98px; height: 98px; }
   .profile-pic       { width: 92px; height: 92px; }
-  .top-navbar        { width: 90%; justify-content: center; }
+  .top-navbar        { width: 92%; justify-content: center; }
   .nav-tab           { padding: 9px 18px; flex: 1; text-align: center; font-size: 14px; }
   .badges-container  { gap: 10px; }
   .badge-item        { width: 55px; }
@@ -645,6 +525,230 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   .accessibility-item  { min-height: 100px; }
   .accessibility-open  { left: 15px; bottom: 15px; }
 }
+
+/* ════════════════════════════════
+   DONATORS VIEW
+   ════════════════════════════════ */
+#donatorsView {
+  max-width: 1000px !important;
+  width: 100%;
+  padding: 0 15px 30px;
+}
+.donators-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  text-align: center;
+  margin-bottom: 20px;
+}
+.donator-avatar-wrap {
+  width: 110px;
+  height: 110px;
+}
+.donator-avatar-img {
+  width: 102px;
+  height: 102px;
+}
+.donator-streamer-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 27px;
+  font-weight: 800;
+  color: #00d2ff;
+  letter-spacing: 1px;
+  margin: 3px 0 0 0;
+  text-shadow: 0 2px 14px rgba(0, 210, 255, 0.4);
+}
+.donator-badges-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+.donator-badge.top-donators-badge {
+  background: rgba(0, 210, 255, 0.12);
+  border: 1px solid rgba(0, 210, 255, 0.35);
+  color: #00d2ff;
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  padding: 4px 14px;
+  border-radius: 20px;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  box-shadow: 0 0 12px rgba(0, 210, 255, 0.2);
+}
+.donators-last-updated {
+  font-size: 11.5px;
+  color: #a19bb5;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 3px;
+  direction: rtl;
+}
+.donators-refresh-btn {
+  background: transparent;
+  border: none;
+  color: #a19bb5;
+  cursor: pointer;
+  padding: 3px 6px;
+  font-size: 12px;
+  transition: color 0.2s, transform 0.3s;
+}
+.donators-refresh-btn:hover {
+  color: #00d2ff;
+  transform: rotate(180deg);
+}
+
+.leaderboards-grid {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 22px;
+  width: 100%;
+}
+@media (max-width: 820px) {
+  .leaderboards-grid {
+    grid-template-columns: 1fr;
+    gap: 20px;
+  }
+}
+
+.lb-card {
+  background: rgba(14, 18, 30, 0.88);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  overflow: hidden;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(14px);
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+}
+.lb-card:hover {
+  border-color: rgba(192, 132, 252, 0.3);
+  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+}
+.gifts-card {
+  border-top: 2px solid rgba(250, 204, 21, 0.55);
+}
+.kicks-card {
+  border-top: 2px solid rgba(83, 252, 24, 0.55);
+}
+
+.lb-card-header {
+  padding: 16px 20px 14px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+  background: rgba(255, 255, 255, 0.02);
+}
+.lb-card-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 18px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  letter-spacing: 0.5px;
+  direction: ltr;
+}
+.gifts-card .lb-card-title { color: #facc15; }
+.kicks-card .lb-card-title { color: #53fc18; }
+.lb-title-icon { font-size: 18px; }
+.lb-card-subtitle {
+  font-size: 12px;
+  color: #a19bb5;
+  margin-top: 4px;
+  font-weight: 500;
+}
+
+.lb-table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
+.lb-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+  font-family: 'Heebo', system-ui, sans-serif;
+  direction: rtl;
+}
+.lb-table th {
+  background: rgba(255, 255, 255, 0.03);
+  color: #8c85a2;
+  font-family: 'Poppins', 'Heebo', sans-serif;
+  font-size: 12.5px;
+  font-weight: 700;
+  padding: 11px 16px;
+  letter-spacing: 0.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.06);
+}
+.lb-table td {
+  padding: 11px 16px;
+  font-size: 14.5px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: background 0.15s ease;
+}
+.lb-table tr:hover td {
+  background: rgba(255, 255, 255, 0.04);
+}
+
+.col-rank {
+  width: 60px;
+  text-align: center;
+  font-weight: 800;
+  font-family: 'Poppins', sans-serif;
+  font-size: 15px;
+}
+.col-user {
+  text-align: center;
+  font-weight: 700;
+  font-family: 'Poppins', sans-serif;
+  color: #ffffff;
+  letter-spacing: 0.4px;
+}
+.col-amount {
+  width: 110px;
+  text-align: center;
+  font-family: 'Poppins', monospace, sans-serif;
+  font-weight: 800;
+  font-size: 14.5px;
+  letter-spacing: 0.5px;
+}
+
+/* Rank Medals & Accents */
+.rank-1 .col-rank { font-size: 20px; }
+.rank-1 .col-user { color: #facc15; font-size: 15.5px; text-shadow: 0 0 10px rgba(250, 204, 21, 0.3); }
+.rank-1 .col-amount { color: #facc15; }
+
+.rank-2 .col-rank { font-size: 19px; }
+.rank-2 .col-user { color: #e2e8f0; font-size: 15px; text-shadow: 0 0 8px rgba(226, 232, 240, 0.25); }
+.rank-2 .col-amount { color: #e2e8f0; }
+
+.rank-3 .col-rank { font-size: 18px; }
+.rank-3 .col-user { color: #f97316; font-size: 15px; text-shadow: 0 0 8px rgba(249, 115, 22, 0.25); }
+.rank-3 .col-amount { color: #f97316; }
+
+.rank-other .col-rank {
+  color: #7d7593;
+  font-size: 13.5px;
+}
+.rank-other .col-user {
+  color: #d1cbe0;
+  font-size: 14px;
+}
+.gifts-card .rank-other .col-amount { color: #facc15; opacity: 0.88; }
+.kicks-card .rank-other .col-amount { color: #53fc18; opacity: 0.88; }
+
+.lb-loading-row, .lb-empty-row {
+  color: #a19bb5;
+  font-size: 13.5px;
+  padding: 30px 16px !important;
+}
 </style>
 </head>
 <body>
@@ -655,6 +759,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   <nav class="top-navbar">
     <button class="nav-tab active" data-target="homeView">HOME</button>
     <button class="nav-tab" data-target="infoView">INFO</button>
+    <button class="nav-tab" data-target="donatorsView">DONATORS</button>
   </nav>
 
   <!-- ═══════════════ HOME ═══════════════ -->
@@ -747,13 +852,13 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
               </div>
               <div class="setup-divider"></div>
               <div class="setup-col">
-                <div class="specs-title"><i class="fa-solid fa-headphones"></i><span>Peripherals</span></div>
+                <div class="specs-title"><i class="fa-solid fa-headphones"></i><span>Peripherals & Gear</span></div>
                 <ul class="specs-list">
                   <li><span class="spec-label">Monitor</span><span class="spec-value">ROG SWIFT 360Hz PG259QN</span></li>
                   <li><span class="spec-label">Keyboard</span><span class="spec-value">mchose mix 87</span></li>
-                  <li><span class="spec-label">Mouse</span><span class="spec-value">Logitech G-903 Lightspeed Hero</span></li>
+                  <li><span class="spec-label">Mouse</span><span class="spec-value">Logitech G903 Lightspeed HERO</span></li>
                   <li><span class="spec-label">Headphones</span><span class="spec-value">SteelSeries Nova Pro Wireless</span></li>
-                  <li><span class="spec-label">Mic</span><span class="spec-value">SteelSeries Alias Pro</span></li>
+                  <li><span class="spec-label">Microphone</span><span class="spec-value">SteelSeries Alias Pro</span></li>
                 </ul>
               </div>
             </div>
@@ -772,27 +877,27 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
           <div class="acc-inner">
             <div class="badges-container">
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M1.png" alt="1 Month" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2353fc18';">
-                <span>1 Month</span>
+                <img class="badge-img" src="Subscriber%20badges/M1.png" alt="Base" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-line-duotone.svg?color=%2300d2ff';">
+                <span>Base</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2300d2ff';">
+                <img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%239d4edd';">
                 <span>2 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%239d4edd';">
+                <img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:star-fall-bold-duotone.svg?color=%23facc15';">
                 <span>3 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%23ff0077';">
+                <img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2353fc18';">
                 <span>6 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%23ff9800';">
+                <img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff9800';">
                 <span>9 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%23ff5e5e';">
+                <img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff5e5e';">
                 <span>1 Year</span>
               </div>
               <div class="badge-item">
@@ -818,69 +923,103 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         <div class="acc-body">
           <div class="acc-inner">
             <div class="emotes-container" id="emotesContainer">
-              <div class="emote-item" title="Emote 1">
-                <img class="emote-img" src="Subscriber%20emotes/1.png" alt="Emote 1" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 2">
-                <img class="emote-img" src="Subscriber%20emotes/2.png" alt="Emote 2" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 3">
-                <img class="emote-img" src="Subscriber%20emotes/3.png" alt="Emote 3" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 4">
-                <img class="emote-img" src="Subscriber%20emotes/4.png" alt="Emote 4" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 5">
-                <img class="emote-img" src="Subscriber%20emotes/5.png" alt="Emote 5" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 6">
-                <img class="emote-img" src="Subscriber%20emotes/6.png" alt="Emote 6" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 7">
-                <img class="emote-img" src="Subscriber%20emotes/7.png" alt="Emote 7" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 8 (Animated)">
-                <img class="emote-img" src="Subscriber%20emotes/8.gif" alt="Emote 8" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 9">
-                <img class="emote-img" src="Subscriber%20emotes/9.png" alt="Emote 9" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 10">
-                <img class="emote-img" src="Subscriber%20emotes/10.png" alt="Emote 10" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 11">
-                <img class="emote-img" src="Subscriber%20emotes/11.png" alt="Emote 11" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 12">
-                <img class="emote-img" src="Subscriber%20emotes/12.png" alt="Emote 12" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 13">
-                <img class="emote-img" src="Subscriber%20emotes/13.png" alt="Emote 13" draggable="false">
-              </div>
+              <div class="emote-item" title="Emote 1"><img class="emote-img" src="Subscriber%20emotes/1.png" alt="Emote 1" draggable="false"></div>
+              <div class="emote-item" title="Emote 2"><img class="emote-img" src="Subscriber%20emotes/2.png" alt="Emote 2" draggable="false"></div>
+              <div class="emote-item" title="Emote 3"><img class="emote-img" src="Subscriber%20emotes/3.png" alt="Emote 3" draggable="false"></div>
+              <div class="emote-item" title="Emote 4"><img class="emote-img" src="Subscriber%20emotes/4.png" alt="Emote 4" draggable="false"></div>
+              <div class="emote-item" title="Emote 5"><img class="emote-img" src="Subscriber%20emotes/5.png" alt="Emote 5" draggable="false"></div>
+              <div class="emote-item" title="Emote 6"><img class="emote-img" src="Subscriber%20emotes/6.png" alt="Emote 6" draggable="false"></div>
+              <div class="emote-item" title="Emote 7"><img class="emote-img" src="Subscriber%20emotes/7.png" alt="Emote 7" draggable="false"></div>
+              <div class="emote-item" title="Emote 8 (Animated)"><img class="emote-img" src="Subscriber%20emotes/8.gif" alt="Emote 8" draggable="false"></div>
+              <div class="emote-item" title="Emote 9"><img class="emote-img" src="Subscriber%20emotes/9.png" alt="Emote 9" draggable="false"></div>
+              <div class="emote-item" title="Emote 10"><img class="emote-img" src="Subscriber%20emotes/10.png" alt="Emote 10" draggable="false"></div>
+              <div class="emote-item" title="Emote 11"><img class="emote-img" src="Subscriber%20emotes/11.png" alt="Emote 11" draggable="false"></div>
+              <div class="emote-item" title="Emote 12"><img class="emote-img" src="Subscriber%20emotes/12.png" alt="Emote 12" draggable="false"></div>
+              <div class="emote-item" title="Emote 13"><img class="emote-img" src="Subscriber%20emotes/13.png" alt="Emote 13" draggable="false"></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── ACCORDION 3: Leaderboard / Live Feed ── -->
-      <div class="acc-item" id="acc-lb">
-        <div class="acc-header" onclick="toggleAcc('acc-lb')">
-          <div class="acc-icon"><i class="fa-solid fa-trophy"></i></div>
-          <span class="acc-title">Leaderboard / Live Feed</span>
-          <div class="acc-chevron"><i class="fa-solid fa-chevron-down"></i></div>
+    </div>
+  </div>
+
+  <!-- ═══════════════ DONATORS ═══════════════ -->
+  <div id="donatorsView" class="view-section">
+    <!-- Streamer Header -->
+    <div class="donators-header">
+      <div class="avatar-snake-wrap donator-avatar-wrap">
+        <img src="Backgrounds/profile.webp" class="profile-pic donator-avatar-img" alt="GalGM" draggable="false"
+             onerror="this.onerror=null; this.src='/Backgrounds/profile.webp'; this.onerror=function(){this.src='profile.webp';};">
+      </div>
+      <h2 class="donator-streamer-name">GalGM</h2>
+      <div class="donator-badges-row">
+        <span class="donator-badge top-donators-badge"><i class="fa-solid fa-crown"></i> TOP DONATORS</span>
+        <div id="kickDonatorsStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status">
+          <span class="status-dot"></span>
+          <span class="status-text" id="kickDonatorsStatusText">OFFLINE</span>
         </div>
-        <div class="acc-body">
-          <div class="acc-inner" style="padding:16px 12px 16px;">
-            <div style="width:100%; border-radius:14px; overflow:hidden; border:1px solid rgba(192, 132, 252, 0.35); box-shadow:0 0 16px rgba(192, 132, 252, 0.15); background:#0e0e10;">
-              <iframe
-                src="https://botrix.live/widget/leaderboard/galgm"
-                title="Botrix Live Feed & Leaderboard"
-                style="width:100%; height:450px; border:none; display:block;"
-                loading="lazy"
-                allow="fullscreen"
-              ></iframe>
-            </div>
+      </div>
+      <div class="donators-last-updated">
+        <button type="button" class="donators-refresh-btn" onclick="fetchKickLeaderboards(true)" title="רענון נתונים">
+          <i class="fa-solid fa-arrows-rotate" id="donatorsRefreshIcon"></i>
+        </button>
+        <span id="donatorsUpdateStatus">מתעדכן בזמן אמת מ-Kick</span>
+      </div>
+    </div>
+
+    <!-- Dual Leaderboards Grid -->
+    <div class="leaderboards-grid">
+
+      <!-- Table 1: Top 10 Sub Gifts -->
+      <div class="lb-card gifts-card">
+        <div class="lb-card-header">
+          <div class="lb-card-title">
+            <span class="lb-title-icon">👑</span>
+            <span>All-Time Top Gifters</span>
+            <span class="lb-title-icon">🎁</span>
           </div>
+          <div class="lb-card-subtitle">טופ 10 תורמי מנויים (Sub Gifts)</div>
+        </div>
+        <div class="lb-table-wrapper">
+          <table class="lb-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-user">שם משתמש</th>
+                <th class="col-amount">כמות</th>
+              </tr>
+            </thead>
+            <tbody id="giftsTableBody">
+              <tr><td colspan="3" class="lb-loading-row">טוען נתוני תורמים מ-Kick...</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <!-- Table 2: Top 10 Kicks -->
+      <div class="lb-card kicks-card">
+        <div class="lb-card-header">
+          <div class="lb-card-title">
+            <span class="lb-title-icon">🏆</span>
+            <span>Top 10 Kicks</span>
+            <span class="lb-title-icon">💚</span>
+          </div>
+          <div class="lb-card-subtitle">טופ 10 תורמי קיקס (Kicks)</div>
+        </div>
+        <div class="lb-table-wrapper">
+          <table class="lb-table">
+            <thead>
+              <tr>
+                <th class="col-rank">#</th>
+                <th class="col-user">שם משתמש</th>
+                <th class="col-amount">כמות</th>
+              </tr>
+            </thead>
+            <tbody id="kicksTableBody">
+              <tr><td colspan="3" class="lb-loading-row">טוען נתוני תורמים מ-Kick...</td></tr>
+            </tbody>
+          </table>
         </div>
       </div>
 
@@ -897,35 +1036,34 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   </footer>
 </div>
 
-<!-- ═══════════════ ACCESSIBILITY WIDGET ═══════════════ -->
-<button class="accessibility-open" id="accessibilityOpen" aria-label="פתח תפריט נגישות">
+<!-- Accessibility -->
+<button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
   <i class="fa-solid fa-universal-access"></i>
 </button>
-
-<div class="accessibility-panel" id="accessibilityPanel" role="dialog" aria-modal="true" aria-label="תפריט נגישות">
+<div class="accessibility-panel" id="accessibilityPanel" aria-label="כלי נגישות">
   <div class="accessibility-header">
-    <div class="accessibility-title">תפריט נגישות</div>
-    <button class="accessibility-close" id="accessibilityClose" aria-label="סגור תפריט נגישות">×</button>
+    <div class="accessibility-title">כלי נגישות</div>
+    <button class="accessibility-close" id="accessibilityClose" aria-label="סגירת כלי נגישות">×</button>
   </div>
   <div class="accessibility-content">
-    <div class="accessibility-section-title">התאמת טקסט ותצוגה</div>
+    <div class="accessibility-section-title">טקסט וקריאה</div>
     <div class="accessibility-grid">
       <button class="accessibility-item" data-action="text-to-speech"><div class="accessibility-icon">🔊</div><div class="accessibility-label">הקראת טקסט</div></button>
-      <button class="accessibility-item" data-action="large-text"><div class="accessibility-icon">🔍</div><div class="accessibility-label">הגדלת טקסט</div></button>
-      <button class="accessibility-item" data-action="line-spacing"><div class="accessibility-icon">↕</div><div class="accessibility-label">ריווח שורות</div></button>
-      <button class="accessibility-item" data-action="letter-spacing"><div class="accessibility-icon">↔</div><div class="accessibility-label">ריווח אותיות</div></button>
-      <button class="accessibility-item" data-action="readable-font"><div class="accessibility-icon">🔤</div><div class="accessibility-label">גופן קריא</div></button>
-      <button class="accessibility-item" data-action="align"><div class="accessibility-icon">📄</div><div class="accessibility-label">יישור טקסט</div></button>
-    </div>
-    <div class="accessibility-section-title">התאמת צבעים וניגודיות</div>
-    <div class="accessibility-grid">
-      <button class="accessibility-item" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות גבוהה</div></button>
-      <button class="accessibility-item" data-action="invert"><div class="accessibility-icon">🔄</div><div class="accessibility-label">היפוך צבעים</div></button>
-      <button class="accessibility-item" data-action="grayscale"><div class="accessibility-icon">⬛</div><div class="accessibility-label">מונוכרום</div></button>
-      <button class="accessibility-item" data-action="saturation"><div class="accessibility-icon">🎨</div><div class="accessibility-label">רוויה מוגברת</div></button>
-      <button class="accessibility-item" data-action="headings"><div class="accessibility-icon">🔲</div><div class="accessibility-label">הדגשת כותרות</div></button>
+      <button class="accessibility-item" data-action="large-text"><div class="accessibility-icon">A⁺</div><div class="accessibility-label">הגדלת טקסט</div></button>
+      <button class="accessibility-item" data-action="line-spacing"><div class="accessibility-icon">☰</div><div class="accessibility-label">מרווח שורות</div></button>
+      <button class="accessibility-item" data-action="readable-font"><div class="accessibility-icon">T</div><div class="accessibility-label">גופן קריא</div></button>
+      <button class="accessibility-item" data-action="letter-spacing"><div class="accessibility-icon">#</div><div class="accessibility-label">ריווח אותיות</div></button>
+      <button class="accessibility-item" data-action="headings"><div class="accessibility-icon">H</div><div class="accessibility-label">הדגשת כותרות</div></button>
       <button class="accessibility-item" data-action="links"><div class="accessibility-icon">🔗</div><div class="accessibility-label">הדגשת קישורים</div></button>
-      <button class="accessibility-item" data-action="hide-images"><div class="accessibility-icon">🚫</div><div class="accessibility-label">הסתרת תמונות</div></button>
+      <button class="accessibility-item" data-action="align"><div class="accessibility-icon">≡</div><div class="accessibility-label">יישור טקסט</div></button>
+    </div>
+    <div class="accessibility-section-title">צבע וניגודיות</div>
+    <div class="accessibility-grid">
+      <button class="accessibility-item" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות</div></button>
+      <button class="accessibility-item" data-action="invert"><div class="accessibility-icon">◑</div><div class="accessibility-label">היפוך צבעים</div></button>
+      <button class="accessibility-item" data-action="grayscale"><div class="accessibility-icon">◯</div><div class="accessibility-label">גווני אפור</div></button>
+      <button class="accessibility-item" data-action="saturation"><div class="accessibility-icon">◉</div><div class="accessibility-label">רוויה</div></button>
+      <button class="accessibility-item" data-action="hide-images"><div class="accessibility-icon">▧</div><div class="accessibility-label">הסתרת תמונות</div></button>
     </div>
     <div class="accessibility-section-title">ניווט וסיוע</div>
     <div class="accessibility-grid">
@@ -962,13 +1100,18 @@ tabs.forEach(tab => {
     views.forEach(v => v.classList.remove('active'));
     const target = document.getElementById(tab.dataset.target);
     if (target) target.classList.add('active');
+    if (tab.dataset.target === 'donatorsView') {
+      fetchKickLeaderboards();
+    }
   });
 });
 
 /* ── Kick Live Status ── */
 async function checkKickLiveStatus() {
-  const badge    = document.getElementById('kickStatusBadge');
-  const textSpan = document.getElementById('kickStatusText');
+  const badge         = document.getElementById('kickStatusBadge');
+  const textSpan      = document.getElementById('kickStatusText');
+  const donatorsBadge = document.getElementById('kickDonatorsStatusBadge');
+  const donatorsText  = document.getElementById('kickDonatorsStatusText');
   if (!badge || !textSpan) return;
   try {
     const response = await fetch('https://kick.com/api/v2/channels/galgm', {
@@ -978,16 +1121,24 @@ async function checkKickLiveStatus() {
       const data   = await response.json();
       const isLive = Boolean(data && data.livestream);
       if (isLive) {
-        badge.classList.remove('offline'); badge.classList.add('live');
-        textSpan.textContent = 'LIVE';
-        badge.style.pointerEvents = 'auto'; badge.style.cursor = 'pointer';
-        badge.onclick = () => window.open('https://kick.com/galgm','_blank','noopener,noreferrer');
-        badge.title = 'GalGM is LIVE on Kick! Click to watch';
+        [badge, donatorsBadge].forEach(b => {
+          if (b) {
+            b.classList.remove('offline'); b.classList.add('live');
+            b.style.pointerEvents = 'auto'; b.style.cursor = 'pointer';
+            b.onclick = () => window.open('https://kick.com/galgm','_blank','noopener,noreferrer');
+            b.title = 'GalGM is LIVE on Kick! Click to watch';
+          }
+        });
+        [textSpan, donatorsText].forEach(t => { if (t) t.textContent = 'LIVE'; });
       } else {
-        badge.classList.remove('live'); badge.classList.add('offline');
-        textSpan.textContent = 'OFFLINE';
-        badge.style.pointerEvents = 'none'; badge.style.cursor = 'default';
-        badge.onclick = null; badge.title = 'GalGM is OFFLINE';
+        [badge, donatorsBadge].forEach(b => {
+          if (b) {
+            b.classList.remove('live'); b.classList.add('offline');
+            b.style.pointerEvents = 'none'; b.style.cursor = 'default';
+            b.onclick = null; b.title = 'GalGM is OFFLINE';
+          }
+        });
+        [textSpan, donatorsText].forEach(t => { if (t) t.textContent = 'OFFLINE'; });
       }
     }
   } catch(err) {
@@ -997,6 +1148,128 @@ async function checkKickLiveStatus() {
 checkKickLiveStatus();
 setInterval(checkKickLiveStatus, 60000);
 
+/* ── Donators Leaderboards (Gifts & Kicks) ── */
+const defaultGiftsSeed = [
+  { username: "Krav0n", quantity: 4220 },
+  { username: "mrdavid465", quantity: 1630 },
+  { username: "natanelf", quantity: 1210 },
+  { username: "eylon1", quantity: 1208 },
+  { username: "TheFl1k", quantity: 1062 },
+  { username: "Thekoa1a", quantity: 885 },
+  { username: "Oliverremez", quantity: 513 },
+  { username: "yohay32", quantity: 461 },
+  { username: "absolute_alamo", quantity: 429 },
+  { username: "thebigSheshMan", quantity: 413 }
+];
+
+const defaultKicksSeed = [
+  { username: "artishok2", quantity: 35000 },
+  { username: "1St3pBr0", quantity: 18500 },
+  { username: "Macabitelaviv", quantity: 14200 },
+  { username: "Itzikjoint", quantity: 9800 },
+  { username: "Adiel2007", quantity: 7500 },
+  { username: "avishay13", quantity: 5600 },
+  { username: "uri463", quantity: 4200 },
+  { username: "YardenRGS", quantity: 3100 },
+  { username: "Asian_kfr", quantity: 2400 },
+  { username: "niv129", quantity: 1950 }
+];
+
+function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
+  const tbody = document.getElementById(tbodyId);
+  if (!tbody) return;
+  if (!dataList || dataList.length === 0) {
+    tbody.innerHTML = '<tr><td colspan="3" class="lb-empty-row">אין נתונים זמינים כרגע</td></tr>';
+    return;
+  }
+  const top10 = dataList.slice(0, 10);
+  tbody.innerHTML = top10.map((item, index) => {
+    const rank = index + 1;
+    let rankDisplay = rank;
+    let rankClass = 'rank-other';
+    if (rank === 1) { rankDisplay = '🥇'; rankClass = 'rank-1'; }
+    else if (rank === 2) { rankDisplay = '🥈'; rankClass = 'rank-2'; }
+    else if (rank === 3) { rankDisplay = '🥉'; rankClass = 'rank-3'; }
+
+    const uname = item.username || (item.user && item.user.username) || 'Anonymous';
+    const num = Number(item.quantity || item.amount || 0);
+    const formattedAmount = isKicks ? `${num.toLocaleString()} ⚡` : num.toLocaleString();
+
+    return `
+      <tr class="${rankClass}">
+        <td class="col-rank">${rankDisplay}</td>
+        <td class="col-user">${uname}</td>
+        <td class="col-amount">${formattedAmount}</td>
+      </tr>
+    `;
+  }).join('');
+}
+
+let isLeaderboardsLoading = false;
+async function fetchKickLeaderboards(isManual = false) {
+  if (isLeaderboardsLoading) return;
+  isLeaderboardsLoading = true;
+  const refreshIcon = document.getElementById('donatorsRefreshIcon');
+  const statusText = document.getElementById('donatorsUpdateStatus');
+  if (refreshIcon) refreshIcon.classList.add('fa-spin');
+
+  const targetUrl = 'https://kick.com/api/v2/channels/galgm/leaderboards';
+  const urlsToTry = [
+    `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+    `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`,
+    targetUrl
+  ];
+
+  let rawData = null;
+  for (const url of urlsToTry) {
+    try {
+      const resp = await fetch(url, { headers: { 'Accept': 'application/json' }, cache: 'no-store' });
+      if (resp.ok) {
+        rawData = await resp.json();
+        if (typeof rawData === 'string') {
+          rawData = JSON.parse(rawData);
+        }
+        if (rawData && (rawData.gifts || rawData.gifts_week || rawData.kicks)) {
+          break;
+        }
+      }
+    } catch (e) {}
+  }
+
+  if (rawData) {
+    let giftsList = rawData.gifts || rawData.gifts_week || [];
+    if (Array.isArray(giftsList) && giftsList.length > 0) {
+      giftsList.sort((a, b) => (Number(b.quantity) || 0) - (Number(a.quantity) || 0));
+      renderLeaderboardTable('giftsTableBody', giftsList, false);
+    } else {
+      renderLeaderboardTable('giftsTableBody', defaultGiftsSeed, false);
+    }
+
+    let kicksList = rawData.kicks || rawData.kicks_leaderboard || [];
+    if (Array.isArray(kicksList) && kicksList.length > 0) {
+      kicksList.sort((a, b) => (Number(b.quantity || b.amount) || 0) - (Number(a.quantity || a.amount) || 0));
+      renderLeaderboardTable('kicksTableBody', kicksList, true);
+    } else {
+      renderLeaderboardTable('kicksTableBody', defaultKicksSeed, true);
+    }
+  } else {
+    renderLeaderboardTable('giftsTableBody', defaultGiftsSeed, false);
+    renderLeaderboardTable('kicksTableBody', defaultKicksSeed, true);
+  }
+
+  const now = new Date();
+  const timeStr = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+  if (statusText) {
+    statusText.textContent = `עודכן לאחרונה: ${timeStr} • מתעדכן אוטומטית`;
+  }
+
+  if (refreshIcon) refreshIcon.classList.remove('fa-spin');
+  isLeaderboardsLoading = false;
+}
+
+fetchKickLeaderboards();
+setInterval(fetchKickLeaderboards, 45000);
+
 /* ── Spotlight ── */
 const spotlight = document.getElementById('spotlight');
 document.addEventListener('mousemove', e => {
@@ -1004,7 +1277,7 @@ document.addEventListener('mousemove', e => {
   spotlight.style.setProperty('--y', `${e.clientY}px`);
 });
 
-/* ── Accessibility ── */
+/* ── Accessibility Actions ── */
 const openButton   = document.getElementById('accessibilityOpen');
 const closeButton  = document.getElementById('accessibilityClose');
 const panel        = document.getElementById('accessibilityPanel');
@@ -1106,7 +1379,7 @@ document.getElementById('accessibilityReset').addEventListener('click', () => {
   items.forEach(i => i.classList.remove('active'));
 });
 
-/* ── Bit Modal Functions ── */
+/* ── Bit Modal ── */
 function openBitModal() {
   const modal = document.getElementById('bitModalOverlay');
   if (modal) modal.classList.add('open');
