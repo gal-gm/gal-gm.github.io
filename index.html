@@ -8,7 +8,7 @@
 
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Heebo:wght@400;600;700;900&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Heebo:wght@400;600;700;900&display=swap');
 
 :root {
   --bg-color: #0c0a14;
@@ -51,8 +51,8 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  padding-top: 75px;
-  padding-bottom: 15px;
+  padding-top: 100px;
+  padding-bottom: 8px;
   box-sizing: border-box;
 }
 
@@ -107,7 +107,7 @@ body {
 .view-section.active { display: flex; }
 
 #infoView {
-  padding-top: 15vh;
+  padding-top: 10vh;
 }
 
 @keyframes fadeIn {
@@ -131,12 +131,12 @@ body {
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  gap: 8px;
-  margin-bottom: 12px;
+  gap: 5px;
+  margin-bottom: 8px;
 }
 .avatar-snake-wrap {
   position: relative;
-  width: 125px; height: 125px;
+  width: 92px; height: 92px;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -155,11 +155,11 @@ body {
 .profile-pic {
   position: relative;
   z-index: 1;
-  width: 118px; height: 118px;
+  width: 86px; height: 86px;
   border-radius: 50%;
   object-fit: cover;
   border: 3px solid rgba(18, 14, 28, 0.9);
-  box-shadow: 0 4px 25px rgba(0, 0, 0, 0.8);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
   -webkit-user-drag: none;
   display: block;
   background: #1a1528;
@@ -170,26 +170,36 @@ body {
 }
 .profile-name {
   font-family: 'Poppins', 'Heebo', sans-serif;
-  font-size: 22px;
+  font-size: 19px;
   font-weight: 800;
-  background: linear-gradient(45deg, #00d2ff, #9d4edd, #facc15);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  letter-spacing: 1.5px;
-  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.6));
-  text-transform: uppercase;
   display: inline-flex;
   align-items: center;
+  justify-content: center;
   gap: 8px;
   direction: ltr;
+  margin-top: 2px;
 }
-.fortnite-icon {
-  width: 22px;
-  height: 22px;
-  fill: #00d2ff;
-  display: inline-block;
+.fortnite-logo-img {
+  height: 20px;
+  width: auto;
   vertical-align: middle;
-  filter: drop-shadow(0 0 6px rgba(0, 210, 255, 0.6));
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(0, 210, 255, 0.7));
+  display: inline-block;
+}
+.code-igm-text {
+  background: linear-gradient(90deg, #facc15, #ff0077, #7928ca, #00d2ff, #facc15);
+  background-size: 300% 300%;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: rainbowShift 3.5s ease infinite;
+  font-weight: 900;
+  letter-spacing: 1.2px;
+  display: inline-block;
+}
+@keyframes rainbowShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ── Live badge ── */
@@ -198,15 +208,15 @@ body {
   align-items: center;
   justify-content: center;
   gap: 7px;
-  padding: 4px 14px;
+  padding: 3px 13px;
   border-radius: 20px;
   font-family: 'Poppins', system-ui, sans-serif;
-  font-size: 11.5px;
+  font-size: 11px;
   font-weight: 700;
   letter-spacing: 1.2px;
   direction: ltr;
   transition: transform 0.2s ease, box-shadow 0.2s ease, filter 0.2s ease;
-  margin-top: 2px;
+  margin-top: 1px;
   user-select: none;
 }
 .kick-status-badge.offline {
@@ -242,20 +252,20 @@ body {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  gap: 10px;
+  gap: 6.5px;
   width: 100%;
-  max-width: 410px;
+  max-width: 390px;
   direction: ltr;
 }
 
 /* ── Snake buttons ── */
 .link-btn {
   position: relative;
-  display: flex; justify-content: center; align-items: center; gap: 12px;
-  padding: 12.5px 16px; border-radius: 12px; text-decoration: none;
-  font-weight: 700; font-size: 15.5px; font-family: 'Poppins', system-ui, sans-serif;
+  display: flex; justify-content: center; align-items: center; gap: 11px;
+  padding: 9.5px 14px; border-radius: 11px; text-decoration: none;
+  font-weight: 700; font-size: 14.5px; font-family: 'Poppins', system-ui, sans-serif;
   overflow: hidden;
-  -webkit-clip-path: inset(0 round 12px); clip-path: inset(0 round 12px);
+  -webkit-clip-path: inset(0 round 11px); clip-path: inset(0 round 11px);
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 1; border: none; cursor: pointer; outline: none;
@@ -276,7 +286,7 @@ body {
 .link-btn i { font-size: 20px; }
 
 .btn-kick      { --btn-bg:#0d1e11; --text-color-btn:#53fc18; --snake-main:#53fc18; --snake-tail:rgba(83,252,24,0.3);  --snake-glow:rgba(83,252,24,0.45); }
-.kick-svg-icon { width:20px;height:20px;fill:currentColor;display:inline-block;vertical-align:middle; }
+.kick-svg-icon { width:24px;height:24px;fill:currentColor;display:inline-block;vertical-align:middle; }
 .btn-discord   { --btn-bg:#11142b; --text-color-btn:#8ea1ff; --snake-main:#5865f2; --snake-tail:rgba(88,101,242,0.3); --snake-glow:rgba(88,101,242,0.45); }
 .btn-youtube   { --btn-bg:#220d0d; --text-color-btn:#ff5e5e; --snake-main:#ff0000; --snake-tail:rgba(255,0,0,0.3);    --snake-glow:rgba(255,0,0,0.45); }
 .btn-tiktok    { --btn-bg:#12171c; --text-color-btn:#25f4ee; --snake-main:#fe2c55; --snake-tail:rgba(37,244,238,0.4); --snake-glow:rgba(254,44,85,0.45); }
@@ -288,53 +298,43 @@ body {
 .bit-modal-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(8, 6, 14, 0.88);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  z-index: 100000;
-  display: flex;
+  background: rgba(8, 6, 14, 0.85);
+  backdrop-filter: blur(14px);
+  z-index: 9999999;
+  display: none;
   align-items: center;
   justify-content: center;
   padding: 20px;
-  opacity: 0;
-  pointer-events: none;
-  transition: opacity 0.25s ease;
+  animation: fadeIn 0.25s ease forwards;
 }
 .bit-modal-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
+  display: flex;
 }
 .bit-modal-card {
-  position: relative;
-  background: #091c20;
-  border: 1px solid rgba(0, 229, 255, 0.4);
-  box-shadow: 0 0 35px rgba(0, 229, 255, 0.25), 0 20px 45px rgba(0,0,0,0.85);
+  background: linear-gradient(135deg, rgba(20, 24, 38, 0.95), rgba(10, 16, 26, 0.98));
+  border: 1px solid rgba(0, 229, 255, 0.35);
+  box-shadow: 0 15px 45px rgba(0, 0, 0, 0.8), 0 0 35px rgba(0, 229, 255, 0.25);
   border-radius: 20px;
-  max-width: 380px;
+  padding: 28px 24px 24px;
+  max-width: 360px;
   width: 100%;
-  padding: 24px;
+  position: relative;
+  text-align: center;
   display: flex;
   flex-direction: column;
   align-items: center;
-  transform: scale(0.92);
-  transition: transform 0.28s cubic-bezier(0.34, 1.56, 0.64, 1);
-  direction: rtl;
-  text-align: center;
-}
-.bit-modal-overlay.open .bit-modal-card {
-  transform: scale(1);
 }
 .bit-modal-close {
   position: absolute;
   top: 14px;
-  left: 14px;
-  width: 36px;
-  height: 36px;
-  border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  right: 14px;
+  background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.15);
   color: #fff;
-  font-size: 20px;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  font-size: 16px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -439,72 +439,137 @@ body {
   display: flex; align-items: center; justify-content: center;
   color: #a19bb5;
   font-size: 12px;
-  flex-shrink: 0;
-  transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), color 0.2s, background 0.2s;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 .acc-item.open .acc-chevron {
   transform: rotate(180deg);
   color: #00d2ff;
-  background: rgba(0, 210, 255, 0.12);
-  border-color: rgba(0, 210, 255, 0.25);
 }
 
 .acc-body {
   max-height: 0;
   overflow: hidden;
-  transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
+  transition: max-height 0.35s ease;
+  background: rgba(10, 8, 18, 0.5);
+  border-top: 1px solid transparent;
 }
 .acc-item.open .acc-body {
-  max-height: 1200px;
+  max-height: 800px;
+  border-top-color: rgba(255, 255, 255, 0.06);
 }
 
 .acc-inner {
-  padding: 4px 20px 20px;
-  border-top: 1px solid rgba(255, 255, 255, 0.07);
+  padding: 20px;
+}
+
+/* Specs layout */
+.setup-inner-grid {
+  display: flex;
+  gap: 24px;
+}
+.setup-col { flex: 1; }
+.specs-title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #00d2ff;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
   direction: ltr;
 }
-
-/* Setup Specs */
-.setup-inner-grid { display:flex; flex-direction:row; gap:24px; padding-top:16px; }
-.setup-col        { flex:1; display:flex; flex-direction:column; gap:12px; }
-.setup-divider    { width:1px; background:rgba(255, 255, 255, 0.08); }
-.specs-title {
-  font-family:'Poppins', sans-serif; font-size:13px; font-weight:700;
-  color:#a19bb5; display:flex; align-items:center; gap:8px;
-  padding-bottom:6px; letter-spacing:0.5px;
+.setup-divider {
+  width: 1px;
+  background: rgba(255, 255, 255, 0.08);
 }
-.specs-list      { list-style:none; padding:0; margin:0; display:flex; flex-direction:column; gap:10px; }
-.specs-list li   { font-size:13px; line-height:1.5; display:flex; flex-direction:column; gap:2px; }
-.spec-label      { font-weight:700; color:#a19bb5; font-size:11px; text-transform:uppercase; letter-spacing:0.5px; }
-.spec-value      { color:#ffffff; font-weight:600; font-family:system-ui, sans-serif; }
+.specs-list {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  direction: ltr;
+}
+.specs-list li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 7px 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border-radius: 8px;
+  font-size: 13px;
+}
+.spec-label {
+  color: #a19bb5;
+  font-weight: 600;
+  font-family: 'Poppins', sans-serif;
+}
+.spec-value {
+  color: #ffffff;
+  font-weight: 700;
+  text-align: right;
+  font-family: 'Poppins', sans-serif;
+}
 
-/* ── Subscriber Badges ── */
+/* Badges */
 .badges-container {
-  display:flex; justify-content:center; flex-wrap:wrap; gap:16px; padding-top:16px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 14px;
 }
-.badge-item { display:flex; flex-direction:column; align-items:center; gap:8px; width:70px; }
-.badge-img  {
-  width:52px; height:52px; object-fit:contain;
-  filter:drop-shadow(0 4px 8px rgba(0,0,0,0.5)); transition:transform 0.2s ease;
-  -webkit-user-drag:none;
+.badge-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 6px;
+  width: 65px;
 }
-.badge-img:hover { transform:scale(1.15); }
-.badge-item span { font-family:'Poppins', sans-serif; font-size:12px; font-weight:600; color:#d1cbe0; text-align:center; }
+.badge-img {
+  width: 48px;
+  height: 48px;
+  border-radius: 8px;
+  object-fit: contain;
+  filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.6));
+  transition: transform 0.2s ease;
+}
+.badge-item:hover .badge-img { transform: scale(1.15); }
+.badge-item span {
+  font-size: 11px;
+  color: #a19bb5;
+  font-weight: 600;
+  text-align: center;
+  font-family: 'Poppins', sans-serif;
+}
 
-/* ── Subscriber Emotes ── */
+/* Emotes Grid */
 .emotes-container {
   display: flex;
-  justify-content: center;
   flex-wrap: wrap;
+  justify-content: center;
   gap: 12px;
-  padding-top: 16px;
+  max-height: 380px;
+  overflow-y: auto;
+  padding: 6px 4px 10px;
+}
+.emotes-container::-webkit-scrollbar {
+  width: 6px;
+}
+.emotes-container::-webkit-scrollbar-thumb {
+  background: rgba(0, 210, 255, 0.3);
+  border-radius: 10px;
 }
 .emote-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 6px;
-  padding: 10px 12px;
+  padding: 10px 8px 8px;
   background: rgba(255, 255, 255, 0.04);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 14px;
@@ -530,14 +595,22 @@ body {
 .emote-item:hover .emote-img {
   transform: scale(1.12);
 }
+.emote-name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  color: #d1cbe0;
+  text-align: center;
+  letter-spacing: 0.3px;
+}
 
 /* ── Footer ── */
 .footer-container {
   margin-top: auto;
-  padding-top: 25px;
-  padding-bottom: 20px;
-  width: 100%; display: flex; flex-direction: column; align-items: center; gap: 8px;
-  font-family: 'Poppins', sans-serif, system-ui; font-size: 14px; color: #ffffff;
+  padding-top: 10px;
+  padding-bottom: 12px;
+  width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  font-family: 'Poppins', sans-serif, system-ui; font-size: 13px; color: #ffffff;
   font-weight: 600; z-index: 10; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
 .footer-credit span:last-child { font-size: 12.5px; opacity: 0.8; font-weight: 500; }
@@ -606,20 +679,29 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .site-wrapper { padding-top: 70px; }
-  .links-list { gap: 8px; }
-  .link-btn   { padding: 11px 12px; font-size: 14.5px; border-radius: 10px; }
+  .site-wrapper { padding-top: 96px; }
+  .links-list { gap: 6px; }
+  .link-btn   { padding: 9px 12px; font-size: 13.5px; border-radius: 10px; }
   .setup-inner-grid { flex-direction: column; gap: 20px; }
   .setup-divider    { width: 100%; height: 1px; }
-  .avatar-snake-wrap { width: 105px; height: 105px; }
-  .profile-pic       { width: 98px; height: 98px; }
+  .avatar-snake-wrap { width: 84px; height: 84px; }
+  .profile-pic       { width: 78px; height: 78px; }
   .top-navbar        { width: 90%; justify-content: center; }
   .nav-tab           { padding: 9px 18px; flex: 1; text-align: center; font-size: 14px; }
   .badges-container  { gap: 10px; }
   .badge-item        { width: 55px; }
   .badge-img         { width: 42px; height: 42px; }
   .badge-item span   { font-size: 10.5px; }
-  #infoView          { padding-top: 12vh; }
+  #infoView          { padding-top: 10vh; }
+}
+@media (max-height: 720px) {
+  .site-wrapper { padding-top: 88px; }
+  .avatar-snake-wrap { width: 76px; height: 76px; }
+  .profile-pic { width: 70px; height: 70px; }
+  .profile-name { font-size: 16px; }
+  .fortnite-logo-img { height: 17px; }
+  .links-list { gap: 5px; }
+  .link-btn { padding: 7.5px 12px; font-size: 13px; }
 }
 @media (max-width: 500px) {
   .accessibility-panel { width: 100%; }
@@ -649,10 +731,8 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
              onerror="this.onerror=null; this.src='/Backgrounds/profile.webp'; this.onerror=function(){this.src='profile.webp';};">
       </div>
       <div class="profile-name">
-        <svg class="fortnite-icon" viewBox="0 0 24 24" role="img" aria-label="Fortnite">
-          <path d="M4 2h16l-1.2 4.8h-9.2l-.6 3.2h8.5l-1.2 4.8h-7.3l-1.5 7.2H3.5L7.5 2z"/>
-        </svg>
-        Code: IGM
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/FortniteLogo.svg" alt="Fortnite" class="fortnite-logo-img" onerror="this.onerror=null; this.src='https://cdn2.unrealengine.com/fn-logo-fn-horizontal-logo-lockup-1920x1080-607218671.png';">
+        <span class="code-igm-text">Code: IGM</span>
       </div>
       <div id="kickStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status" title="GalGM is OFFLINE">
         <span class="status-dot"></span>
@@ -731,13 +811,13 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
               </div>
               <div class="setup-divider"></div>
               <div class="setup-col">
-                <div class="specs-title"><i class="fa-solid fa-headphones"></i><span>Peripherals & Gear</span></div>
+                <div class="specs-title"><i class="fa-solid fa-headphones"></i><span>Peripherals</span></div>
                 <ul class="specs-list">
                   <li><span class="spec-label">Monitor</span><span class="spec-value">ROG SWIFT 360Hz PG259QN</span></li>
                   <li><span class="spec-label">Keyboard</span><span class="spec-value">mchose mix 87</span></li>
-                  <li><span class="spec-label">Mouse</span><span class="spec-value">Logitech G903 Lightspeed HERO</span></li>
+                  <li><span class="spec-label">Mouse</span><span class="spec-value">Logitech G-903 Lightspeed Hero</span></li>
                   <li><span class="spec-label">Headphones</span><span class="spec-value">SteelSeries Nova Pro Wireless</span></li>
-                  <li><span class="spec-label">Microphone</span><span class="spec-value">SteelSeries Alias Pro</span></li>
+                  <li><span class="spec-label">Mic</span><span class="spec-value">SteelSeries Alias Pro</span></li>
                 </ul>
               </div>
             </div>
@@ -756,27 +836,27 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
           <div class="acc-inner">
             <div class="badges-container">
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M1.png" alt="Base" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-line-duotone.svg?color=%2300d2ff';">
-                <span>Base</span>
+                <img class="badge-img" src="Subscriber%20badges/M1.png" alt="1 Month" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2353fc18';">
+                <span>1 Month</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%239d4edd';">
+                <img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2300d2ff';">
                 <span>2 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:star-fall-bold-duotone.svg?color=%23facc15';">
+                <img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%239d4edd';">
                 <span>3 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2353fc18';">
+                <img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%23ff0077';">
                 <span>6 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff9800';">
+                <img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%23ff9800';">
                 <span>9 Months</span>
               </div>
               <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff5e5e';">
+                <img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%23ff5e5e';">
                 <span>1 Year</span>
               </div>
               <div class="badge-item">
@@ -881,34 +961,35 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   </footer>
 </div>
 
-<!-- Accessibility -->
-<button class="accessibility-open" id="accessibilityOpen" aria-label="פתיחת כלי נגישות" title="כלי נגישות">
+<!-- ═══════════════ ACCESSIBILITY WIDGET ═══════════════ -->
+<button class="accessibility-open" id="accessibilityOpen" aria-label="פתח תפריט נגישות">
   <i class="fa-solid fa-universal-access"></i>
 </button>
-<div class="accessibility-panel" id="accessibilityPanel" aria-label="כלי נגישות">
+
+<div class="accessibility-panel" id="accessibilityPanel" role="dialog" aria-modal="true" aria-label="תפריט נגישות">
   <div class="accessibility-header">
-    <div class="accessibility-title">כלי נגישות</div>
-    <button class="accessibility-close" id="accessibilityClose" aria-label="סגירת כלי נגישות">×</button>
+    <div class="accessibility-title">תפריט נגישות</div>
+    <button class="accessibility-close" id="accessibilityClose" aria-label="סגור תפריט נגישות">×</button>
   </div>
   <div class="accessibility-content">
-    <div class="accessibility-section-title">טקסט וקריאה</div>
+    <div class="accessibility-section-title">התאמת טקסט ותצוגה</div>
     <div class="accessibility-grid">
       <button class="accessibility-item" data-action="text-to-speech"><div class="accessibility-icon">🔊</div><div class="accessibility-label">הקראת טקסט</div></button>
-      <button class="accessibility-item" data-action="large-text"><div class="accessibility-icon">A⁺</div><div class="accessibility-label">הגדלת טקסט</div></button>
-      <button class="accessibility-item" data-action="line-spacing"><div class="accessibility-icon">☰</div><div class="accessibility-label">מרווח שורות</div></button>
-      <button class="accessibility-item" data-action="readable-font"><div class="accessibility-icon">T</div><div class="accessibility-label">גופן קריא</div></button>
-      <button class="accessibility-item" data-action="letter-spacing"><div class="accessibility-icon">#</div><div class="accessibility-label">ריווח אותיות</div></button>
-      <button class="accessibility-item" data-action="headings"><div class="accessibility-icon">H</div><div class="accessibility-label">הדגשת כותרות</div></button>
-      <button class="accessibility-item" data-action="links"><div class="accessibility-icon">🔗</div><div class="accessibility-label">הדגשת קישורים</div></button>
-      <button class="accessibility-item" data-action="align"><div class="accessibility-icon">≡</div><div class="accessibility-label">יישור טקסט</div></button>
+      <button class="accessibility-item" data-action="large-text"><div class="accessibility-icon">🔍</div><div class="accessibility-label">הגדלת טקסט</div></button>
+      <button class="accessibility-item" data-action="line-spacing"><div class="accessibility-icon">↕</div><div class="accessibility-label">ריווח שורות</div></button>
+      <button class="accessibility-item" data-action="letter-spacing"><div class="accessibility-icon">↔</div><div class="accessibility-label">ריווח אותיות</div></button>
+      <button class="accessibility-item" data-action="readable-font"><div class="accessibility-icon">🔤</div><div class="accessibility-label">גופן קריא</div></button>
+      <button class="accessibility-item" data-action="align"><div class="accessibility-icon">📄</div><div class="accessibility-label">יישור טקסט</div></button>
     </div>
-    <div class="accessibility-section-title">צבע וניגודיות</div>
+    <div class="accessibility-section-title">התאמת צבעים וניגודיות</div>
     <div class="accessibility-grid">
-      <button class="accessibility-item" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות</div></button>
-      <button class="accessibility-item" data-action="invert"><div class="accessibility-icon">◑</div><div class="accessibility-label">היפוך צבעים</div></button>
-      <button class="accessibility-item" data-action="grayscale"><div class="accessibility-icon">◯</div><div class="accessibility-label">גווני אפור</div></button>
-      <button class="accessibility-item" data-action="saturation"><div class="accessibility-icon">◉</div><div class="accessibility-label">רוויה</div></button>
-      <button class="accessibility-item" data-action="hide-images"><div class="accessibility-icon">▧</div><div class="accessibility-label">הסתרת תמונות</div></button>
+      <button class="accessibility-item" data-action="contrast"><div class="accessibility-icon">◐</div><div class="accessibility-label">ניגודיות גבוהה</div></button>
+      <button class="accessibility-item" data-action="invert"><div class="accessibility-icon">🔄</div><div class="accessibility-label">היפוך צבעים</div></button>
+      <button class="accessibility-item" data-action="grayscale"><div class="accessibility-icon">⬛</div><div class="accessibility-label">מונוכרום</div></button>
+      <button class="accessibility-item" data-action="saturation"><div class="accessibility-icon">🎨</div><div class="accessibility-label">רוויה מוגברת</div></button>
+      <button class="accessibility-item" data-action="headings"><div class="accessibility-icon">🔲</div><div class="accessibility-label">הדגשת כותרות</div></button>
+      <button class="accessibility-item" data-action="links"><div class="accessibility-icon">🔗</div><div class="accessibility-label">הדגשת קישורים</div></button>
+      <button class="accessibility-item" data-action="hide-images"><div class="accessibility-icon">🚫</div><div class="accessibility-label">הסתרת תמונות</div></button>
     </div>
     <div class="accessibility-section-title">ניווט וסיוע</div>
     <div class="accessibility-grid">
