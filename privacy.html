@@ -4,44 +4,393 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>מדיניות פרטיות - GalGM</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
-  body {
-    background-color: #0c0a14;
-    color: #ffffff;
-    font-family: system-ui, -apple-system, sans-serif;
-    padding: 40px 20px;
-    max-width: 800px;
-    margin: 0 auto;
-    line-height: 1.8;
-  }
-  h1, h2 { color: #00d2ff; }
-  a { color: #facc15; text-decoration: none; }
-  a:hover { text-decoration: underline; }
-  .card {
-    background: rgba(18, 14, 28, 0.85);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 16px;
-    padding: 30px;
-    margin-top: 20px;
-  }
-  .back-btn {
-    display: inline-block;
-    margin-bottom: 20px;
-    background: rgba(255, 255, 255, 0.1);
-    padding: 10px 20px;
-    border-radius: 20px;
-  }
+@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800;900&family=Heebo:wght@400;500;600;700;900&display=swap');
+
+:root {
+  --bg-color: #0c0a14;
+  --text-main: #ffffff;
+  --text-muted: #b8b1cb;
+  --accent-purple: #c084fc;
+  --accent-purple-light: #e9d5ff;
+  --card-bg: rgba(18, 14, 28, 0.88);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-color);
+  background-image: 
+    radial-gradient(circle at 50% 20%, rgba(120, 50, 220, 0.22) 0%, transparent 65%),
+    url('Backgrounds/Background.png');
+  background-size: cover;
+  background-position: center center;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  color: var(--text-main);
+  font-family: 'Heebo', system-ui, -apple-system, sans-serif;
+  margin: 0;
+  padding: 40px 16px 50px;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-x: hidden;
+}
+
+/* ── Top Back Button ── */
+.top-nav-bar {
+  width: 100%;
+  max-width: 740px;
+  display: flex;
+  justify-content: flex-start;
+  margin-bottom: 24px;
+}
+.back-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(18, 14, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  color: #ffffff;
+  padding: 8px 18px;
+  border-radius: 25px;
+  font-size: 14px;
+  font-weight: 600;
+  text-decoration: none;
+  backdrop-filter: blur(10px);
+  transition: all 0.2s ease;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.4);
+}
+.back-btn:hover {
+  background: rgba(192, 132, 252, 0.18);
+  border-color: rgba(192, 132, 252, 0.4);
+  color: var(--accent-purple);
+  transform: translateX(3px);
+}
+
+/* ── Header ── */
+.header-section {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 28px;
+  text-align: center;
+}
+
+.avatar-snake-wrap {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.avatar-snake-wrap::before {
+  content: '';
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border-radius: 50%;
+  background: conic-gradient(from 0deg, #facc15, #ff0077, #7928ca, #00d2ff, #facc15);
+  animation: snakeSpin 4s linear infinite;
+  z-index: 0;
+}
+.profile-pic {
+  position: relative;
+  z-index: 1;
+  width: 92px;
+  height: 92px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 3px solid rgba(18, 14, 28, 0.95);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.85);
+  display: block;
+  background: #1a1528;
+  -webkit-user-drag: none;
+}
+@keyframes snakeSpin {
+  0%   { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.page-title {
+  font-family: 'Heebo', sans-serif;
+  font-size: 32px;
+  font-weight: 900;
+  color: var(--accent-purple);
+  margin: 0;
+  letter-spacing: -0.5px;
+  text-shadow: 0 0 20px rgba(192, 132, 252, 0.35);
+}
+
+/* ── Main Card ── */
+.privacy-card {
+  width: 100%;
+  max-width: 740px;
+  background: var(--card-bg);
+  border: 1px solid rgba(255, 255, 255, 0.09);
+  border-radius: 22px;
+  padding: 38px 34px;
+  box-shadow: 0 16px 45px rgba(0, 0, 0, 0.65), 0 0 25px rgba(192, 132, 252, 0.08);
+  backdrop-filter: blur(18px);
+}
+
+.section-item {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.section-header {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.num-badge {
+  width: 28px;
+  height: 28px;
+  min-width: 28px;
+  border-radius: 50%;
+  background: var(--accent-purple);
+  color: #0c0a14;
+  font-family: 'Poppins', sans-serif;
+  font-weight: 800;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 0 12px rgba(192, 132, 252, 0.5);
+}
+
+.section-title {
+  font-size: 18.5px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: -0.2px;
+}
+
+.section-text {
+  font-size: 14.5px;
+  color: var(--text-muted);
+  line-height: 1.75;
+  margin: 0;
+  padding-right: 42px;
+}
+
+.divider {
+  height: 1px;
+  background: rgba(255, 255, 255, 0.07);
+  margin: 26px 0;
+  width: 100%;
+}
+
+/* ── Contact Section (Section 5) ── */
+.contact-channels {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  padding-right: 42px;
+  margin-top: 14px;
+}
+
+.contact-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 14.5px;
+  color: #ffffff;
+}
+
+.contact-label {
+  color: var(--text-muted);
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 125px;
+  font-weight: 500;
+}
+.contact-label i {
+  color: var(--accent-purple);
+  font-size: 15px;
+}
+
+.email-val {
+  color: var(--accent-purple);
+  font-weight: 700;
+  font-family: 'Poppins', monospace, sans-serif;
+  letter-spacing: 2px;
+  direction: ltr;
+  display: inline-block;
+  background: rgba(192, 132, 252, 0.08);
+  padding: 4px 10px;
+  border-radius: 6px;
+  border: 1px solid rgba(192, 132, 252, 0.2);
+}
+
+.discord-link-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(88, 101, 242, 0.16);
+  border: 1px solid rgba(88, 101, 242, 0.38);
+  color: #9cb1ff;
+  padding: 5px 14px;
+  border-radius: 8px;
+  text-decoration: none;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
+  font-weight: 700;
+  transition: all 0.2s ease;
+  direction: ltr;
+}
+.discord-link-badge:hover {
+  background: rgba(88, 101, 242, 0.32);
+  border-color: rgba(88, 101, 242, 0.65);
+  color: #ffffff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(88, 101, 242, 0.35);
+}
+
+/* ── Footer ── */
+.footer-note {
+  margin-top: 26px;
+  font-size: 13px;
+  color: rgba(255, 255, 255, 0.45);
+  font-family: 'Poppins', 'Heebo', sans-serif;
+  text-align: center;
+}
+
+/* ── Responsive ── */
+@media (max-width: 600px) {
+  body { padding: 25px 12px 40px; }
+  .privacy-card { padding: 26px 18px; }
+  .page-title { font-size: 26px; }
+  .section-text { padding-right: 0; font-size: 14px; }
+  .contact-channels { padding-right: 0; }
+  .contact-row { flex-direction: column; align-items: flex-start; gap: 6px; }
+  .contact-label { min-width: auto; }
+}
 </style>
 </head>
 <body>
-  <a href="index.html" class="back-btn">← חזרה לאתר הראשי</a>
-  <div class="card">
-    <h1>מדיניות פרטיות</h1>
-    <p>ברוכים הבאים לדף הקישורים של GalGM. אנו מכבדים את פרטיותכם.</p>
-    <h2>איסוף מידע</h2>
-    <p>אתר זה משמש כעמוד נחיתה וקישורים בלבד ואינו אוסף מידע אישי מזהה ישירות, למעט סטטיסטיקות אנונימיות באמצעות כלי ניתוח תנועה (כגון Google Analytics) לצורך שיפור חוויית המשתמש.</p>
-    <h2>קישורים לאתרים חיצוניים</h2>
-    <p>האתר מכיל קישורים לפלטפורמות צד שלישי (Kick, YouTube, Discord, TikTok, Instagram). בעת מעבר לאתרים אלו, הנכם כפופים למדיניות הפרטיות של אותן פלטפורמות.</p>
+
+  <!-- ── Top Back Button ── -->
+  <div class="top-nav-bar">
+    <a href="index.html" class="back-btn">
+      <i class="fa-solid fa-arrow-right"></i>
+      <span>חזרה לאתר הראשי</span>
+    </a>
   </div>
+
+  <!-- ── Header ── -->
+  <div class="header-section">
+    <div class="avatar-snake-wrap">
+      <img src="Backgrounds/profile.webp"
+           class="profile-pic" alt="תמונת הפרופיל של GalGM"
+           draggable="false"
+           onerror="this.onerror=null; this.src='/Backgrounds/profile.webp'; this.onerror=function(){this.src='profile.webp';};">
+    </div>
+    <h1 class="page-title">מדיניות פרטיות</h1>
+  </div>
+
+  <!-- ── Main Card ── -->
+  <main class="privacy-card">
+
+    <!-- ── 1. איסוף נתונים אוטומטי ── -->
+    <section class="section-item">
+      <div class="section-header">
+        <div class="num-badge">1</div>
+        <h2 class="section-title">איסוף נתונים אוטומטי על ידי פלטפורמת האחסון</h2>
+      </div>
+      <p class="section-text">
+        האתר מאוחסן ומורץ באמצעות שירות GitHub Pages (המופעל על ידי GitHub, Inc.). מערכות GitHub עשויות לאסוף ולשמור באופן אוטומטי פרטים טכניים מסוימים מהדפדפן שלך, הכוללים: כתובת IP, סוג דפדפן ומערכת הפעלה, תאריך ושעת הביקור, והדפים שבהם צפית. מידע זה משמש לצורכי אבטחה, מניעת הונאות וניטור תקינות השרתים בלבד.
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 2. מידע שנמסר על ידך מרצון ── -->
+    <section class="section-item">
+      <div class="section-header">
+        <div class="num-badge">2</div>
+        <h2 class="section-title">מידע שנמסר על ידך מרצון</h2>
+      </div>
+      <p class="section-text">
+        במידה ותבחר לפנות אלינו באמצעות כתובת האימייל המופיעה באתר, כל מידע שתבחר למסור יישמר אצלנו אך ורק לצורך טיפול ומענה לפנייתך. אנו מתחייבים שלא למכור, לשכור או לשתף את פרטי הקשר שלך עם גורמים מסחריים חיצוניים למטרות שיווק.
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 3. קובצי עוגיות (Cookies) ── -->
+    <section class="section-item">
+      <div class="section-header">
+        <div class="num-badge">3</div>
+        <h2 class="section-title">קובצי עוגיות (Cookies) וטכנולוגיות מעקב</h2>
+      </div>
+      <p class="section-text">
+        האתר עושה שימוש בקוד מעקב של Google Analytics במטרה להבין טוב יותר את העדפות הגולשים ולשפר את מבנה האתר. הנתונים הנאספים באמצעות כלי זה מועברים לחברת Google ומעובדים על ידה לצורך הפקת דוחות סטטיסטיים ואנונימיים בלבד (כמו כמות כניסות וארץ הגלישה), ואינם משמשים אותנו לזיהוי אישי שלך. באפשרותך לחסום או למחוק קבצים אלו בכל עת דרך הגדרות הדפדפן שלך.
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 4. שינויים ותוקף המדיניות ── -->
+    <section class="section-item">
+      <div class="section-header">
+        <div class="num-badge">4</div>
+        <h2 class="section-title">שינויים ותוקף המדיניות</h2>
+      </div>
+      <p class="section-text">
+        אנו שומרים לעצמנו את הזכות לעדכן מסמך זה מעת לעת. מומלץ לבקר בדף זה מדי פעם כדי להתעדכן בשינויים.
+      </p>
+    </section>
+
+    <div class="divider"></div>
+
+    <!-- ── 5. יצירת קשר בנושאי פרטיות ── -->
+    <section class="section-item">
+      <div class="section-header">
+        <div class="num-badge">5</div>
+        <h2 class="section-title">יצירת קשר בנושאי פרטיות</h2>
+      </div>
+      <p class="section-text">
+        בכל שאלה הנוגעת לשמירה על הפרטיות שלך באתר, או בבקשה לעיון ומחיקת מידע שנמסר על ידך, ניתן לפנות אלינו ישירות בערוצים הבאים:
+      </p>
+
+      <div class="contact-channels">
+        <!-- אימייל -->
+        <div class="contact-row">
+          <span class="contact-label"><i class="fa-solid fa-envelope"></i> דואר אלקטרוני:</span>
+          <span class="email-val">+++++++++</span>
+        </div>
+
+        <!-- דיסקורד לחיץ ליוזר -->
+        <div class="contact-row">
+          <span class="contact-label"><i class="fa-brands fa-discord"></i> דיסקורד:</span>
+          <a href="https://discord.com/users/207762411845844992" target="_blank" rel="noopener noreferrer" class="discord-link-badge" title="פתיחת פרופיל דיסקורד">
+            <i class="fa-brands fa-discord"></i>
+            <span>GalGM (207762411845844992)</span>
+            <i class="fa-solid fa-arrow-up-right-from-square" style="font-size: 11px;"></i>
+          </a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <div class="footer-note">
+    עודכן לאחרונה: 2026
+  </div>
+
 </body>
 </html>
