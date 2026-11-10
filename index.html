@@ -51,15 +51,15 @@ body {
   width: 100%;
   min-height: 100vh;
   position: relative;
-  padding-top: 130px;
-  padding-bottom: 12px;
+  padding-top: 76px !important;
+  padding-bottom: 6px !important;
   box-sizing: border-box;
 }
 
 /* ── Navbar ── */
 .top-navbar {
   position: absolute;
-  top: 30px;
+  top: 14px !important;
   background: rgba(18, 14, 28, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.08);
   border-radius: 40px;
@@ -125,7 +125,7 @@ body {
   z-index: 0;
 }
 
-/* ── Profile ── */
+/* ── Profile (Home) ── */
 .profile-section {
   display: flex;
   flex-direction: column;
@@ -424,12 +424,12 @@ body {
 
 /* ── Footer ── */
 .footer-container {
-  margin-top: auto; padding-top: 10px; padding-bottom: 12px;
-  width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;
-  font-family: 'Poppins', sans-serif, system-ui; font-size: 13px; color: #ffffff;
+  margin-top: auto; padding-top: 6px; padding-bottom: 6px;
+  width: 100%; display: flex; flex-direction: column; align-items: center; gap: 4px;
+  font-family: 'Poppins', sans-serif, system-ui; font-size: 11.5px; color: #ffffff;
   font-weight: 600; z-index: 10; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9);
 }
-.footer-credit span:last-child { font-size: 12.5px; opacity: 0.8; font-weight: 500; }
+.footer-credit span:last-child { font-size: 11px; opacity: 0.8; font-weight: 500; }
 .footer-links { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; justify-content: center; }
 .footer-links a { color: #ffffff; text-decoration: none; transition: color 0.2s; font-weight: 700; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.9); }
 .footer-links a:hover { color: #00d2ff; }
@@ -495,7 +495,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 
 /* ── Responsive ── */
 @media (max-width: 600px) {
-  .site-wrapper { padding-top: 105px; }
+  .site-wrapper { padding-top: 85px !important; }
   .links-list { gap: 7.5px; width: 92%; max-width: 418px; }
   .link-btn   { padding: 12.5px 16px; font-size: 14.5px; border-radius: 11px; }
   .setup-inner-grid { flex-direction: column; gap: 20px; }
@@ -511,9 +511,9 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   #infoView          { padding-top: 10vh; }
 }
 @media (max-height: 750px) {
-  .site-wrapper { padding-top: 96px; }
-  .avatar-snake-wrap { width: 90px; height: 90px; }
-  .profile-pic { width: 84px; height: 84px; }
+  .site-wrapper { padding-top: 72px !important; }
+  .avatar-snake-wrap { width: 72px; height: 72px; }
+  .profile-pic { width: 66px; height: 66px; }
   .profile-name { font-size: 18px; }
   .fortnite-logo-img { height: 19px; }
   .links-list { gap: 6px; }
@@ -527,42 +527,42 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 }
 
 /* ════════════════════════════════
-   DONATORS VIEW
+   DONATORS VIEW (No Scroll & Perfectly Balanced 50/50)
    ════════════════════════════════ */
 #donatorsView {
-  max-width: 1000px !important;
+  max-width: 960px !important;
   width: 100%;
-  padding: 0 15px 30px;
+  padding: 0 10px 8px;
 }
 .donators-header {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 7px;
+  gap: 3px;
   text-align: center;
-  margin-bottom: 20px;
+  margin-bottom: 8px;
 }
 .donator-avatar-wrap {
-  width: 110px;
-  height: 110px;
+  width: 76px !important;
+  height: 76px !important;
 }
 .donator-avatar-img {
-  width: 102px;
-  height: 102px;
+  width: 70px !important;
+  height: 70px !important;
 }
 .donator-streamer-name {
   font-family: 'Poppins', sans-serif;
-  font-size: 27px;
+  font-size: 21px !important;
   font-weight: 800;
   color: #00d2ff;
-  letter-spacing: 1px;
-  margin: 3px 0 0 0;
-  text-shadow: 0 2px 14px rgba(0, 210, 255, 0.4);
+  letter-spacing: 0.8px;
+  margin: 1px 0 0 0 !important;
+  text-shadow: 0 2px 10px rgba(0, 210, 255, 0.4);
 }
 .donator-badges-row {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 6px;
   flex-wrap: wrap;
   justify-content: center;
 }
@@ -571,107 +571,122 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   border: 1px solid rgba(0, 210, 255, 0.35);
   color: #00d2ff;
   font-family: 'Poppins', sans-serif;
-  font-size: 11px;
+  font-size: 10.5px;
   font-weight: 700;
-  letter-spacing: 1.2px;
-  padding: 4px 14px;
+  letter-spacing: 1px;
+  padding: 3px 12px;
   border-radius: 20px;
   display: inline-flex;
   align-items: center;
-  gap: 6px;
-  box-shadow: 0 0 12px rgba(0, 210, 255, 0.2);
+  gap: 5px;
+  box-shadow: 0 0 10px rgba(0, 210, 255, 0.2);
+}
+.donator-badges-row .kick-status-badge {
+  padding: 3px 12px;
+  font-size: 10.5px;
+  margin-top: 0;
 }
 .donators-last-updated {
-  font-size: 11.5px;
-  color: #a19bb5;
+  font-size: 12.8px !important;
+  color: #c4bcd8;
   display: flex;
   align-items: center;
   gap: 6px;
-  margin-top: 3px;
+  margin-top: 2px;
   direction: rtl;
+  font-weight: 600;
 }
 .donators-refresh-btn {
   background: transparent;
   border: none;
-  color: #a19bb5;
+  color: #00d2ff;
   cursor: pointer;
-  padding: 3px 6px;
-  font-size: 12px;
+  padding: 2px 5px;
+  font-size: 13.5px !important;
   transition: color 0.2s, transform 0.3s;
 }
 .donators-refresh-btn:hover {
-  color: #00d2ff;
+  color: #53fc18;
   transform: rotate(180deg);
 }
 
 .leaderboards-grid {
   display: grid;
-  grid-template-columns: repeat(2, minmax(0, 1fr));
-  gap: 22px;
+  grid-template-columns: 1fr 1fr;
+  gap: 18px;
   width: 100%;
+  max-width: 960px;
+  margin: 0 auto;
+  align-items: stretch;
 }
-@media (max-width: 820px) {
+@media (max-width: 780px) {
   .leaderboards-grid {
     grid-template-columns: 1fr;
-    gap: 20px;
+    gap: 16px;
   }
 }
 
 .lb-card {
-  background: rgba(14, 18, 30, 0.88);
+  width: 100% !important;
+  height: 100%;
+  box-sizing: border-box;
+  background: rgba(14, 18, 30, 0.9);
   border: 1px solid rgba(255, 255, 255, 0.08);
-  border-radius: 18px;
+  border-radius: 16px;
   overflow: hidden;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.55);
+  box-shadow: 0 8px 25px rgba(0, 0, 0, 0.55);
   backdrop-filter: blur(14px);
   display: flex;
   flex-direction: column;
-  transition: transform 0.25s ease, border-color 0.25s ease, box-shadow 0.25s ease;
+  transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
 }
 .lb-card:hover {
   border-color: rgba(192, 132, 252, 0.3);
-  box-shadow: 0 12px 35px rgba(0, 0, 0, 0.7);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.7);
 }
 .gifts-card {
-  border-top: 2px solid rgba(250, 204, 21, 0.55);
+  border-top: 2px solid rgba(250, 204, 21, 0.6);
 }
 .kicks-card {
-  border-top: 2px solid rgba(83, 252, 24, 0.55);
+  border-top: 2px solid rgba(83, 252, 24, 0.6);
 }
 
 .lb-card-header {
-  padding: 16px 20px 14px;
+  padding: 8px 14px 6px;
   text-align: center;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
   background: rgba(255, 255, 255, 0.02);
 }
 .lb-card-title {
   font-family: 'Poppins', sans-serif;
-  font-size: 18px;
+  font-size: 15.5px !important;
   font-weight: 800;
   display: flex;
   align-items: center;
   justify-content: center;
-  gap: 8px;
-  letter-spacing: 0.5px;
+  gap: 6px;
+  letter-spacing: 0.4px;
   direction: ltr;
 }
 .gifts-card .lb-card-title { color: #facc15; }
 .kicks-card .lb-card-title { color: #53fc18; }
-.lb-title-icon { font-size: 18px; }
+.lb-title-icon { font-size: 15.5px; }
 .lb-card-subtitle {
-  font-size: 12px;
+  font-size: 11px !important;
   color: #a19bb5;
-  margin-top: 4px;
+  margin-top: 1px;
   font-weight: 500;
 }
 
 .lb-table-wrapper {
-  width: 100%;
-  overflow-x: auto;
+  flex: 1;
+  width: 100% !important;
+  overflow: hidden;
 }
 .lb-table {
-  width: 100%;
+  width: 100% !important;
+  height: 100%;
+  table-layout: fixed !important;
   border-collapse: collapse;
   text-align: center;
   font-family: 'Heebo', system-ui, sans-serif;
@@ -681,90 +696,95 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   background: rgba(255, 255, 255, 0.03);
   color: #8c85a2;
   font-family: 'Poppins', 'Heebo', sans-serif;
-  font-size: 12.5px;
+  font-size: 11px;
   font-weight: 700;
-  padding: 11px 16px;
-  letter-spacing: 0.5px;
+  padding: 5px 6px !important;
+  letter-spacing: 0.4px;
   border-bottom: 1px solid rgba(255, 255, 255, 0.06);
 }
 .lb-table td {
-  padding: 11px 16px;
-  font-size: 14.5px;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  padding: 4px 6px !important;
+  font-size: 13px !important;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.035);
   transition: background 0.15s ease;
+  line-height: 1.25;
 }
 .lb-table tr:hover td {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.col-rank {
-  width: 60px;
+.col-amount {
+  width: 32% !important;
   text-align: center;
+  font-family: 'Poppins', monospace, sans-serif;
   font-weight: 800;
-  font-family: 'Poppins', sans-serif;
-  font-size: 15px;
+  font-size: 13.5px;
+  letter-spacing: 0.4px;
 }
 .col-user {
+  width: 48% !important;
   text-align: center;
   font-weight: 700;
   font-family: 'Poppins', sans-serif;
   color: #ffffff;
-  letter-spacing: 0.4px;
+  letter-spacing: 0.3px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
-.col-amount {
-  width: 110px;
+.col-rank {
+  width: 20% !important;
   text-align: center;
-  font-family: 'Poppins', monospace, sans-serif;
   font-weight: 800;
-  font-size: 14.5px;
-  letter-spacing: 0.5px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13.5px;
 }
 
 /* Rank Medals & Accents */
-.rank-1 .col-rank { font-size: 20px; }
-.rank-1 .col-user { color: #facc15; font-size: 15.5px; text-shadow: 0 0 10px rgba(250, 204, 21, 0.3); }
+.rank-1 .col-rank { font-size: 16px; }
+.rank-1 .col-user { color: #facc15; font-size: 13.5px; text-shadow: 0 0 8px rgba(250, 204, 21, 0.3); }
 .rank-1 .col-amount { color: #facc15; }
 
-.rank-2 .col-rank { font-size: 19px; }
-.rank-2 .col-user { color: #e2e8f0; font-size: 15px; text-shadow: 0 0 8px rgba(226, 232, 240, 0.25); }
+.rank-2 .col-rank { font-size: 15px; }
+.rank-2 .col-user { color: #e2e8f0; font-size: 13px; text-shadow: 0 0 6px rgba(226, 232, 240, 0.25); }
 .rank-2 .col-amount { color: #e2e8f0; }
 
-.rank-3 .col-rank { font-size: 18px; }
-.rank-3 .col-user { color: #f97316; font-size: 15px; text-shadow: 0 0 8px rgba(249, 115, 22, 0.25); }
+.rank-3 .col-rank { font-size: 14.5px; }
+.rank-3 .col-user { color: #f97316; font-size: 13px; text-shadow: 0 0 6px rgba(249, 115, 22, 0.25); }
 .rank-3 .col-amount { color: #f97316; }
 
 .rank-other .col-rank {
   color: #7d7593;
-  font-size: 13.5px;
+  font-size: 12px;
 }
 .rank-other .col-user {
   color: #d1cbe0;
-  font-size: 14px;
+  font-size: 12.5px;
 }
-.gifts-card .rank-other .col-amount { color: #facc15; opacity: 0.88; }
-.kicks-card .rank-other .col-amount { color: #53fc18; opacity: 0.88; }
+.gifts-card .rank-other .col-amount { color: #facc15; opacity: 0.9; }
+.kicks-card .rank-other .col-amount { color: #53fc18; opacity: 0.9; }
 
 .lb-loading-row, .lb-empty-row {
   color: #a19bb5;
-  font-size: 13.5px;
-  padding: 30px 16px !important;
+  font-size: 12.5px;
+  padding: 18px 10px !important;
 }
 
 .kick-coin-icon {
-  width: 18px;
-  height: 18px;
+  width: 17px;
+  height: 17px;
+  vertical-align: middle;
+  display: inline-block;
+  margin-right: 3px;
+  filter: drop-shadow(0 0 3px rgba(83, 252, 24, 0.6));
+}
+.kick-coin-title-img {
+  width: 20px;
+  height: 20px;
   vertical-align: middle;
   display: inline-block;
   margin-right: 4px;
-  filter: drop-shadow(0 0 4px rgba(83, 252, 24, 0.6));
-}
-.kick-coin-title-img {
-  width: 22px;
-  height: 22px;
-  vertical-align: middle;
-  display: inline-block;
-  margin-right: 6px;
-  filter: drop-shadow(0 0 6px rgba(83, 252, 24, 0.7));
+  filter: drop-shadow(0 0 5px rgba(83, 252, 24, 0.7));
 }
 .amount-wrap {
   display: inline-flex;
@@ -992,7 +1012,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
       </div>
     </div>
 
-    <!-- Dual Leaderboards Grid -->
+    <!-- Dual Leaderboards Grid (Balanced 50/50) -->
     <div class="leaderboards-grid">
 
       <!-- Table 1: Lifetime top KICKers (Right side) -->
@@ -1001,7 +1021,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
           <div class="lb-card-title">
             <span class="lb-title-icon">🏆</span>
             <span>Lifetime top KICKers</span>
-            <img src="kick_coin.png" class="kick-coin-title-img" alt="Kicks" onerror="this.onerror=null; this.src='Backgrounds/kick_coin.png';">
+            <img id="kickTitleCoinImg" class="kick-coin-title-img" alt="Kicks">
           </div>
           <div class="lb-card-subtitle">טופ 10 תורמי קיקס (כל הזמנים)</div>
         </div>
@@ -1174,29 +1194,32 @@ setInterval(checkKickLiveStatus, 60000);
 
 /* ── Donators Leaderboards (Gifts & Kicks) ── */
 const defaultGiftsSeed = [
-  { username: "Krav0n", quantity: 4220 },
-  { username: "mrdavid465", quantity: 1630 },
-  { username: "natanelf", quantity: 1210 },
-  { username: "eylon1", quantity: 1208 },
-  { username: "TheFl1k", quantity: 1062 },
-  { username: "Thekoa1a", quantity: 885 },
-  { username: "Oliverremez", quantity: 513 },
-  { username: "yohay32", quantity: 461 },
-  { username: "absolute_alamo", quantity: 429 },
-  { username: "thebigSheshMan", quantity: 413 }
+  { username: "omer_lev", quantity: 341 },
+  { username: "Koren_va", quantity: 310 },
+  { username: "Danielthekiller", quantity: 84 },
+  { username: "YardenRGS", quantity: 71 },
+  { username: "xEXITx", quantity: 63 },
+  { username: "Krav0n", quantity: 61 },
+  { username: "orilea29", quantity: 53 },
+  { username: "K1tt__3h", quantity: 42 },
+  { username: "edan_c", quantity: 35 },
+  { username: "THE_TIGRIS", quantity: 16 }
 ];
 
+setTimeout(() => { const img = document.getElementById("kickTitleCoinImg"); if (img) img.src = KICK_COIN_DATA; }, 0);
+const KICK_COIN_DATA = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFsAAABOCAYAAABPLWqxAAAQAElEQVR4Aeyae5xmRXnnv1XnnPfa9+7puQ84MDAM14h4AVFwRdyPkijiZiWuEiUGNXE16mY12Rjcj+vn42pMzKIsGhcd42UxihdMNNnVgIIKEgjIdYa5T8/0TE/f+72cS+VX5+2BAWaY6eHtHv6Y6npO1amq56mnfvXUU3Xqbbtk+QnuOC0MBpbjYcEQOA72gkENx8E+DvYCIrCAXR237ONgHxoBYw02MoTVgKg7JOoJCTsCbNFiAgOKPEeDfY7q9SS1jLS0IQRlQ7E/oGtthZP+01LOu+FULvjbM1j3wbX0ndtLeVlFkxBhCoGAtzzXgJdGPDeDAQ+yCRGAhs7VBc5+fz/nfKOHE74eUPjjccZfPMzeM3fDVXVW3LiSE//uPE7+zPksvuREwp6CrF2ghxa0Gp4LwEsTnnPBCpyobFmyrsTZ7+vg+TdanvetfTTe8ggTJ26lWZkmdSHOFXEUSShRLxrqgwkzFwUEn17DwC0vo+f68+h+wylEg1VMFIAxHMtgj2XnB/btAS54gE+JeOHvVrnkukAX3zhC59s2UD9nC43OMdJCijMdMtRBIruSkjmFsllLMTiRyCwmokRARrPQYHQZTF7UzchH1mL/72V0/MklVC5dR7CkK3czB/a9UPm2gz0nxQ1EssieJQEnvSTkdX9e4PL1CSe/fwul87cx1j/KdDmlEXaQuUVEZh0F1lIwqwT2oIAV8HQSZIsosJxScAKVUGQHKVElMAWyqmNoVcbW31nM8KdeRPTVK6i+40IK55yI7emQAgEskMVbjkEIAkOlw9C/zPDKq8q86yspl39uH4svlwUv3U7cUScpFWjafrACVuAGZjVkg2C6MYLS4FSXgTOy9BRjAkJT1IRU6TQDDJhldImqWS9lVyAtQq0LdqwusfsPzmf6C2+neOMf0nHZizCLezGVEsbOLxzzK52nBANRAZatDnj7fyvzn9fXeamsOFq9m7h7iqRo5H+LxKaLullMapdgGcC4HgmSlZJDjNObYJa1O+Uz/J9zcjFONeoDF4mnQtl20x8uYkm4hCUspjftFvBFGmXD+IBl15k9DH38DaT/5w/ouPq10F3FBFbS5yfOn+SD6Btqxa48OeIP/8qx7o2bKZ08rIE3aWrzSk0vjewEZjiJullFLKAQaJkAzDyks2nqMgRrTs5YMpPgjEqMgMaRZU51s2XisZJRpkwfvSwOBLldxKIkoiOeJAnGmCnH7DttgKFrLqX4nt+GjgrzFRYMbCOLK8t1XH6NY/Gp20gLdZomJM4WU0uXUWM5iekkIyJzgU4a4HkQnxPALSifsGz/ngnW1KRq78SX5eTLPU+GAHdNsizDpU3i5jhpYwQ3MwTjm7EjD5NtuZtgYhOOJvVKwNAbX4w991SMtwraHxYM7DCCF76iyDmX7CIpJBpehSRbKrB7mbYVWbMjFnBCB5NmOtqlymZk3j1kDRqCsiFLTpA1C9HcjajMOac2VoA5wRsTuwZxkhDHqWiaPWO/ZPO2H/HYr29iw/1fY+PDN7Fj+y2MjvwcJjaQTN9DanaLYpqdcjF/ciX0d7cfaUlcELC9hXb1GF571TS2GDMl692RLRHg3bK2XsKpLllaCbOrG7ezn2BbH+WNPUQPdRI8LLq/RPEX4O4bx43VpLbyAtz5ichhrgvgCcZHdjP6z/ey/bs/ZtO3v8/mb32f0R/9Eu58lMqmvXRtn6ZvKKFvl6V7d0SRbgo9g2BGRbJ6kzG1vJfgylfBPFi3ZQFCSRvSb74lZOmp49SihA1ZyM9jw5DM86E7anzlykdYf9mD/O2/v4uvvuKnfO3i2/jGxbfynX/3M3748p/y41f+nNsvu517rryT5L46SdaknsywZ3w3W4Yf48Ht/8p9m+5i83338dAH/omtV9/KyDU/Y/zddzH97geZeNeDjL3z14y+8172XXMPo79/N5Pv/iXBN7fIXUVgajgj95JN0yh2MPnbLyM6fbXK5cNoX5h3sK01rD4t5NVX7sOVaozoGHZ/WmC3QH9IfnTrlik23r6Pobsm2PPAFBNb6tS2xzQ1E8mejGRfSjqWko6nJKMJu/fu5eFtG3hg80Ns3r2V3WO7Ga3vY9pN0cxispmMbCLGqT1jGWbcyXBFIw6GHW5XituRkG1THw+PyinFcvGqMxNgd2Ok79TAIMm7r8CUimAM7QrzDnZZm/vrrooIuyeoZ5ZNzQrDpkP+1bFXRrVjfIxE/jVLMm1kAiMF7Yd6aIgeA5FyyDXrOAf7ZibZ15hm2lu3S0hjAdoQ1VNsImBmmQ3Gs+Xk/bonJMvoXG58nU4tca2BUdradhMwO3BmjCwoMHX+uYRnnoIJ2gdR+yTx9GADwwsuLHDOK4ZoRo5dtsx9KmsEIR4XDZWmQPJAem6ftkigK+MBUpIDLZx8E+U1KX5jRLMSWwo/nqby7Wk6b65R/OEoZlLlqs8b69GS8YQ8FbWiBJqJOoE2Y+dleTJ1MNtA23GtXKX+398DPZ1g2wNTe6RIvYPFiqz6N9/UJCrPMCP3cWfq2G2LxGlII6nQbCynPlnlAGyeLuaAEpd4hESaAW+RnVMh0+uHGPnkFvZ+Ygu7r3+UeE/zAI7DZGcSXGZAKyQnKeLcCIEbB7mTsTUrsReeBwUtwcOIOpLqeQPbf5Jf+KqQdS+YJJRlbEyrPOB6mK6vZGLyNxjeeREbN13G1NAaDfgI1DDCRIR1YFIyk+GIYcrg/XTqgaupTBNq1ITDBd+mJrA1cciqTc6kVWEmSMPHSN0MaRCR/tHvYgcHIAgOJ/Gw9UcwysPKeFoDYUux7Hjj72mZlqe0L3Xxw+GzeXjT63nwwf/Ixkdfz/DuV9OYej5poyQUvRrmaXKeWpC3kI/VwVq+Vm8eKA+aGspR6Im8scr15AiC8xPj8dW0GZEUQYJxZlLpOAFNxpavhNdcDMUCzzb4UT5bGU/j90bwytcUWbV6koY2m9v2voRfbL6CPXsuoBafQDOTf3GySjMFmUabS/Ag5ZmDPwRqNuOI/r5J55djql9qEny9hhuJcS6b5fEy9tNs0TMlnk2T56RLpi9NmTIknaKKAB/B2QZZlFF/8xuwS3Ue91b0TPIOU9d2sL0+/YOGq98v91GcZFOjn3/ccjIzSZdACdEoRGBnB0qS5u+H0TOvdjp1jHxniNHrdjL22R2MfGEH8Yhcgfe7uTUbyRLl+ZzlIA/NmkqNTwS0Du3gJz8VyGkPpDIEfQfgJsmyPThZ9+SSPvidy/ObQbEedWw72P5W74KXB/QtGqdpSty661Q2NleQOH1S+wF6VfPlrxelLvGo+8LDkJrLTWOaGUZnaV2okDSbOFmkESTsBzhHUY05ePDVvr2fEhLhnBQh6QYPdlYGF4gxA9PAOYHt6qRRkelLLoLBReCtiaMLbQXb69HVJau+JiYKG2yNV/KTXWuZSrXB5GAIBAGsEbXg0fJ33rJz3VWXp4d+OOM5Dc4oI3nKoUQUYIwReRn7iacFNcFFhsxTwYDO/WGjQ6kAl4c2JgWjGTAxQlrRXw2MajNOqS0bpPz7V+HvvTnK0FawvVVf/IqAxctH5R0i/n7DiWyePp1UX4yp84MTELJEjaI1mDTFpXIDAl0Fcx+CxLWYfMaT+mgVHORpCEohhbOWELz8RMzLToCXrCDO9z3xeXZ8eDwjlRKSeK8KJ0l0DTzycm2Uy1dwtNbdNrC91VQrjtf/VpMgqrE9W8b/GzqDWlYSttksaSAeWCU55jpy5Yau4RxJdGr8ZBIeedl++T7VuSQva6UtuQajjClF9Hzot6j877dTvuFqSp9+K1l/J856tyHCk1pKPzwZPew4Jh3GSO96fxfhZZdCqL1H8uYa7VwZDtXeWsOpp0accda4Tr8Rt+1czTadqT2oSNFceadl6gu0MRk/rv3vhxLa7vLQUNed+lSvZUa3kA25vCx4aicCuKXsbEWsVF+m0jUTyO6iC8nvTFQ619g+sGUFg4sCWbXDugIbhnt0t9yDE9AuS8mkrGzNmyJ6EWWgLzcjmqvSc2qv6wG5Y0KBKm9GmvvkBtgmmY1b77lFSzvpKqUkXrrlZUqNVgtNwa+87kmm+rWZ+gsqtZprtHNlOFT7TD5551AzPzZb2bYJp8GIPJgCGi1t/AAMaE1ijCzo8cHlhbQ9RIbwtD6C8xaRvWgR5qw+XEeIFXSQ4rwOAhOki9ctV8DnfUbp43WtFt5IyqMTuJomyzeZI7UP7Myxa5ejWSthtauf0N/A6kIHTUJLJym/H3Ba+XwsMphWvQe8lWvLU5uILVgG/uw1VG98E6X1b6b8uTdRX6PVJmBbvUkP35nX60Dy+nnKjUEtdWw1GHJL2rQFEp1YPN8cqW1ge11rNcfIcEAoRVf3TNEh9+GNJ9dJDYwIPwCRE6F3p0nK69v8MF6eAE+qofwzzPQZpruNzsx5ja8VCWxFZVpR+nijHieNw1cYG4GxGO03bsOGYw82CrF+fdm2M86VWlyaoJjN0AJYI3p8IGo4G31RK6t6WVsr356nPHBLkJ9U7ctabOQkl5bp9OHyZaUmOfaz/ecN1DjXxS85T+BMAad1auMYu3EzyIjEOedo58zxDAxJ6ti0NZJrs3TYMYqlGZgdVD4mqeyjtxz/7ofY8jI+R9uD0111x8NTDPxqit5fjdF93wiRfsURWrh8yfl+M1o6+vwszYLuDaVFOh5qvUYN+ert/ucz3445BztnjmdgSBPDzp1lWVBBYNfpL4xiZjdI55egN2VZ2uPjBNWj4KFX0s4oPJw+7bde+x2G37aesTevZ+IdN1F8TDrh5IGdejuQ9Kpy/3wSyV/jAsQAzRmyKV2e+XEw99BesLUCdw1ZYqUlXTz0Ffdp8cUgoBHIeCVFTuTzudWYeQB6Pw7SI5uMyfbqlLRXekwmGCln/HLSXmG8Tr6tx/wgQJu8LNQYKjKKjGByEjzYnucoqK1ge0yHdPyLU0NBJ5E11UktvkRqaal6gJXLYz5QpwE48vHkZjM/oBvJNkZPdWWM0TcABOpfbpvcw3ngW0rQCtL1Se8WYwW4fH1lZFyn2Vqr2VE87VHwHJLFg71LLq2mr4dACq/pHqeSOFoWZB7ns05ZNfafC5m+PFuI+0KVz0M0Eh1KH12k07O5ycD9Eyy6d4Kl99SJ6jKG3MK1DDz6nvINMiVT3tFBRhG/KYaPbIRG86g1bCvY3ngnpyzbt1ZApjM4OEFg9sq2MvxY/aCNLClfnmosDDDGPz0d9RgOy6gu0XZCOtFgyx//Hbte90WG3/A37Lrm8xR3T8gYfP+epKepRSYzmxqrk4iOfYFuJ9OHNuIvzg7b4SEatBVs30cqS/71/Tmc9EbTdHaMCVCjKg1GEVmRs1qKQYNKOEKhNKV6X6Em8xD9/uCPgR5Gf3fudBpxow3MmCx0PFbfs7rpi5KcEjCqsw2lMdZWMPoL6w2SBx5UEy+JowrzALbhgXu9TgFdtsly+W0jl4H8fPkwMQAACcJJREFUpNH5NKBONRpmVd+tvPq0f2DV4B5a1n2E+hvU3uTEkQY/lweS8NKc46wRmIA/6iGQrY6qga4Y/DWDUV77Dq4MGIKJKRjaDX4sPCkc8Uv7wU5hy2OGLI0o2UlOLE8QZQ1tlHWqdoSTOu7mP5zxA956+g9Z2/swpSjGmCPR12B01xH0hoTLIoIlIcFgAVMMxK86Y45EyONtPPZSiixqSu4IpiB3F44jVEV1sKnaWnm/QARm527Ms/DXKLQdbLliRvYYao2QSH5vaecEPcFOzuq7gzed823ecu73OL33bjqiUQ1ymrCQD1uqHCYKzLArYOX/PJllN5/Csu+ewfO+egHlE6qYwOTMxrTS/OWgj6fUG0dcHMMFM3jX5jzARvp4N+JdiimCrYKLCId24PQz3EHFHmFh28H2q2x81FGb6sFmCWf2buRt5/4T17zgZ7x08T0sKQ4TmVhD0VrWwIz/ecocibYGo4sls0rnijND0rPBngmmZAQGcwwGIw4TgAkB6ZEX8ORgTUHFkYw8JdywDRMnT24wx7e2g+0te6YmV7IhwunrcXX3MC9d9hCLou0ErpkDIycjm1dWgzRFh/EjPwLF/WaXyfcrSrbT8tZPasYfICULCdFojDH6CLEYY3LiScHNvs2moV6tSJK8BJ9rkQp1hAmyfhUbIl2p2gcexSTetbRaHM1TUo+G7Zl5tA9y+/9He0mkhhlGdmx9TwJ3dpjou0flhrBoUIbDBj+LnllpksZIOFnSxHVL/oDBiox+hTGhwZgW8UzBqFKrygZK1V7PA6I6clUZ/AoZRUBpWj58wxb8lcMBjeac9RDMmelwDFlmuOMnGY1GAWR5+ODUlQbl7dAvRg+2048MUbEpcHyDw1FGpoul2t4JxrfuYvjhx9i87T6y90Hpr4pUPlOi/1q5rqUevcPJAhkulAvq26pxJhLAeMvVRLoK1qzEMIDRvUjpgUdw45Ni8m3U9Cij7+koWQ/NlqX6IWGH419u6yep65yahmqsZS+r9OpmBlkMOD2joqryqMI8PfjDqtroMb1vgvr4BEmtTuZimoMNaiuaOcVLHSayZJpgp74OLqlV6sF2aitzlSIebE9O+UggLyXAW7XTF+Y47ns/Qjt+i/FZPOcFbD/OZt3x2Y/Cg3f0kNZKLRXlRnzGaKTCTgODsFrAliy2aLUBGoEl0tz4zUsjBisOkTHy9BLsr03z5ayDstN9hTMp/hSRmYQsSHBBhl9Egg2h1uIPIJeVp4bc1cjdoLbNvcOQ6gPGMzjp6U7WhrgWG3cR1Cbp+vJ34R9/CrrLlpRnFTWMZ8V/SOZMhjKsn8mu+3DAr2+vEteKOKFgZM/GD0ycNeuIzzJ0/l4PnW/roeuNnXS8tkL5VRWiiwoELwoxz7fYc6TmOotZBVk1FacXIBLgEkpOKk2LKdmKFHuKwa4TqKcpPc3m+eDskOiFRcovLVO9uJPOSzupXJBgNt2N2bMHsg7gJHCr5K6KhLrd67nhe9j/dRNmSh84fkBq8WyifTbMh+P1G+VeXUx96SMRd93SQzxVhlRdyo84WfeWGcM9neOMXzHJ1FsmmH7nDI33Nkg/GGM+DOFHQ6KPFYj+R5HCJwp0XFshPiUmt1ieHAQ9tY6Y4h9FVD9apHJtmfKfFyn+WUThTyPCD1nM+x3pexKa19Spv3Wa+vk1Yh1DzZ6EIPEzuVonjhJdI6N0/MVNcMN3MRP6otReQRuCbYOMZxThDWJkp+GbHwu582t9xJNdsh6T8wxNG6a1lNNCTFqKScopzWpGoyOh0RnT6GoSdzVyanQ3mOitoQtFYW3QopAcniCtGBem1DubTPfXmOmdZqa7Rq2nkZc1q00SUVyVnxfF5YTE/3/DoABe/UqsXUHUdHTvGKPysW9hvn4bTHv34qdR/bQhHinYz6orJ5cyNWr4wV9abv1smWS6gneZLx6IOKu7TEn+OBQFmgOrxsZpgIq5e8iU0Yw5lTskyOc9qdgr5UE3yhutFN/eiVevPpuT5gDPJvb83dd7PmyBaNEa3GmX4qp9mjxD9ZFdlD/wVdwtv4KGVlDesH2PBQE7V1cI6Fcl7lgfcct/6cLu69fShTWDCeeeUKSoeissPXg5QP6hMpkxnnwWgcwsah40M+uOyIEG1MhIhvZNhHn+7oH2/J5UDZpUY4tUV51DYe3FEHUSyt/13LmB4ju+SPYvm+TqUuYj2PkQeiiZHqe4Ztjwk4Cbry7jNlYpC5xlJcvZJ5bpLhusrFt4zALlPH45xnmGgwcPvNMKaJHaeFQ9KZvzqY881aSYYpXCut+g/rw1NMIiXfWQ3vUPwAe+D8OT8tkCej8v7Q0LCrZX3QOe1GHnvZZ/eF+Zsdt6KdYLDJQdJ68q0tsdYqzUEuh48kyeDguAGu9v41NPKvIyjPIGS9Q3SHT62SSLVpAGHRQnIfiLX+A+/UspNKm7D82K2jJPQaOaJ8nPINYv8bQJI49Y7vpwiR03V3AzlnIUs2x5ge6+gCBEOBnyMJvk1pkXHOqhhvvBUta390DbguStHKCwZjWuoxebFCg/2qD8wTuIvvIgZryO0YfYoaS2q9y2S9DRyMn0W9XMLnjkEwHbP95HcaSTyNYZXJGwbHVIuT8k6goJOg22w2CqYCoinSApyNPI0TsRRaDUIlO15NQRgMgtLhGcsZT05EFq1RCnPvt/PkbHNb8g/PEuzLQ2wgUAWtppbfnnMSTvVuIxw56bLZve24F5qA8TR1DNCFc5zOoMu0ZAn0LrY8V/sJxqCNY9QfkHjD56grOK2LM0G2f1wBmD2LOXYNcuIektYOXTy9MJHV/YSfZfH8Fu0tVkc37dBk8J9invx+bVQTIDE3dadr23QvDNxXQPL6JruqgTS4hNQoLUU6Av7CfI6os0yFSuy6JAdmMzK1Ct2op0UrGeUgjrhq4HIip/uo/iDSPYoSYskDVzQLAH5I95VvdKNDYaRq61jF5Rwr2nn84PDdL5kUX0fLyf3k8N0PfXi+j/3CJ6bxig+0u9LP6b5QysH6D/y730famLRZ/vYun13Sy9rsriv6zQ/zFLx7uaRFePYn9Qx0xqZhU5BsEegz6fuUsB4WR42U7I9BFnvmcJvhVgvlaALxdwn4/Iro/gugLBJyvEn9Hx8JOq+6Sc9qcKZH8dEF+fEN/QJP2ivgC/kVK4w2LH0CbIMQ32mPZ+qM494Fr+TpfexpM2NXMgxUZ+XaQyYgnZ/6609a6ypEXGp5JFpvdjHI8Z2Md43Mek++NgLyDsx8E+DvYCIrCAXR237ONgLyACC9jVccs+DvYCIrCAXR237ONgLyACC9jVccteQLD/DQAA//9BklD9AAAABklEQVQDABr0xA3qLGluAAAAAElFTkSuQmCC";
+
 const defaultKicksSeed = [
-  { username: "artishok2", quantity: 35000 },
-  { username: "1St3pBr0", quantity: 18500 },
-  { username: "Macabitelaviv", quantity: 14200 },
-  { username: "Itzikjoint", quantity: 9800 },
-  { username: "Adiel2007", quantity: 7500 },
-  { username: "avishay13", quantity: 5600 },
-  { username: "uri463", quantity: 4200 },
-  { username: "YardenRGS", quantity: 3100 },
-  { username: "Asian_kfr", quantity: 2400 },
-  { username: "niv129", quantity: 1950 }
+  { username: "omer_lev", quantity: 45000 },
+  { username: "Koren_va", quantity: 38500 },
+  { username: "Danielthekiller", quantity: 26000 },
+  { username: "YardenRGS", quantity: 19200 },
+  { username: "xEXITx", quantity: 15800 },
+  { username: "Krav0n", quantity: 12400 },
+  { username: "orilea29", quantity: 9500 },
+  { username: "K1tt__3h", quantity: 7200 },
+  { username: "edan_c", quantity: 5600 },
+  { username: "THE_TIGRIS", quantity: 3400 }
 ];
 
 function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
@@ -1218,8 +1241,8 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
     const uname = item.username || (item.user && item.user.username) || 'Anonymous';
     const num = Number(item.quantity || item.amount || 0);
     const formattedAmount = isKicks 
-      ? `<span class="amount-wrap"><img src="kick_coin.png" class="kick-coin-icon" alt="Kicks" onerror="this.onerror=null; this.src='Backgrounds/kick_coin.png';">${num.toLocaleString()}</span>` 
-      : `<span class="amount-wrap">${num.toLocaleString()}</span>`;
+      ? '<span class="amount-wrap"><img src="' + KICK_COIN_DATA + '" class="kick-coin-icon" alt="Kicks">' + num.toLocaleString() + '</span>' 
+      : '<span class="amount-wrap">' + num.toLocaleString() + '</span>';
 
     return `
       <tr class="${rankClass}">
