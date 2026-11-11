@@ -4,7 +4,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>GalGM Links</title>
-<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/svg+xml" href="favicon.svg">
 
 <!-- Google Analytics (ניתן לעדכן מזהה לפי הצורך) -->
 <!--
@@ -35,13 +35,17 @@
 }
 
 body {
-  background-color: var(--bg-color);
-  background-image: 
-    radial-gradient(circle at 50% 25%, rgba(120, 50, 220, 0.2) 0%, transparent 65%),
-    url('Backgrounds/Background.png');
-  background-size: cover;
-  background-position: center center;
-  background-repeat: no-repeat;
+  /* רקע עדין ומקצועי: כהה, זוהר רך וגריד דק */
+  background-color: #09090f;
+  background-image:
+    radial-gradient(ellipse 70% 45% at 50% -8%, rgba(139, 92, 246, 0.18), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 100% 100%, rgba(0, 210, 255, 0.07), transparent 70%),
+    radial-gradient(ellipse 45% 35% at 0% 100%, rgba(157, 78, 221, 0.07), transparent 70%),
+    linear-gradient(rgba(255, 255, 255, 0.022) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.022) 1px, transparent 1px);
+  background-size: auto, auto, auto, 44px 44px, 44px 44px;
+  background-position: center top;
+  background-repeat: no-repeat, no-repeat, no-repeat, repeat, repeat;
   background-attachment: fixed;
   color: var(--text-color);
   font-family: 'Heebo', system-ui, -apple-system, sans-serif;
@@ -280,17 +284,26 @@ body {
   box-shadow: 0 4px 18px rgba(0, 0, 0, 0.45);
   transition: transform 0.2s ease, box-shadow 0.2s ease;
   z-index: 1; border: none; cursor: pointer; outline: none;
-  background: transparent;
+  /* מסגרת סטטית עדינה – נראית כשהנחש מוסתר */
+  background: linear-gradient(135deg, var(--snake-tail), rgba(255, 255, 255, 0.05));
 }
-.link-btn:hover, .link-btn:focus { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 25px var(--snake-glow, rgba(0, 0, 0, 0.5)); }
+.link-btn:hover, .link-btn:focus-visible { transform: translateY(-2px) scale(1.02); box-shadow: 0 6px 25px var(--snake-glow, rgba(0, 0, 0, 0.5)); }
+/* הנחש המסתובב מופיע רק במעבר עכבר */
 .link-btn::before {
   content: ''; position: absolute; top: -250%; left: -100%; width: 300%; height: 600%;
   background: conic-gradient(from 0deg, #ffffff 0deg, var(--snake-main) 35deg, var(--snake-tail) 75deg, transparent 110deg, transparent 360deg);
-  animation: snakeSpin 3s linear infinite; z-index: 0; pointer-events: none;
+  animation: snakeSpin 3s linear infinite; animation-play-state: paused;
+  opacity: 0; transition: opacity 0.3s ease;
+  z-index: 0; pointer-events: none;
 }
+.link-btn:hover::before, .link-btn:focus-visible::before { opacity: 1; animation-play-state: running; }
+/* גרדיאנט עדין בצבע של כל כפתור */
 .link-btn::after {
   content: ''; position: absolute; inset: 2px; border-radius: 12px;
-  background: var(--btn-bg); z-index: 1; pointer-events: none; transition: background 0.2s ease;
+  background:
+    linear-gradient(135deg, rgba(255, 255, 255, 0.05) 0%, rgba(255, 255, 255, 0) 55%),
+    linear-gradient(160deg, color-mix(in srgb, var(--snake-main) 10%, var(--btn-bg)) 0%, var(--btn-bg) 75%);
+  z-index: 1; pointer-events: none; transition: background 0.2s ease;
 }
 .link-btn > * { position: relative; z-index: 2; color: var(--text-color-btn, #ffffff); }
 .link-btn span { letter-spacing: 0.5px; }
