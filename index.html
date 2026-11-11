@@ -1397,17 +1397,37 @@ const defaultGiftsSeed = [
 ];
 
 const KICK_COIN_DATA = "kick_coin.png";
+const KICK_CHANNEL_ID = 7843283; // מזהה הערוץ של galgm ב-Kick
 
 // ========================================================
-// רשימת Lifetime Top KICKers עבור GalGM (https://kick.com/galgm)
-// שימו לב: Kick מספקת נתוני Sub Gifts ב-API פומבי, אך נתוני Kicks
-// בערוץ דורשים חיבור חשבון ב-Kick או שמוזנים ידנית לפי ערוץ גל.
-// כאן מוגדרים תורמי הקיקס של GalGM:
+// כתובת ה-Cloudflare Worker (אחרי ה-Deploy מדביקים כאן את הכתובת שלו).
+// לדוגמה: 'https://galgm-leaderboards.YOUR-NAME.workers.dev'
+// אם ריק – האתר משתמש בפרוקסים הציבוריים ובנתוני הגיבוי.
+// ========================================================
+const LEADERBOARD_WORKER_URL = 'https://galgm-leaderboards.gal-m1521.workers.dev';
+
+// ========================================================
+// Lifetime Top KICKers – נתונים אמיתיים מ-Kick (עודכן 11/11/2026).
+// משמשים כגיבוי: אם הטעינה החיה מ-Kick נכשלת, הטבלה תציג את אלה.
+// מקור: https://web.kick.com/api/v1/kicks/7843283/leaderboard
 // ========================================================
 const lifetimeKicksTop10 = [
-  // תורמי הקיקס של ערוץ GalGM (ניתן להוסיף/לערוך בהתאם לערוץ)
+  { username: "omer_lev",        quantity: 204540 },
+  { username: "Danielthekiller", quantity: 49000 },
+  { username: "shaked_b",        quantity: 38343 },
+  { username: "Koren_va",        quantity: 31500 },
+  { username: "K1tt_3h",         quantity: 20000 },
+  { username: "Krav0n",          quantity: 19900 },
+  { username: "THE_TIGRIS",      quantity: 14500 },
+  { username: "orileo29",        quantity: 13000 },
+  { username: "TheKatan",        quantity: 10500 },
+  { username: "xEXITx",          quantity: 9500 }
 ];
 const defaultKicksSeed = lifetimeKicksTop10;
+
+function escapeHtml(s) {
+  return String(s).replace(/[&<>"']/g, c => ({ '&':'&amp;', '<':'&lt;', '>':'&gt;', '"':'&quot;', "'":'&#39;' }[c]));
+}
 
 function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
   const tbody = document.getElementById(tbodyId);
@@ -1416,7 +1436,8 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
     tbody.innerHTML = '<tr><td colspan="3" class="lb-empty-row">אין נתונים זמינים כרגע</td></tr>';
     return;
   }
-  const top10 = dataList.slice(0, 10);
+  const sorted = [...dataList].sort((a, b) => (Number(b.quantity || b.amount) || 0) - (Number(a.quantity || a.amount) || 0));
+  const top10 = sorted.slice(0, 10);
   tbody.innerHTML = top10.map((item, index) => {
     const rank = index + 1;
     let rankDisplay = rank;
@@ -1425,7 +1446,7 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
     else if (rank === 2) { rankDisplay = '🥈'; rankClass = 'rank-2'; }
     else if (rank === 3) { rankDisplay = '🥉'; rankClass = 'rank-3'; }
 
-    const uname = item.username || (item.user && item.user.username) || 'Anonymous';
+    const uname = escapeHtml(item.username || (item.user && item.user.username) || 'Anonymous');
     const num = Number(item.quantity || item.amount || 0);
     const formattedAmount = `<span class="amount-wrap">${num.toLocaleString()}</span>`;
     return `
@@ -1437,7 +1458,55 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
     `;
   }).join('');
 }
+
+// מנסה להביא JSON ישירות ודרך כמה פרוקסים במקביל; הראשון שמחזיר נתון תקין מנצח.
+// לכל ניסיון יש הגבלת זמן, כך שפרוקסי תקוע לא משאיר את הטבלה ב"טוען..." לנצח.
+async function fetchJsonWithFallbacks(targetUrl, isValid, timeoutMs = 9000) {
+  const enc = encodeURIComponent(targetUrl);
+  const attempts = [
+    { url: targetUrl },
+    { url: `https://api.allorigins.win/get?url=${enc}`, wrapped: true },
+    { url: `https://api.allorigins.win/raw?url=${enc}` },
+    { url: `https://api.codetabs.com/v1/proxy?quest=${enc}` }
+  ];
+  const tryOne = async (a) => {
+    const ctrl = new AbortController();
+    const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+    try {
+      const resp = await fetch(a.url, { cache: 'no-store', signal: ctrl.signal });
+      if (!resp.ok) throw new Error('HTTP ' + resp.status);
+      let data = await resp.json();
+      if (a.wrapped) data = JSON.parse(data.contents);
+      if (typeof data === 'string') data = JSON.parse(data);
+      if (!isValid(data)) throw new Error('invalid data');
+      return data;
+    } finally {
+      clearTimeout(timer);
+    }
+  };
+  try {
+    return await Promise.any(attempts.map(tryOne));
+  } catch (e) {
+    return null; // כל הניסיונות נכשלו
+  }
+}
+
+async function fetchJsonFromWorker(timeoutMs = 8000) {
+  const ctrl = new AbortController();
+  const timer = setTimeout(() => ctrl.abort(), timeoutMs);
+  try {
+    const resp = await fetch(LEADERBOARD_WORKER_URL.replace(/\/+$/, ''), { cache: 'no-store', signal: ctrl.signal });
+    if (!resp.ok) return null;
+    return await resp.json();
+  } catch (e) {
+    return null;
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 let isLeaderboardsLoading = false;
+let leaderboardsRenderedOnce = false;
 async function fetchKickLeaderboards(isManual = false) {
   if (isLeaderboardsLoading) return;
   isLeaderboardsLoading = true;
@@ -1445,77 +1514,66 @@ async function fetchKickLeaderboards(isManual = false) {
   const statusText = document.getElementById('donatorsUpdateStatus');
   if (refreshIcon) refreshIcon.classList.add('fa-spin');
 
-  const targetUrl = 'https://kick.com/api/v2/channels/galgm/leaderboards';
-  const urlsToTry = [
-    `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
-    `https://corsproxy.io/?url=${encodeURIComponent(targetUrl)}`,
-    targetUrl
-  ];
-
-  let rawData = null;
-  for (const url of urlsToTry) {
-    try {
-      const resp = await fetch(url, { headers: { 'Accept': 'application/json' }, cache: 'no-store' });
-      if (resp.ok) {
-        rawData = await resp.json();
-        if (typeof rawData === 'string') {
-          rawData = JSON.parse(rawData);
-        }
-        if (rawData && (rawData.gifts || rawData.gifts_week || rawData.kicks)) {
-          break;
-        }
-      }
-    } catch (e) {
-      // try next fallback
-    }
-  }
-
-  if (rawData) {
-    // Process Gifts
-    let giftsList = rawData.gifts || rawData.gifts_week || [];
-    if (Array.isArray(giftsList) && giftsList.length > 0) {
-      giftsList.sort((a, b) => (Number(b.quantity) || 0) - (Number(a.quantity) || 0));
-      renderLeaderboardTable('giftsTableBody', giftsList, false);
-    } else {
-      renderLeaderboardTable('giftsTableBody', defaultGiftsSeed, false);
-    }
-
-    // Process Kicks (GalGM)
-    let kicksList = rawData.kicks 
-      || rawData.kicks_leaderboard 
-      || rawData.kicks_all_time 
-      || (rawData.leaderboards && rawData.leaderboards.kicks)
-      || [];
-    if (Array.isArray(kicksList) && kicksList.length > 0) {
-      kicksList.sort((a, b) => (Number(b.quantity || b.amount) || 0) - (Number(a.quantity || a.amount) || 0));
-      renderLeaderboardTable('kicksTableBody', kicksList, true);
-    } else if (defaultKicksSeed && defaultKicksSeed.length > 0) {
-      renderLeaderboardTable('kicksTableBody', defaultKicksSeed, true);
-    } else {
-      const kicksTbody = document.getElementById('kicksTableBody');
-      if (kicksTbody) {
-        kicksTbody.innerHTML = '<tr><td colspan="3" class="lb-empty-row">מסונכרן מול https://kick.com/galgm • אין נתוני Kicks פומביים כרגע</td></tr>';
-      }
-    }
-  } else {
-    // Initial display with seed data
+  // מציגים מיד את נתוני הגיבוי כדי שהטבלה לעולם לא תיתקע על "טוען..."
+  if (!leaderboardsRenderedOnce) {
     renderLeaderboardTable('giftsTableBody', defaultGiftsSeed, false);
     renderLeaderboardTable('kicksTableBody', defaultKicksSeed, true);
+    leaderboardsRenderedOnce = true;
   }
 
-  const now = new Date();
-  const timeStr = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
-  if (statusText) {
-    statusText.textContent = `עודכן לאחרונה: ${timeStr} • מתעדכן אוטומטית`;
-  }
+  try {
+    // 1) קודם כל ה-Worker שלנו – מהיר ואמין
+    let giftsData = null, kicksData = null;
+    if (LEADERBOARD_WORKER_URL) {
+      const w = await fetchJsonFromWorker();
+      if (w) {
+        if (Array.isArray(w.gifts)) giftsData = { gifts: w.gifts };
+        if (Array.isArray(w.kicks)) kicksData = { data: { kicks_gifts_lifetime: w.kicks } };
+      }
+    }
 
-  if (refreshIcon) refreshIcon.classList.remove('fa-spin');
-  isLeaderboardsLoading = false;
+    // 2) גיבוי: ישירות / דרך פרוקסים ציבוריים, רק למה שה-Worker לא החזיר
+    const [giftsFallback, kicksFallback] = await Promise.all([
+      giftsData ? null :
+      // Sub gifts: https://kick.com/api/v2/channels/galgm/leaderboards
+      fetchJsonWithFallbacks(
+        'https://kick.com/api/v2/channels/galgm/leaderboards',
+        d => d && Array.isArray(d.gifts)
+      ),
+      // Kicks: endpoint נפרד ב-web.kick.com (לפי מזהה ערוץ)
+      kicksData ? null :
+      fetchJsonWithFallbacks(
+        `https://web.kick.com/api/v1/kicks/${KICK_CHANNEL_ID}/leaderboard`,
+        d => d && d.data && Array.isArray(d.data.kicks_gifts_lifetime)
+      )
+    ]);
+    giftsData = giftsData || giftsFallback;
+    kicksData = kicksData || kicksFallback;
+
+    if (giftsData && giftsData.gifts.length > 0) {
+      renderLeaderboardTable('giftsTableBody', giftsData.gifts, false);
+    }
+
+    if (kicksData && kicksData.data.kicks_gifts_lifetime.length > 0) {
+      renderLeaderboardTable('kicksTableBody', kicksData.data.kicks_gifts_lifetime, true);
+    }
+
+    const now = new Date();
+    const timeStr = now.toLocaleTimeString('he-IL', { hour: '2-digit', minute: '2-digit' });
+    if (statusText) {
+      statusText.textContent = (giftsData || kicksData)
+        ? `עודכן לאחרונה: ${timeStr} • מתעדכן אוטומטית`
+        : `לא ניתן להתחבר ל-Kick כרגע • מוצגים נתונים שמורים`;
+    }
+  } finally {
+    if (refreshIcon) refreshIcon.classList.remove('fa-spin');
+    isLeaderboardsLoading = false;
+  }
 }
 
 // Initial fetch on load
 fetchKickLeaderboards();
-setInterval(fetchKickLeaderboards, 45000);
+setInterval(fetchKickLeaderboards, 60000);
 
 /* ── Spotlight ── */
 const spotlight = document.getElementById('spotlight');
