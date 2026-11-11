@@ -6,6 +6,17 @@
 <title>GalGM Links</title>
 <link rel="icon" type="image/png" href="favicon.png">
 
+<!-- Google Analytics (ניתן לעדכן מזהה לפי הצורך) -->
+<!--
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+  gtag('config', 'G-XXXXXXXXXX');
+</script>
+-->
+
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Heebo:wght@400;600;700;900&display=swap');
@@ -106,6 +117,8 @@ body {
 }
 .view-section.active { display: flex; }
 
+/* #infoView padding handled by site-wrapper */
+
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -193,6 +206,11 @@ body {
   letter-spacing: 1.2px;
   display: inline-block;
   text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
+}
+@keyframes rainbowShift {
+  0%   { background-position: 0% 50%; }
+  50%  { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
 }
 
 /* ── Live badge ── */
@@ -303,7 +321,10 @@ body {
   pointer-events: none;
   transition: opacity 0.25s ease;
 }
-.bit-modal-overlay.open { opacity: 1; pointer-events: auto; }
+.bit-modal-overlay.open {
+  opacity: 1;
+  pointer-events: auto;
+}
 .bit-modal-card {
   position: relative;
   background: #091c20;
@@ -321,7 +342,9 @@ body {
   direction: rtl;
   text-align: center;
 }
-.bit-modal-overlay.open .bit-modal-card { transform: scale(1); }
+.bit-modal-overlay.open .bit-modal-card {
+  transform: scale(1);
+}
 .bit-modal-close {
   position: absolute;
   top: 14px;
@@ -340,7 +363,10 @@ body {
   transition: background 0.2s, transform 0.2s;
   outline: none;
 }
-.bit-modal-close:hover { background: rgba(255, 0, 70, 0.4); transform: rotate(90deg); }
+.bit-modal-close:hover {
+  background: rgba(255, 0, 70, 0.4);
+  transform: rotate(90deg);
+}
 .bit-modal-title {
   font-family: 'Poppins', 'Heebo', sans-serif;
   font-size: 22px;
@@ -379,6 +405,7 @@ body {
   flex-direction: column;
   gap: 16px;
 }
+
 .acc-item {
   background: rgba(18, 14, 28, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -400,6 +427,7 @@ body {
   user-select: none;
   direction: ltr;
 }
+
 .acc-icon {
   width: 44px; height: 44px;
   border-radius: 12px;
@@ -415,6 +443,7 @@ body {
   background: rgba(192, 132, 252, 0.22);
   box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
 }
+
 .acc-title {
   flex: 1;
   font-family: 'Poppins', sans-serif;
@@ -423,6 +452,7 @@ body {
   color: #ffffff;
   letter-spacing: 0.5px;
 }
+
 .acc-chevron {
   width: 32px; height: 32px;
   border-radius: 10px;
@@ -440,12 +470,16 @@ body {
   background: rgba(192, 132, 252, 0.12);
   border-color: rgba(192, 132, 252, 0.28);
 }
+
 .acc-body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.acc-item.open .acc-body { max-height: 900px; }
+.acc-item.open .acc-body {
+  max-height: 900px;
+}
+
 .acc-inner {
   padding: 4px 20px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -516,7 +550,9 @@ body {
   -webkit-user-drag: none;
   transition: transform 0.2s ease;
 }
-.emote-item:hover .emote-img { transform: scale(1.12); }
+.emote-item:hover .emote-img {
+  transform: scale(1.12);
+}
 .emote-name {
   font-family: 'Poppins', sans-serif;
   font-size: 11px;
@@ -614,6 +650,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   .badge-item        { width: 55px; }
   .badge-img         { width: 42px; height: 42px; }
   .badge-item span   { font-size: 10.5px; }
+  /* infoView responsive */
 }
 @media (max-height: 750px) {
   .site-wrapper { padding-top: 96px; }
@@ -632,7 +669,10 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 }
 
 /* ════════════════════════════════
-   DONATORS VIEW (Enlarged by 30% & Lowered)
+   DONATORS VIEW
+   ════════════════════════════════ */
+/* ════════════════════════════════
+   DONATORS VIEW (Enlarged & Pushed Down)
    ════════════════════════════════ */
 #donatorsView {
   max-width: 1200px !important;
@@ -660,10 +700,10 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   font-family: 'Poppins', sans-serif;
   font-size: 28px !important;
   font-weight: 800;
-  color: #00d2ff;
+  color: #ffffff !important;
   letter-spacing: 1px;
   margin: 3px 0 0 0 !important;
-  text-shadow: 0 2px 14px rgba(0, 210, 255, 0.45);
+  text-shadow: 0 2px 14px rgba(255, 255, 255, 0.45);
 }
 .donator-badges-row {
   display: flex;
@@ -899,8 +939,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   justify-content: center;
   gap: 3px;
   direction: ltr;
-}
-</style>
+}</style>
 </head>
 <body>
 
@@ -994,7 +1033,8 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
     </div>
 
     <div class="accordion-list">
-      <!-- ACCORDION 1: Setup Specs -->
+
+      <!-- ── ACCORDION 1: Setup Specs ── -->
       <div class="acc-item" id="acc-setup">
         <div class="acc-header" onclick="toggleAcc('acc-setup')">
           <div class="acc-icon"><i class="fa-solid fa-desktop"></i></div>
@@ -1030,7 +1070,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         </div>
       </div>
 
-      <!-- ACCORDION 2: Subscriber Badges -->
+      <!-- ── ACCORDION 2: Subscriber Badges ── -->
       <div class="acc-item" id="acc-badges">
         <div class="acc-header" onclick="toggleAcc('acc-badges')">
           <div class="acc-icon"><i class="fa-solid fa-medal"></i></div>
@@ -1040,20 +1080,44 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         <div class="acc-body">
           <div class="acc-inner">
             <div class="badges-container">
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M1.png" alt="Base"><span>Base</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months"><span>2 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months"><span>3 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months"><span>6 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months"><span>9 Months</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year"><span>1 Year</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M7.png" alt="1.5 Years"><span>1.5 Years</span></div>
-              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M8.png" alt="2 Years"><span>2 Years</span></div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M1.png" alt="Base" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-line-duotone.svg?color=%2300d2ff';">
+                <span>Base</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%239d4edd';">
+                <span>2 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:star-fall-bold-duotone.svg?color=%23facc15';">
+                <span>3 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2353fc18';">
+                <span>6 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff9800';">
+                <span>9 Months</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff5e5e';">
+                <span>1 Year</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M7.png" alt="1.5 Years" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-star-bold-duotone.svg?color=%2300d2ff';">
+                <span>1.5 Years</span>
+              </div>
+              <div class="badge-item">
+                <img class="badge-img" src="Subscriber%20badges/M8.png" alt="2 Years" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%23facc15';">
+                <span>2 Years</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ACCORDION 2.5: Subscriber Emotes -->
+      <!-- ── ACCORDION 2.5: Subscriber Emotes ── -->
       <div class="acc-item" id="acc-emotes">
         <div class="acc-header" onclick="toggleAcc('acc-emotes')">
           <div class="acc-icon"><i class="fa-solid fa-face-smile"></i></div>
@@ -1063,23 +1127,50 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         <div class="acc-body">
           <div class="acc-inner">
             <div class="emotes-container" id="emotesContainer">
-              <div class="emote-item" title="Emote 1"><img class="emote-img" src="Subscriber%20emotes/1.png" alt="Emote 1"></div>
-              <div class="emote-item" title="Emote 2"><img class="emote-img" src="Subscriber%20emotes/2.png" alt="Emote 2"></div>
-              <div class="emote-item" title="Emote 3"><img class="emote-img" src="Subscriber%20emotes/3.png" alt="Emote 3"></div>
-              <div class="emote-item" title="Emote 4"><img class="emote-img" src="Subscriber%20emotes/4.png" alt="Emote 4"></div>
-              <div class="emote-item" title="Emote 5"><img class="emote-img" src="Subscriber%20emotes/5.png" alt="Emote 5"></div>
-              <div class="emote-item" title="Emote 6"><img class="emote-img" src="Subscriber%20emotes/6.png" alt="Emote 6"></div>
-              <div class="emote-item" title="Emote 7"><img class="emote-img" src="Subscriber%20emotes/7.png" alt="Emote 7"></div>
-              <div class="emote-item" title="Emote 8 (Animated)"><img class="emote-img" src="Subscriber%20emotes/8.gif" alt="Emote 8"></div>
-              <div class="emote-item" title="Emote 9"><img class="emote-img" src="Subscriber%20emotes/9.png" alt="Emote 9"></div>
-              <div class="emote-item" title="Emote 10"><img class="emote-img" src="Subscriber%20emotes/10.png" alt="Emote 10"></div>
-              <div class="emote-item" title="Emote 11"><img class="emote-img" src="Subscriber%20emotes/11.png" alt="Emote 11"></div>
-              <div class="emote-item" title="Emote 12"><img class="emote-img" src="Subscriber%20emotes/12.png" alt="Emote 12"></div>
-              <div class="emote-item" title="Emote 13"><img class="emote-img" src="Subscriber%20emotes/13.png" alt="Emote 13"></div>
+              <div class="emote-item" title="Emote 1">
+                <img class="emote-img" src="Subscriber%20emotes/1.png" alt="Emote 1" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 2">
+                <img class="emote-img" src="Subscriber%20emotes/2.png" alt="Emote 2" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 3">
+                <img class="emote-img" src="Subscriber%20emotes/3.png" alt="Emote 3" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 4">
+                <img class="emote-img" src="Subscriber%20emotes/4.png" alt="Emote 4" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 5">
+                <img class="emote-img" src="Subscriber%20emotes/5.png" alt="Emote 5" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 6">
+                <img class="emote-img" src="Subscriber%20emotes/6.png" alt="Emote 6" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 7">
+                <img class="emote-img" src="Subscriber%20emotes/7.png" alt="Emote 7" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 8 (Animated)">
+                <img class="emote-img" src="Subscriber%20emotes/8.gif" alt="Emote 8" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 9">
+                <img class="emote-img" src="Subscriber%20emotes/9.png" alt="Emote 9" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 10">
+                <img class="emote-img" src="Subscriber%20emotes/10.png" alt="Emote 10" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 11">
+                <img class="emote-img" src="Subscriber%20emotes/11.png" alt="Emote 11" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 12">
+                <img class="emote-img" src="Subscriber%20emotes/12.png" alt="Emote 12" draggable="false">
+              </div>
+              <div class="emote-item" title="Emote 13">
+                <img class="emote-img" src="Subscriber%20emotes/13.png" alt="Emote 13" draggable="false">
+              </div>
             </div>
           </div>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -1092,6 +1183,10 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
              onerror="this.onerror=null; this.src='/Backgrounds/profile.webp'; this.onerror=function(){this.src='profile.webp';};">
       </div>
       <h2 class="donator-streamer-name">GalGM</h2>
+      <div class="profile-name">
+        <img src="https://upload.wikimedia.org/wikipedia/commons/0/0e/FortniteLogo.svg" alt="Fortnite" class="fortnite-logo-img" onerror="this.onerror=null; this.src='https://cdn2.unrealengine.com/fn-logo-fn-horizontal-logo-lockup-1920x1080-607218671.png';">
+        <span class="code-igm-text">Code: IGM</span>
+      </div>
       <div class="donator-badges-row">
         <span class="donator-badge top-donators-badge"><i class="fa-solid fa-crown"></i> TOP DONATORS</span>
         <div id="kickDonatorsStatusBadge" class="kick-status-badge offline" aria-label="Kick Live Status">
@@ -1109,6 +1204,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 
     <!-- Dual Leaderboards Grid -->
     <div class="leaderboards-grid">
+
       <!-- Table 1: Lifetime top KICKers (Right side) -->
       <div class="lb-card kicks-card">
         <div class="lb-card-header">
@@ -1160,6 +1256,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
           </table>
         </div>
       </div>
+
     </div>
   </div>
 
@@ -1287,16 +1384,16 @@ setInterval(checkKickLiveStatus, 60000);
 
 /* ── Donators Leaderboards (Gifts & Kicks) ── */
 const defaultGiftsSeed = [
-  { username: "omer_lev", quantity: 341 },
-  { username: "Koren_va", quantity: 310 },
-  { username: "Danielthekiller", quantity: 84 },
-  { username: "YardenRGS", quantity: 71 },
-  { username: "xEXITx", quantity: 63 },
-  { username: "KravOn", quantity: 61 },
-  { username: "orileo29", quantity: 53 },
-  { username: "Kltt_3h", quantity: 42 },
-  { username: "edan_c", quantity: 35 },
-  { username: "THE_TIGRIS", quantity: 16 }
+  { username: "Krav0n", quantity: 4220 },
+  { username: "mrdavid465", quantity: 1630 },
+  { username: "natanelf", quantity: 1210 },
+  { username: "eylon1", quantity: 1208 },
+  { username: "TheFl1k", quantity: 1062 },
+  { username: "Thekoa1a", quantity: 885 },
+  { username: "Oliverremez", quantity: 513 },
+  { username: "yohay32", quantity: 461 },
+  { username: "absolute_alamo", quantity: 429 },
+  { username: "thebigSheshMan", quantity: 413 }
 ];
 
 const KICK_COIN_DATA = "kick_coin.png";
@@ -1340,7 +1437,6 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
     `;
   }).join('');
 }
-
 let isLeaderboardsLoading = false;
 async function fetchKickLeaderboards(isManual = false) {
   if (isLeaderboardsLoading) return;
