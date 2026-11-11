@@ -6,17 +6,6 @@
 <title>GalGM Links</title>
 <link rel="icon" type="image/png" href="favicon.png">
 
-<!-- Google Analytics (ניתן לעדכן מזהה לפי הצורך) -->
-<!--
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXXX"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-XXXXXXXXXX');
-</script>
--->
-
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 <style>
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600;700;800&family=Heebo:wght@400;600;700;900&display=swap');
@@ -117,8 +106,6 @@ body {
 }
 .view-section.active { display: flex; }
 
-/* #infoView padding handled by site-wrapper */
-
 @keyframes fadeIn {
   from { opacity: 0; transform: translateY(15px); }
   to   { opacity: 1; transform: translateY(0); }
@@ -158,8 +145,9 @@ body {
   width: 100%;
   height: 100%;
   border-radius: 50%;
-  background: conic-gradient(from 0deg, #facc15, #ff0077, #7928ca, #00d2ff, #facc15);
+  background: conic-gradient(from 0deg, #ffffff 0deg, rgba(255, 255, 255, 0.9) 60deg, rgba(255, 255, 255, 0.2) 160deg, transparent 240deg, #ffffff 360deg);
   animation: snakeSpin 4s linear infinite;
+  box-shadow: 0 0 16px rgba(255, 255, 255, 0.65);
   z-index: 0;
 }
 .profile-pic {
@@ -193,23 +181,18 @@ body {
   height: 23px;
   width: auto;
   vertical-align: middle;
-  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(0, 210, 255, 0.7));
+  filter: brightness(0) invert(1) drop-shadow(0 0 6px rgba(255, 255, 255, 0.5));
   display: inline-block;
 }
 .code-igm-text {
-  background: linear-gradient(90deg, #facc15, #ff0077, #7928ca, #00d2ff, #facc15);
-  background-size: 300% 300%;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: rainbowShift 3.5s ease infinite;
+  color: #ffffff !important;
+  background: none !important;
+  -webkit-background-clip: initial !important;
+  -webkit-text-fill-color: #ffffff !important;
   font-weight: 900;
   letter-spacing: 1.2px;
   display: inline-block;
-}
-@keyframes rainbowShift {
-  0%   { background-position: 0% 50%; }
-  50%  { background-position: 100% 50%; }
-  100% { background-position: 0% 50%; }
+  text-shadow: 0 2px 10px rgba(255, 255, 255, 0.4);
 }
 
 /* ── Live badge ── */
@@ -320,10 +303,7 @@ body {
   pointer-events: none;
   transition: opacity 0.25s ease;
 }
-.bit-modal-overlay.open {
-  opacity: 1;
-  pointer-events: auto;
-}
+.bit-modal-overlay.open { opacity: 1; pointer-events: auto; }
 .bit-modal-card {
   position: relative;
   background: #091c20;
@@ -341,9 +321,7 @@ body {
   direction: rtl;
   text-align: center;
 }
-.bit-modal-overlay.open .bit-modal-card {
-  transform: scale(1);
-}
+.bit-modal-overlay.open .bit-modal-card { transform: scale(1); }
 .bit-modal-close {
   position: absolute;
   top: 14px;
@@ -362,10 +340,7 @@ body {
   transition: background 0.2s, transform 0.2s;
   outline: none;
 }
-.bit-modal-close:hover {
-  background: rgba(255, 0, 70, 0.4);
-  transform: rotate(90deg);
-}
+.bit-modal-close:hover { background: rgba(255, 0, 70, 0.4); transform: rotate(90deg); }
 .bit-modal-title {
   font-family: 'Poppins', 'Heebo', sans-serif;
   font-size: 22px;
@@ -404,7 +379,6 @@ body {
   flex-direction: column;
   gap: 16px;
 }
-
 .acc-item {
   background: rgba(18, 14, 28, 0.85);
   border: 1px solid rgba(255, 255, 255, 0.1);
@@ -426,7 +400,6 @@ body {
   user-select: none;
   direction: ltr;
 }
-
 .acc-icon {
   width: 44px; height: 44px;
   border-radius: 12px;
@@ -442,7 +415,6 @@ body {
   background: rgba(192, 132, 252, 0.22);
   box-shadow: 0 0 12px rgba(192, 132, 252, 0.4);
 }
-
 .acc-title {
   flex: 1;
   font-family: 'Poppins', sans-serif;
@@ -451,7 +423,6 @@ body {
   color: #ffffff;
   letter-spacing: 0.5px;
 }
-
 .acc-chevron {
   width: 32px; height: 32px;
   border-radius: 10px;
@@ -469,16 +440,12 @@ body {
   background: rgba(192, 132, 252, 0.12);
   border-color: rgba(192, 132, 252, 0.28);
 }
-
 .acc-body {
   max-height: 0;
   overflow: hidden;
   transition: max-height 0.42s cubic-bezier(0.4, 0, 0.2, 1);
 }
-.acc-item.open .acc-body {
-  max-height: 900px;
-}
-
+.acc-item.open .acc-body { max-height: 900px; }
 .acc-inner {
   padding: 4px 20px 20px;
   border-top: 1px solid rgba(255, 255, 255, 0.07);
@@ -549,9 +516,7 @@ body {
   -webkit-user-drag: none;
   transition: transform 0.2s ease;
 }
-.emote-item:hover .emote-img {
-  transform: scale(1.12);
-}
+.emote-item:hover .emote-img { transform: scale(1.12); }
 .emote-name {
   font-family: 'Poppins', sans-serif;
   font-size: 11px;
@@ -649,7 +614,6 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   .badge-item        { width: 55px; }
   .badge-img         { width: 42px; height: 42px; }
   .badge-item span   { font-size: 10.5px; }
-  /* infoView responsive */
 }
 @media (max-height: 750px) {
   .site-wrapper { padding-top: 96px; }
@@ -668,10 +632,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 }
 
 /* ════════════════════════════════
-   DONATORS VIEW
-   ════════════════════════════════ */
-/* ════════════════════════════════
-   DONATORS VIEW (Enlarged & Pushed Down)
+   DONATORS VIEW (Enlarged by 30% & Lowered)
    ════════════════════════════════ */
 #donatorsView {
   max-width: 1200px !important;
@@ -938,7 +899,8 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
   justify-content: center;
   gap: 3px;
   direction: ltr;
-}</style>
+}
+</style>
 </head>
 <body>
 
@@ -1010,7 +972,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
       <!-- Bit Donation Button -->
       <button type="button" onclick="openBitModal()" class="link-btn btn-bit" aria-label="תרומה ב-Bit לגל מתתיהו">
         <i class="fa-solid fa-qrcode"></i>
-        <span dir="rtl">תרומה ב-Bit </span>
+        <span dir="rtl">תרומה ב-Bit (ביט)</span>
       </button>
     </div>
   </div>
@@ -1032,8 +994,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
     </div>
 
     <div class="accordion-list">
-
-      <!-- ── ACCORDION 1: Setup Specs ── -->
+      <!-- ACCORDION 1: Setup Specs -->
       <div class="acc-item" id="acc-setup">
         <div class="acc-header" onclick="toggleAcc('acc-setup')">
           <div class="acc-icon"><i class="fa-solid fa-desktop"></i></div>
@@ -1069,7 +1030,7 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         </div>
       </div>
 
-      <!-- ── ACCORDION 2: Subscriber Badges ── -->
+      <!-- ACCORDION 2: Subscriber Badges -->
       <div class="acc-item" id="acc-badges">
         <div class="acc-header" onclick="toggleAcc('acc-badges')">
           <div class="acc-icon"><i class="fa-solid fa-medal"></i></div>
@@ -1079,44 +1040,20 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         <div class="acc-body">
           <div class="acc-inner">
             <div class="badges-container">
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M1.png" alt="Base" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-line-duotone.svg?color=%2300d2ff';">
-                <span>Base</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%239d4edd';">
-                <span>2 Months</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:star-fall-bold-duotone.svg?color=%23facc15';">
-                <span>3 Months</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:shield-star-bold-duotone.svg?color=%2353fc18';">
-                <span>6 Months</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff9800';">
-                <span>9 Months</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:cup-star-bold-duotone.svg?color=%23ff5e5e';">
-                <span>1 Year</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M7.png" alt="1.5 Years" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-star-bold-duotone.svg?color=%2300d2ff';">
-                <span>1.5 Years</span>
-              </div>
-              <div class="badge-item">
-                <img class="badge-img" src="Subscriber%20badges/M8.png" alt="2 Years" draggable="false" onerror="this.onerror=null; this.src='https://api.iconify.design/solar:crown-bold-duotone.svg?color=%23facc15';">
-                <span>2 Years</span>
-              </div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M1.png" alt="Base"><span>Base</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M2.png" alt="2 Months"><span>2 Months</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M3.png" alt="3 Months"><span>3 Months</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M4.png" alt="6 Months"><span>6 Months</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M5.png" alt="9 Months"><span>9 Months</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M6.png" alt="1 Year"><span>1 Year</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M7.png" alt="1.5 Years"><span>1.5 Years</span></div>
+              <div class="badge-item"><img class="badge-img" src="Subscriber%20badges/M8.png" alt="2 Years"><span>2 Years</span></div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- ── ACCORDION 2.5: Subscriber Emotes ── -->
+      <!-- ACCORDION 2.5: Subscriber Emotes -->
       <div class="acc-item" id="acc-emotes">
         <div class="acc-header" onclick="toggleAcc('acc-emotes')">
           <div class="acc-icon"><i class="fa-solid fa-face-smile"></i></div>
@@ -1126,50 +1063,23 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
         <div class="acc-body">
           <div class="acc-inner">
             <div class="emotes-container" id="emotesContainer">
-              <div class="emote-item" title="Emote 1">
-                <img class="emote-img" src="Subscriber%20emotes/1.png" alt="Emote 1" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 2">
-                <img class="emote-img" src="Subscriber%20emotes/2.png" alt="Emote 2" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 3">
-                <img class="emote-img" src="Subscriber%20emotes/3.png" alt="Emote 3" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 4">
-                <img class="emote-img" src="Subscriber%20emotes/4.png" alt="Emote 4" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 5">
-                <img class="emote-img" src="Subscriber%20emotes/5.png" alt="Emote 5" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 6">
-                <img class="emote-img" src="Subscriber%20emotes/6.png" alt="Emote 6" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 7">
-                <img class="emote-img" src="Subscriber%20emotes/7.png" alt="Emote 7" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 8 (Animated)">
-                <img class="emote-img" src="Subscriber%20emotes/8.gif" alt="Emote 8" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 9">
-                <img class="emote-img" src="Subscriber%20emotes/9.png" alt="Emote 9" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 10">
-                <img class="emote-img" src="Subscriber%20emotes/10.png" alt="Emote 10" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 11">
-                <img class="emote-img" src="Subscriber%20emotes/11.png" alt="Emote 11" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 12">
-                <img class="emote-img" src="Subscriber%20emotes/12.png" alt="Emote 12" draggable="false">
-              </div>
-              <div class="emote-item" title="Emote 13">
-                <img class="emote-img" src="Subscriber%20emotes/13.png" alt="Emote 13" draggable="false">
-              </div>
+              <div class="emote-item" title="Emote 1"><img class="emote-img" src="Subscriber%20emotes/1.png" alt="Emote 1"></div>
+              <div class="emote-item" title="Emote 2"><img class="emote-img" src="Subscriber%20emotes/2.png" alt="Emote 2"></div>
+              <div class="emote-item" title="Emote 3"><img class="emote-img" src="Subscriber%20emotes/3.png" alt="Emote 3"></div>
+              <div class="emote-item" title="Emote 4"><img class="emote-img" src="Subscriber%20emotes/4.png" alt="Emote 4"></div>
+              <div class="emote-item" title="Emote 5"><img class="emote-img" src="Subscriber%20emotes/5.png" alt="Emote 5"></div>
+              <div class="emote-item" title="Emote 6"><img class="emote-img" src="Subscriber%20emotes/6.png" alt="Emote 6"></div>
+              <div class="emote-item" title="Emote 7"><img class="emote-img" src="Subscriber%20emotes/7.png" alt="Emote 7"></div>
+              <div class="emote-item" title="Emote 8 (Animated)"><img class="emote-img" src="Subscriber%20emotes/8.gif" alt="Emote 8"></div>
+              <div class="emote-item" title="Emote 9"><img class="emote-img" src="Subscriber%20emotes/9.png" alt="Emote 9"></div>
+              <div class="emote-item" title="Emote 10"><img class="emote-img" src="Subscriber%20emotes/10.png" alt="Emote 10"></div>
+              <div class="emote-item" title="Emote 11"><img class="emote-img" src="Subscriber%20emotes/11.png" alt="Emote 11"></div>
+              <div class="emote-item" title="Emote 12"><img class="emote-img" src="Subscriber%20emotes/12.png" alt="Emote 12"></div>
+              <div class="emote-item" title="Emote 13"><img class="emote-img" src="Subscriber%20emotes/13.png" alt="Emote 13"></div>
             </div>
           </div>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1199,14 +1109,13 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
 
     <!-- Dual Leaderboards Grid -->
     <div class="leaderboards-grid">
-
       <!-- Table 1: Lifetime top KICKers (Right side) -->
       <div class="lb-card kicks-card">
         <div class="lb-card-header">
           <div class="lb-card-title">
             <span class="lb-title-icon">🏆</span>
             <span>Lifetime top KICKers</span>
-            <img src="data:image/png;base64,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" class="kick-coin-title-img" alt="Kicks">
+            <img src="kick_coin.png" class="kick-coin-title-img" alt="Kicks">
           </div>
           <div class="lb-card-subtitle">טופ 10 תורמי קיקס (כל הזמנים)</div>
         </div>
@@ -1251,7 +1160,6 @@ body.access-big-cursor,body.access-big-cursor * { cursor: url("data:image/svg+xm
           </table>
         </div>
       </div>
-
     </div>
   </div>
 
@@ -1379,36 +1287,28 @@ setInterval(checkKickLiveStatus, 60000);
 
 /* ── Donators Leaderboards (Gifts & Kicks) ── */
 const defaultGiftsSeed = [
-  { username: "Krav0n", quantity: 4220 },
-  { username: "mrdavid465", quantity: 1630 },
-  { username: "natanelf", quantity: 1210 },
-  { username: "eylon1", quantity: 1208 },
-  { username: "TheFl1k", quantity: 1062 },
-  { username: "Thekoa1a", quantity: 885 },
-  { username: "Oliverremez", quantity: 513 },
-  { username: "yohay32", quantity: 461 },
-  { username: "absolute_alamo", quantity: 429 },
-  { username: "thebigSheshMan", quantity: 413 }
+  { username: "omer_lev", quantity: 341 },
+  { username: "Koren_va", quantity: 310 },
+  { username: "Danielthekiller", quantity: 84 },
+  { username: "YardenRGS", quantity: 71 },
+  { username: "xEXITx", quantity: 63 },
+  { username: "KravOn", quantity: 61 },
+  { username: "orileo29", quantity: 53 },
+  { username: "Kltt_3h", quantity: 42 },
+  { username: "edan_c", quantity: 35 },
+  { username: "THE_TIGRIS", quantity: 16 }
 ];
 
-const KICK_COIN_DATA = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAFsAAABOCAYAAABPLWqxAAAQAElEQVR4Aeyae5xmRXnnv1XnnPfa9+7puQ84MDAM14h4AVFwRdyPkijiZiWuEiUGNXE16mY12Rjcj+vn42pMzKIsGhcd42UxihdMNNnVgIIKEgjIdYa5T8/0TE/f+72cS+VX5+2BAWaY6eHtHv6Y6npO1amq56mnfvXUU3Xqbbtk+QnuOC0MBpbjYcEQOA72gkENx8E+DvYCIrCAXR237ONgHxoBYw02MoTVgKg7JOoJCTsCbNFiAgOKPEeDfY7q9SS1jLS0IQRlQ7E/oGtthZP+01LOu+FULvjbM1j3wbX0ndtLeVlFkxBhCoGAtzzXgJdGPDeDAQ+yCRGAhs7VBc5+fz/nfKOHE74eUPjjccZfPMzeM3fDVXVW3LiSE//uPE7+zPksvuREwp6CrF2ghxa0Gp4LwEsTnnPBCpyobFmyrsTZ7+vg+TdanvetfTTe8ggTJ26lWZkmdSHOFXEUSShRLxrqgwkzFwUEn17DwC0vo+f68+h+wylEg1VMFIAxHMtgj2XnB/btAS54gE+JeOHvVrnkupAX3zhC59s2UD9nC43OMdJCijMdMtRBIruSkjmFsllLMTiRyCwmokRARrPQYHQZTF7UzchH1mL/72V0/MklVC5dR7CkK3czB/a9UPm2gz0nxQ1EssieJQEnvSTkdX9e4PL1CSe/fwul87cx1j/KdDmlEXaQuUVEZh0F1lIwqwT2oIAV8HQSZIsosJxScAKVUGQHKVElMAWyqmNoVcbW31nM8KdeRPTVK6i+40IK55yI7emQAgEskMVbjkEIAkOlw9C/zPDKq8q86yspl39uH4svlwUv3U7cUScpFWjafrACVuAGZjVkg2C6MYLS4FSXgTOy9BRjAkJT1IRU6TQDDJhldImqWS9lVyAtQq0LdqwusfsPzmf6C2+neOMf0nHZizCLezGVEsbOLxzzK52nBANRAZatDnj7fyvzn9fXeamsOFq9m7h7iqRo5H+LxKaLullMapdgGcC4HgmSlZJDjNObYJa1O+Uz/J9zcjFONeoDF4mnQtl20x8uYkm4hCUspjftFvBFGmXD+IBl15k9DH38DaT/5w/ouPq10F3FBFbS5yfOn+SD6Btqxa48OeIP/8qx7o2bKZ08rIE3aWrzSk0vjewEZjiJullFLKAQaJkAzDyks2nqMgRrTs5YMpPgjEqMgMaRZU51s2XisZJRpkwfvSwOBLldxKIkoiOeJAnGmCnH7DttgKFrLqX4nt+GjgrzFRYMbCOLK8t1XH6NY/Gp20gLdZomJM4WU0uXUWM5iekkIyJzgU4a4HkQnxPALSifsGz/ngnW1KRq78SX5eTLPU+GAHdNsizDpU3i5jhpYwQ3MwTjm7EjD5NtuZtgYhOOJvVKwNAbX4w991SMtwraHxYM7DCCF76iyDmX7CIpJBpehSRbKrB7mbYVWbMjFnBCB5NmOtqlymZk3j1kDRqCsiFLTpA1C9HcjajMOac2VoA5wRsTuwZxkhDHqWiaPWO/ZPO2H/HYr29iw/1fY+PDN7Fj+y2MjvwcJjaQTN9DanaLYpqdcjF/ciX0d7cfaUlcELC9hXb1GF571TS2GDMl692RLRHg3bK2XsKpLllaCbOrG7ezn2BbH+WNPUQPdRI8LLq/RPEX4O4bx43VpLbyAtz5ichhrgvgCcZHdjP6z/ey/bs/ZtO3v8/mb32f0R/9Eu58lMqmvXRtn6ZvKKFvl6V7d0SRbgo9g2BGRbJ6kzG1vJfgylfBPFi3ZQFCSRvSb74lZOmp49SihA1ZyM9jw5DM86E7anzlykdYf9mD/O2/v4uvvuKnfO3i2/jGxbfynX/3M3748p/y41f+nNsvu517rryT5L46SdaknsywZ3w3W4Yf48Ht/8p9m+5i83338dAH/omtV9/KyDU/Y/zddzH97geZeNeDjL3z14y+8172XXMPo79/N5Pv/iXBN7fIXUVgajgj95JN0yh2MPnbLyM6fbXK5cNoX5h3sK01rD4t5NVX7sOVaozoGHZ/WmC3QH9IfnTrlim23r6Pobsm2PPAFBNb6tS2xzQ1E8mejGRfSjqWko6nJKMJu/fu5eFtG3hg80Ns3r2V3WO7Ga3vY9pN0cxispmMbCLGqT1jGWbcyXBFIw6GHW5XituRkG1THw+PyinFcvGqMxNgd2Ok79TAIMm7r8CUimAM7QrzDnZZm/vrrooIuyeoZ5ZNzQrDpkP+1bFXRrVjfIxE/jVLMm1kAiMF7Yd6aIgeA5FyyDXrOAf7ZibZ15hm2lu3S0hjAdoQ1VNsImBmmQ3Gs+Xk/bonJMvoXG58nU4tca2BUdradhMwO3BmjCwoMHX+uYRnnoIJ2gdR+yTx9GADwwsuLHDOK4ZoRo5dtsx9KmsEIR4XDZWmQPJAem6ftkigK+MBUpIDLZx8E+U1KX5jRLMSWwo/nqby7Wk6b65R/OEoZlLlqs8b69GS8YQ8FbWiBJqJOoE2Y+dleTJ1MNtA23GtXKX+398DPZ1g2wNTe6RIvYPFiqz6N9/UJCrPMCP3cWfq2G2LxGlII6nQbCynPlnlAGyeLuaAEpd4hESaAW+RnVMh0+uHGPnkFvZ+Ygu7r3+UeE/zAI7DZGcSXGZAKyQnKeLcCIEbB7mTsTUrsReeBwUtwcOIOpLqeQPbf5Jf+KqQdS+YJJRlbEyrPOB6mK6vZGLyNxjeeREbN13G1NAaDfgI1DDCRIR1YFIyk+GIYcrg/XTqgaupTBNq1ITDBd+mJrA1cciqTc6kVWEmSMPHSN0MaRCR/tHvYgcHIAgOJ/Gw9UcwysPKeFoDYUux7Hjj72mZlqe0L3Xxw+GzeXjT63nwwf/Ixkdfz/DuV9OYej5poyQUvRrmaXKeWpC3kI/VwVq+Vm8eKA+aGspR6Im8scr15AiC8xPj8dW0GZEUQYJxZlLpOAFNxpavhNdcDMUCzzb4UT5bGU/j90bwytcUWbV6koY2m9v2voRfbL6CPXsuoBafQDOTf3GySjMFmUabS/Ag5ZmDPwRqNuOI/r5J55djql9qEny9hhuJcS6b5fEy9tNs0TMlnk2T56RLpi9NmTIknaKKAB/B2QZZlFF/8xuwS3Ue91b0TPIOU9d2sL0+/YOGq98v91GcZFOjn3/ccjIzSZdACdEoRGBnB0qS5u+H0TOvdjp1jHxniNHrdjL22R2MfGEH8Yhcgfe7uTUbyRLl+ZzlIA/NmkqNTwS0Du3gJz8VyGkPpDIEfQfgJsmyPThZ9+SSPvidy/ObQbEedWw72P5W74KXB/QtGqdpSty661Q2NleQOH1S+wF6VfPlrxelLvGo+8LDkJrLTWOaGUZnaV2okDSbOFmkESTsBzhHUY05ePDVvr2fEhLhnBQh6QYPdlYGF4gxA9PAOYHt6qRRkelLLoLBReCtiaMLbQXb69HVJau+JiYKG2yNV/KTXWuZSrXB5GAIBAGsEbXg0fJ33rJz3VWXp4d+OOM5Dc4oI3nKoUQUYIwReRn7iacFNcFFhsxTwYDO/WGjQ6kAl4c2JgWjGTAxQlrRXw2MajNOqS0bpPz7V+HvvTnK0FawvVVf/IqAxctH5R0i/n7DiWyePp1UX4yp84MTELJEjaI1mDTFpXIDAl0Fcx+CxLWYfMaT+mgVHORpCEohhbOWELz8RMzLToCXrCDO9z3xeXZ8eDwjlRKSeK8KJ0l0DTzycm2Uy1dwtNbdNrC91VQrjtf/VpMgqrE9W8b/GzqDWlYSttksaSAeWCU55jpy5Yau4RxJdGr8ZBIeedl++T7VuSQva6UtuQajjClF9Hzot6j877dTvuFqSp9+K1l/J856tyHCk1pKPzwZPew4Jh3GSO96fxfhZZdCqL1H8uYa7VwZDtXeWsOpp0accda4Tr8Rt+1czTadqT2oSNFceadl6gu0MRk/rv3vhxLa7vLQUNed+lSvZUa3kA25vCx4aicCuKXsbEWsVF+m0jUTyO6iC8nvTFQ619g+sGUFg4sCWbXDugIbhnt0t9yDE9AuS8mkrGzNmyJ6EWWgLzcjmqvSc2qv6wG5Y0KBKm9GmvvkBtgmmY1b77lFSzvpKqUkXrrlZUqNVgtNwa+87kmm+rWZ+gsqtZprtHNlOFT7TD5551AzPzZb2bYJp8GIPJgCGi1t/AAMaE1ijCzo8cHlhbQ9RIbwtD6C8xaRvWgR5qw+XEeIFXSQ4rwOAhOki9ctV8DnfUbp43WtFt5IyqMTuJomyzeZI7UP7Myxa5ejWSthtauf0N/A6kIHTUJLJym/H3Ba+XwsMphWvQe8lWvLU5uILVgG/uw1VG98E6X1b6b8uTdRX6PVJmBbvUkP35nX60Dy+nnKjUEtdWw1GHJL2rQFEp1YPN8cqW1ge11rNcfIcEAoRVf3TNEh9+GNJ9dJDYwIPwCRE6F3p0nK69v8MF6eAE+qofwzzPQZpruNzsx5ja8VCWxFZVpR+nidHieNw1cYG4GxGO03bsOGYw82CrF+fdm2M86VWlyaoJjN0AJYI3p8IGo4G31RK6t6WVsr356nPHBLkJ9U7ctabOQkl5bp9OHyZaUmOfaz/ecN1DjXxS85T+BMAad1auMYu3EzyIjEOedo58zxDAxJ6ti0NZJrs3TYMYqlGZgdVD4mqeyjtxz/7ofY8jI+R9uD0111x8NTDPxqit5fjdF93wiRfsURWrh8yfl+M1o6+vwszYLuDaVFOh5qvUYN+ert/ucz3445BztnjmdgSBPDzp1lWVBBYNfpL4xiZjdI55egN2VZ2uPjBNWj4KFX0s4oPJw+7bde+x2G37aesTevZ+IdN1F8TDrh5IGdejuQ9Kpy/3wSyV/jAsQAzRmyKV2e+XEw99BesLUCdw1ZYqUlXTz0Ffdp8cUgoBHIeCVFTuTzudWYeQB6Pw7SI5uMyfbqlLRXekwmGCln/HLSXmG8Tr6tx/wgQJu8LNQYKjKKjGByEjzYnucoqK1ge0yHdPyLU0NBJ5E11UktvkRqaal6gJXLYz5QpwE48vHkZjM/oBvJNkZPdWWM0TcABOpfbpvcw3ngW0rQCtL1Se8WYwW4fH1lZFyn2Vqr2VE87VHwHJLFg71LLq2mr4dACq/pHqeSOFoWZB7ns05ZNfafC5m+PFuI+0KVz0M0Eh1KH12k07O5ycD9Eyy6d4Kl99SJ6jKG3MK1DDz6nvINMiVT3tFBRhG/KYaPbIRG86g1bCvY3ngnpyzbt1ZApjM4OEFg9sq2MvxY/aCNLClfnmosDDDGPz0d9RgOy6gu0XZCOtFgyx//Hbte90WG3/A37Lrm8xR3T8gYfP+epKegRSAzmxqrk4iOfYFuJ9OHNuIvzg7b4SEatBVs30cqS/71/Tmc9EbTdHaMCVCjKg1GEVmRs1qKQYNKOEKhNKV6X6Em8xD9/uCPgR5Gf3fudBpxow3MmCx0PFbfs7rpi5KcEjCqsw2lMdZWMPoL6w2SBx5UEy+JowrzALbhgXu9TgFdtsly+W0jl4H8fPkwMQAACcJJREFUpNH5NKBONRpmVd+tvPq0f2DV4B5a1n2E+hvU3uTEkQY/lweS8NKc46wRmIA/6iGQrY6qga4Y/DWDUV77Dq4MGIKJKRjaDX4sPCkc8Uv7wU5hy2OGLI0o2UlOLE8QZQ1tlHWqdoSTOu7mP5zxA956+g9Z2/swpSjGmCPR12B01xH0hoTLIoIlIcFgAVMMxK86Y45EyONtPPZSiixqSu4IpiB3F44jVEV1sKnaWnm/QARm527Ms/DXKLQdbLliRvYYao2QSH5vaecEPcFOzuq7gzed823ecu73OL33bjqiUQ1ymrCQD1uqHCYKzLArYOX/PJllN5/Csu+ewfO+egHlE6qYwOTMxrTS/OWgj6fUG0dcHMMFM3jX5jzARvp4N+JdiimCrYKLCId24PQz3EHFHmFh28H2q2x81FGb6sFmCWf2buRt5/4T17zgZ7x08T0sKQ4TmVhD0VrWwIz/ecocibYGo4sls0rnijND0rPBngmmZAQGcwwGIw4TgAkB6ZEX8ORgTUHFkYw8JdywDRMnT24wx7e2g+0te6YmV7IhwunrcXX3MC9d9hCLou0ErpkDIycjm1dWgzRFh/EjPwLF/WaXyfcrSrbT8tZPasYfICULCdFojDH6CLEYY3LiScHNvs2moV6tSJK8BJ9rkQp1hAmyfhUbIl2p2gcexSTetbRaHM1TUo+G7Zl5tA9y+/9He0mkhhlGdmx9TwJ3dpjou0flhrBoUIbDBj+LnllpksZIOFnSxHVL/oDBiox+hTGhwZgW8UzBqFKrygZK1V7PA6I6clUZ/AoZRUBpWj58wxb8lcMBjeac9RDMmelwDFlmuOMnGY1GAWR5+ODUlQbl7dAvRg+2048MUbEpcHyDw1FGpoul2t4JxrfuYvjhx9i87T6y90Hpr4pUPlOi/1q5rqUevcPJAhkulAvq26pxJhLAeMvVRLoK1qzEMIDRvUjpgUdw45Ni8m3U9Cij7+koWQ/NlqX6IWGH419u6yep65yahmqsZS+r9OpmBlkMOD2joqryqMI8PfjDqtroMb1vgvr4BEmtTuZimoMNaiuaOcVLHSayZJpgp74OLqlV6sF2aitzlSIebE9O+UggLyXAW7XTF+Y47ns/Qjt+i/FZPOcFbD/OZt3x2Y/Cg3f0kNZKLRXlRnzGaKTCTgODsFrAliy2aLUBGoEl0tz4zUsjBisOkTHy9BLsr03z5ayDstN9hTMp/hSRmYQsSHBBhl9Egg2h1uIPIJeVp4bc1cjdoLbNvcOQ6gPGMzjp6U7WhrgWG3cR1Cbp+vJ34R9/CrrLlpRnFTWMZ8V/SOZMhjKsn8mu+3DAr2+vEteKOKFgZM/GD0ycNeuIzzJ0/l4PnW/roeuNnXS8tkL5VRWiiwoELwoxz7fYc6TmOotZBVk1FacXIBLgEkpOKk2LKdmKFHuKwa4TqKcpPc3m+eDskOiFRcovLVO9uJPOSzupXJBgNt2N2bMHsg7gJHCr5K6KhLrd67nhe9j/dRNmSh84fkBq8WyifTbMh+P1G+VeXUx96SMRd93SQzxVhlRdyo84WfeWGcM9neOMXzHJ1FsmmH7nDI33Nkg/GGM+DOFHQ6KPFYj+R5HCJwp0XFshPiUmt1ieHAQ9tY6Y4h9FVD9apHJtmfKfFyn+WUThTyPCD1nM+x3pexKa19Spv3Wa+vk1Yh1DzZ6EIPEzuVonjhJdI6N0/MVNcMN3MRP6otReQRuCbYOMZxThDWJkp+GbHwu582t9xJNdsh6T8wxNG6a1lNNCTFqKScopzWpGoyOh0RnT6GoSdzVyanQ3mOitoQtFYW3QopAcniCtGBem1DubTPfXmOmdZqa7Rq2nkZc1q00SUVyVnxfF5YTE/3/DoABe/UqsXUHUdHTvGKPysW9hvn4bTHv34qdR/bQhHinYz6orJ5cyNWr4wV9abv1smWS6gneZLx6IOKu7TEn+OBQFmgOrxsZpgIq5e8iU0Yw5lTskyOc9qdgr5UE3yhutFN/eiVevPpuT5gDPJvb83dd7PmyBaNEa3GmX4qp9mjxD9ZFdlD/wVdwtv4KGVlDesH2PBQE7V1cI6Fcl7lgfcct/6cLu69fShTWDCeeeUKSoeissPXg5QP6hMpkxnnwWgcwsah40M+uOyIEG1MhIhvZNhHn+7oH2/J5UDZpUY4tUV51DYe3FEHUSyt/13LmB4ju+SPYvm+TqUuYj2PkQeiiZHqe4Ztjwk4Cbry7jNlYpC5xlJcvZJ5bpLhusrFt4zALlPH45xnmGgwcPvNMKaJHaeFQ9KZvzqY881aSYYpXCut+g/rw1NMIiXfWQ3vUPwAe+D8OT8tkCej8v7Q0LCrZX3QOe1GHnvZZ/eF+Zsdt6KdYLDJQdJ68q0tsdYqzUEuh48kyeDguAGu9v41NPKvIyjPIGS9Q3SHT62SSLVpAGHRQnIfiLX+A+/UspNKm7D82K2jJPQaOaJ8nPINYv8bQJI49Y7vpwiR03V3AzlnIUs2x5ge6+gCBEOBnyMJvk1pkXHOqhhvvBUta390DbguStHKCwZjWuoxebFCg/2qD8wTuIvvIgZryO0YfYoaS2q9y2S9DRyMn0W9XMLnjkEwHbP95HcaSTyNYZXJGwbHVIuT8k6goJOg22w2CqYCoinSApyNPI0TsRRaDUIlO15NQRgMgtLhGcsZT05EFq1RCnPvt/PkbHNb8g/PEuzLQ2wgUAWtppbfnnMSTvVuIxw56bLZve24F5qA8TR1DNCFc5zOoMu0ZAn0LrY8V/sJxqCNY9QfkHjD56grOK2LM0G2f1wBmD2LOXYNcuIektYOXTy9MJHV/YSfZfH8Fu0tVkc37dBk8J9invx+bVQTIDE3dadr23QvDNxXQPL6JruqgTS4hNQoLUU6Av7CfI6os0yFSuy6JAdmMzK1Ct2op0UrGeUgjrhq4HIip/uo/iDSPYoSYskDVzQLAH5I95VvdKNDYaRq61jF5Rwr2nn84PDdL5kUX0fLyf3k8N0PfXi+j/3CJ6bxig+0u9LP6b5QysH6D/y730famLRZ/vYun13Sy9rsriv6zQ/zFLx7uaRFePYn9Qx0xqZhU5BsEegz6fuUsB4WR42U7I9BFnvmcJvhVgvlaALxdwn4/Iro/gugLBJyvEn9Hx8JOq+6Sc9qcKZH8dEF+fEN/QJP2ivgC/kVK4w2LH0CbIMQ32mPZ+qM494Fr+TpfexpM2NXMgxUZ+XaQyYgnZ/6609a6ypEXGp5JFpvdjHI8Z2Md43Mek++NgLyDsx8E+DvYCIrCAXR237ONgLyACC9jVccs+DvYCIrCAXR237ONgLyACC9jVccteQLD/DQAA//9BklD9AAAABklEQVQDABr0xA3qLGluAAAAAElFTkSuQmCC";
+const KICK_COIN_DATA = "kick_coin.png";
 
 // ========================================================
-// רשימת Lifetime Top KICKers (כל הזמנים)
-// שימו לב: Kick אינה חושפת את הקיקס ב-API הפומבי ללא התחברות
-// ניתן לעדכן כאן ידנית את השמות והסכומים המדויקים של גל
+// רשימת Lifetime Top KICKers עבור GalGM (https://kick.com/galgm)
+// שימו לב: Kick מספקת נתוני Sub Gifts ב-API פומבי, אך נתוני Kicks
+// בערוץ דורשים חיבור חשבון ב-Kick או שמוזנים ידנית לפי ערוץ גל.
+// כאן מוגדרים תורמי הקיקס של GalGM:
 // ========================================================
 const lifetimeKicksTop10 = [
-  { username: "artishok2", quantity: 35000 },
-  { username: "1St3pBr0", quantity: 18500 },
-  { username: "Macabitelaviv", quantity: 14200 },
-  { username: "itzikjoint", quantity: 8800 },
-  { username: "Adiel2007", quantity: 7500 },
-  { username: "avishay13", quantity: 5600 },
-  { username: "uri463", quantity: 4200 },
-  { username: "YardenRGS", quantity: 3100 },
-  { username: "Asian_kfr", quantity: 2400 },
-  { username: "niv129", quantity: 1950 }
+  // תורמי הקיקס של ערוץ GalGM (ניתן להוסיף/לערוך בהתאם לערוץ)
 ];
 const defaultKicksSeed = lifetimeKicksTop10;
 
@@ -1440,6 +1340,7 @@ function renderLeaderboardTable(tbodyId, dataList, isKicks = false) {
     `;
   }).join('');
 }
+
 let isLeaderboardsLoading = false;
 async function fetchKickLeaderboards(isManual = false) {
   if (isLeaderboardsLoading) return;
@@ -1483,13 +1384,22 @@ async function fetchKickLeaderboards(isManual = false) {
       renderLeaderboardTable('giftsTableBody', defaultGiftsSeed, false);
     }
 
-    // Process Kicks
-    let kicksList = rawData.kicks || rawData.kicks_leaderboard || [];
+    // Process Kicks (GalGM)
+    let kicksList = rawData.kicks 
+      || rawData.kicks_leaderboard 
+      || rawData.kicks_all_time 
+      || (rawData.leaderboards && rawData.leaderboards.kicks)
+      || [];
     if (Array.isArray(kicksList) && kicksList.length > 0) {
       kicksList.sort((a, b) => (Number(b.quantity || b.amount) || 0) - (Number(a.quantity || a.amount) || 0));
       renderLeaderboardTable('kicksTableBody', kicksList, true);
-    } else {
+    } else if (defaultKicksSeed && defaultKicksSeed.length > 0) {
       renderLeaderboardTable('kicksTableBody', defaultKicksSeed, true);
+    } else {
+      const kicksTbody = document.getElementById('kicksTableBody');
+      if (kicksTbody) {
+        kicksTbody.innerHTML = '<tr><td colspan="3" class="lb-empty-row">מסונכרן מול https://kick.com/galgm • אין נתוני Kicks פומביים כרגע</td></tr>';
+      }
     }
   } else {
     // Initial display with seed data
