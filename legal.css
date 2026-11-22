@@ -1,0 +1,169 @@
+/* ============================================================
+   GalGM – legal.css
+   העיצוב החדש של דפי המשנה (הצהרת נגישות, מדיניות פרטיות).
+   נטען אחרי הסגנונות שבתוך הדף ומחליף את הצבעים, הגופנים והרקע
+   כך שיתאימו לדף הבית: שחור + ליים, כרטיס זכוכית ורקע חי שקט.
+   ============================================================ */
+@import url('https://fonts.googleapis.com/css2?family=Unbounded:wght@600;800&family=Heebo:wght@400;500;700;800;900&display=swap');
+
+:root {
+  --bg-color: #060607;
+  --text-main: #f5f5f0;
+  --text-muted: rgba(245, 245, 240, 0.68);
+  /* צבע ההדגשה נקבע לפי ערכת הצבע (data-theme על ה-html): סגול או ליים */
+  --acc: #a877ff;
+  --acc-rgb: 168, 119, 255;
+  --acc-fill: #7c3aed;
+  --on-acc: #ffffff;
+  --acc2-rgb: 232, 121, 249;
+  --glow-rgb: 124, 58, 237;
+  --accent-purple: var(--acc);
+  --accent-purple-light: var(--acc);
+  --card-bg: rgba(16, 16, 20, 0.72);
+  --line: rgba(255, 255, 255, 0.1);
+  --display: 'Unbounded', 'Heebo', system-ui, sans-serif;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --spring: cubic-bezier(.3, 1.5, .4, 1);
+}
+
+html[data-theme="purple"] { --acc: #a877ff; --acc-rgb: 168, 119, 255; --acc-fill: #7c3aed; --on-acc: #ffffff; --acc2-rgb: 232, 121, 249; --glow-rgb: 124, 58, 237; }
+html[data-theme="lime"]   { --acc: #c6ff3d; --acc-rgb: 198, 255, 61;  --acc-fill: #c6ff3d; --on-acc: #060607; --acc2-rgb: 139, 92, 246; --glow-rgb: 139, 92, 246; }
+
+html { background: #060607; scrollbar-width: thin; scrollbar-color: rgba(var(--acc-rgb), 0.55) #060607; }
+body {
+  background: transparent !important;   /* הרקע החי מגיע מ-fx.js */
+  color: var(--text-main);
+  padding: 34px 18px 60px;
+}
+::selection { background: var(--acc-fill); color: var(--on-acc); }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+
+/* כפתור החזרה */
+.top-nav-bar { max-width: 780px; margin-bottom: 30px; }
+.back-btn {
+  gap: 10px;
+  padding: 12px 22px;
+  border-radius: 999px;
+  background: rgba(20, 20, 24, 0.6);
+  border: 1px solid var(--line);
+  font-size: 15px; font-weight: 700;
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  box-shadow: none;
+  transition: transform 0.35s var(--spring), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.back-btn:hover { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); transform: translateX(4px); }
+
+/* כותרת הדף */
+.header-section { gap: 18px; margin-bottom: 34px; }
+.avatar-snake-wrap { width: 118px; height: 118px; }
+/* טבעת דקה ושקטה סביב התמונה (בלי סיבוב), כמו בדף הבית */
+.avatar-snake-wrap::before {
+  box-sizing: border-box;
+  padding: 1.5px;
+  background: linear-gradient(145deg, rgb(var(--acc2-rgb)) 0%, var(--acc) 38%, rgba(var(--acc-rgb), 0.18) 68%, var(--acc-fill) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  box-shadow: none;
+  animation: none;
+}
+.profile-pic { width: 104px; height: 104px; border: 0; box-shadow: 0 0 40px -6px rgba(var(--glow-rgb), 0.5); }
+.page-title {
+  font-family: 'Heebo', sans-serif;
+  font-size: clamp(2.3rem, 8vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  color: var(--text-main);
+  text-shadow: none;
+}
+.header-section::after {
+  content: 'GALGM — LINK HUB';
+  order: -1;
+  font-family: var(--display); font-weight: 600; font-size: 0.66rem; letter-spacing: 0.24em;
+  color: rgba(245, 245, 240, 0.6);
+  direction: ltr;
+}
+
+/* הכרטיס */
+.privacy-card {
+  max-width: 780px;
+  padding: clamp(26px, 5vw, 44px) clamp(20px, 4.5vw, 40px);
+  border-radius: 32px;
+  border: 1px solid var(--line);
+  background: linear-gradient(170deg, rgba(255, 255, 255, 0.06), rgba(255, 255, 255, 0.02)), rgba(10, 10, 13, 0.6);
+  box-shadow: 0 30px 80px -30px rgba(0, 0, 0, 0.9);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  position: relative;
+  overflow: hidden;
+}
+.privacy-card::before {
+  content: '';
+  position: absolute; left: 0; right: 0; top: 0; height: 220px;
+  background: radial-gradient(ellipse 70% 100% at 50% 0%, rgba(var(--acc-rgb), 0.1), transparent 72%);
+  pointer-events: none;
+}
+.privacy-card > * { position: relative; }
+
+.section-header { gap: 14px; }
+.badge-icon, .num-badge {
+  width: 38px; height: 38px; min-width: 38px;
+  border-radius: 12px;
+  background: var(--acc-fill);
+  color: var(--on-acc);
+  font-family: var(--display); font-weight: 800; font-size: 14px;
+  box-shadow: none;
+  display: flex; align-items: center; justify-content: center;
+  transition: transform 0.45s var(--spring);
+}
+.section-item:hover .badge-icon, .section-item:hover .num-badge { transform: rotate(-8deg) scale(1.08); }
+.section-title { font-size: clamp(1.1rem, 2.4vw, 1.35rem); font-weight: 800; color: var(--text-main); letter-spacing: -0.01em; }
+.section-text, .features-list li { font-size: 15.5px; line-height: 1.8; color: var(--text-muted); }
+.section-text, .features-list, .contact-channels { padding-right: 52px; }
+.features-list li strong, .section-text strong { color: var(--text-main); font-weight: 700; }
+.features-list li i.fa-check { color: var(--acc); }
+.divider { background: var(--line); margin: 30px 0; }
+
+/* יצירת קשר */
+.contact-row { font-size: 15.5px; flex-wrap: wrap; }
+.contact-label i { color: var(--acc); }
+.email-val {
+  color: var(--acc);
+  font-family: var(--display); font-weight: 600; letter-spacing: 0.06em;
+  background: rgba(var(--acc-rgb), 0.08);
+  border: 1px solid rgba(var(--acc-rgb), 0.3);
+  border-radius: 10px;
+  padding: 6px 14px;
+}
+.email-val:hover { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); box-shadow: none; transform: translateY(-2px); }
+.discord-link-badge {
+  font-family: var(--display); font-weight: 600; font-size: 13px;
+  border-radius: 10px; padding: 7px 14px;
+  background: rgba(88, 101, 242, 0.16); border: 1px solid rgba(88, 101, 242, 0.45); color: #aab6ff;
+  transition: transform 0.35s var(--spring), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.discord-link-badge:hover { background: #5865f2; border-color: #5865f2; color: #fff; transform: translateY(-2px); box-shadow: none; }
+
+/* תחתית */
+.footer-note { color: rgba(245, 245, 240, 0.5); font-size: 13.5px; }
+.footer-bottom { color: rgba(245, 245, 240, 0.6); text-shadow: none; }
+.footer-bottom strong { color: var(--acc); }
+.footer-bottom a { color: var(--text-main); font-weight: 700; text-decoration: none; border-bottom: 2px solid var(--acc); padding-bottom: 2px; transition: color 0.3s ease; }
+.footer-bottom a:hover { color: var(--acc); }
+
+/* כפתור הנגישות הצף */
+.accessibility-open {
+  left: 20px; bottom: 20px;
+  width: 58px; height: 58px;
+  background: var(--acc-fill); color: var(--on-acc);
+  box-shadow: 0 14px 40px -10px rgba(var(--acc-rgb), 0.7);
+  transition: transform 0.35s var(--spring), background-color 0.3s ease;
+}
+.accessibility-open:hover { background: #fff; transform: scale(1.08) rotate(-8deg); }
+
+@media (max-width: 600px) {
+  .section-text, .features-list, .contact-channels { padding-right: 0; }
+  .section-header { align-items: flex-start; }
+}
+
+/* הפחתת תנועה: המחלקה נקבעת ב-fx.js (לא ב-Windows) */
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after { animation-duration: 0.01ms !important; animation-iteration-count: 1 !important; transition-duration: 0.01ms !important; }

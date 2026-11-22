@@ -1,0 +1,1015 @@
+/* ============================================================
+   GalGM – LINK HUB
+   style.css – כל העיצוב של דף הבית
+   שחור + ליים + סגול, טיפוגרפיה ענקית, כרטיסי "בנטו" ותנועה.
+   ============================================================ */
+
+/* ───────────── 1. משתנים ובסיס ───────────── */
+:root {
+  --bg: #060607;
+  --bg-2: #0d0d10;
+  --ink: #f5f5f0;
+  --mute: rgba(245, 245, 240, 0.6);
+  --faint: rgba(245, 245, 240, 0.34);
+  --line: rgba(255, 255, 255, 0.1);
+  /* צבע ההדגשה נקבע לפי ערכת הצבע (data-theme על ה-html): סגול או ליים */
+  --acc: #a877ff;          /* הדגשות: טקסט, קווים וזוהר */
+  --acc-rgb: 168, 119, 255;
+  --acc-fill: #7c3aed;     /* משטחים מלאים: כפתורים, הסרט הנע */
+  --on-acc: #ffffff;       /* טקסט שיושב על משטח מלא */
+  --acc2: #e879f9;
+  --acc2-rgb: 232, 121, 249;
+  --glow-rgb: 124, 58, 237;
+  --gold: #ffd23f;
+  --display: 'Unbounded', 'Heebo', system-ui, sans-serif;
+  --text: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --ease: cubic-bezier(.2, .8, .2, 1);
+  --expo: cubic-bezier(.76, 0, .24, 1);
+  --spring: cubic-bezier(.3, 1.5, .4, 1);
+  --pad: clamp(18px, 4.2vw, 64px);
+  --max: 1280px;
+}
+
+html[data-theme="purple"] { --acc: #a877ff; --acc-rgb: 168, 119, 255; --acc-fill: #7c3aed; --on-acc: #ffffff; --acc2: #e879f9; --acc2-rgb: 232, 121, 249; --glow-rgb: 124, 58, 237; }
+html[data-theme="lime"]   { --acc: #c6ff3d; --acc-rgb: 198, 255, 61;  --acc-fill: #c6ff3d; --on-acc: #060607; --acc2: #8b5cf6; --acc2-rgb: 139, 92, 246; --glow-rgb: 139, 92, 246; }
+
+*, *::before, *::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 40px;
+  -webkit-text-size-adjust: 100%;
+  background: var(--bg);
+  overflow-x: hidden;
+  scrollbar-gutter: stable;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(var(--acc-rgb), 0.55) #060607;
+}
+html.pre { overflow: hidden; }   /* בלי גלילה בזמן הפתיחה */
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: transparent;   /* הרקע החי (fx.js) יושב מאחורי ה-body */
+  color: var(--ink);
+  font-family: var(--text);
+  font-size: 1rem;
+  line-height: 1.5;
+  overflow-x: hidden;
+  overflow-x: clip;   /* הסרטים הנעים רחבים מהמסך – חותכים אותם בלי לאפשר גלילה הצידה */
+  -webkit-font-smoothing: antialiased;
+}
+img { max-width: 100%; display: block; -webkit-user-drag: none; }
+a { color: inherit; text-decoration: none; }
+button { font: inherit; color: inherit; background: none; border: 0; padding: 0; cursor: pointer; }
+h1, h2, h3, p, ol, ul { margin: 0; }
+ol, ul { padding: 0; list-style: none; }
+::selection { background: var(--acc-fill); color: var(--on-acc); }
+:focus-visible { outline: 2px solid var(--acc); outline-offset: 3px; }
+
+.skip-link {
+  position: fixed; top: 10px; right: 10px; z-index: 10000;
+  padding: 10px 16px; border-radius: 12px;
+  background: var(--acc-fill); color: var(--on-acc); font-weight: 800;
+  transform: translateY(-200%);
+}
+.skip-link:focus { transform: none; }
+
+/* תווית קטנה באותיות רחבות */
+.label {
+  font-family: var(--display);
+  font-weight: 600;
+  font-size: 0.66rem;
+  letter-spacing: 0.24em;
+  text-transform: uppercase;
+  color: var(--mute);
+}
+
+/* ───────────── 2. חשיפה בגלילה ───────────── */
+html.reveal-on [data-reveal]:not(.in) { opacity: 0; }
+[data-reveal].in {
+  animation: revealUp 0.95s var(--ease) backwards;
+  animation-delay: calc(var(--d, 0) * 1ms);
+}
+@keyframes revealUp { from { opacity: 0; transform: translateY(36px); } }
+
+/* כותרות שמתגלות מילה־מילה מתוך מסכה */
+html.reveal-on [data-reveal="split"]:not(.in) { opacity: 1; }
+[data-reveal="split"].in { animation: none; }
+.split .w { display: inline-block; overflow: hidden; vertical-align: bottom; padding-bottom: 0.08em; margin-bottom: -0.08em; }
+.split .w > span { display: inline-block; transition: transform 1.05s var(--expo); transition-delay: calc(var(--wi, 0) * 90ms); }
+html.reveal-on .split:not(.in) .w > span { transform: translateY(115%); }
+
+/* ───────────── 3. פס התקדמות, סמן וטוסט ───────────── */
+.progress { position: fixed; top: 0; left: 0; right: 0; height: 3px; z-index: 80; pointer-events: none; }
+.progress b { display: block; height: 100%; background: var(--acc); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); box-shadow: 0 0 14px rgba(var(--acc-rgb), 0.8); }
+
+.cursor { position: fixed; left: 0; top: 0; z-index: 9990; width: 0; height: 0; pointer-events: none; display: none; }
+html.has-cursor .cursor { display: block; }
+.cursor span {
+  position: absolute; left: 0; top: 0;
+  width: 34px; height: 34px; margin: -17px 0 0 -17px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(245, 245, 240, 0.65);
+  display: grid; place-items: center;
+  font-family: var(--display); font-size: 0.56rem; font-weight: 800; letter-spacing: 0.14em;
+  color: transparent; white-space: nowrap;
+  transition: width 0.35s var(--ease), height 0.35s var(--ease), margin 0.35s var(--ease),
+              background-color 0.3s ease, border-color 0.3s ease, color 0.2s ease, opacity 0.3s ease, transform 0.2s ease;
+}
+.cursor.is-link span { width: 56px; height: 56px; margin: -28px 0 0 -28px; border-color: var(--acc); background-color: rgba(var(--acc-rgb), 0.12); }
+.cursor.is-label span { width: 86px; height: 86px; margin: -43px 0 0 -43px; background-color: var(--ink); border-color: var(--ink); color: #060607; }
+.cursor.is-down span { transform: scale(0.82); }
+.cursor.is-hidden span { opacity: 0; }
+html.has-cursor .tile { cursor: none; }
+body.access-big-cursor .cursor { display: none !important; }
+
+.toast {
+  position: fixed; left: 50%; bottom: 100px; z-index: 9000;
+  transform: translate(-50%, 24px);
+  padding: 12px 22px; border-radius: 999px;
+  background: var(--acc-fill); color: var(--on-acc);
+  font-weight: 800; font-size: 0.95rem; white-space: nowrap;
+  direction: rtl;
+  opacity: 0; pointer-events: none;
+  box-shadow: 0 16px 44px -10px rgba(var(--acc-rgb), 0.7);
+  transition: opacity 0.3s ease, transform 0.45s var(--spring);
+}
+.toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+/* ───────────── 4. הפס העליון ───────────── */
+.bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 60;
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 18px var(--pad);
+  pointer-events: none;
+  direction: ltr;
+}
+.bar > * { pointer-events: auto; }
+.brand {
+  display: grid; place-items: center;
+  width: 54px; height: 54px; border-radius: 17px;
+  background: rgba(20, 20, 24, 0.6);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  transform: translate(var(--mgx, 0px), var(--mgy, 0px)) rotate(var(--rot, 0deg)) scale(var(--sc, 1));
+  transition: transform 0.4s var(--spring), background-color 0.3s ease, border-color 0.3s ease;
+}
+.brand svg { width: 34px; height: 18px; overflow: visible; fill: var(--ink); transition: fill 0.3s ease; }
+.brand:hover { --rot: -7deg; --sc: 1.07; background: var(--acc-fill); border-color: var(--acc-fill); }
+.brand:hover svg { fill: var(--on-acc); }
+
+.live-chip {
+  display: inline-flex; align-items: center; gap: 10px;
+  height: 42px; padding: 0 17px; border-radius: 999px;
+  font-family: var(--display); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.2em;
+  color: var(--mute);
+  background: rgba(20, 20, 24, 0.6);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  user-select: none;
+  transition: transform 0.35s var(--spring), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.live-chip .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff4d4d; box-shadow: 0 0 0 3px rgba(255, 77, 77, 0.2); }
+.live-chip.offline { pointer-events: none; }
+.live-chip.live { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); cursor: pointer; animation: livePulse 1.8s ease-out infinite; }
+.live-chip.live .dot { background: #e5092a; box-shadow: none; animation: blink 1s steps(2, jump-none) infinite; }
+.live-chip.live:hover { transform: scale(1.07); }
+@keyframes livePulse {
+  0%   { box-shadow: 0 0 0 0 rgba(var(--acc-rgb), 0.55); }
+  100% { box-shadow: 0 0 0 16px rgba(var(--acc-rgb), 0); }
+}
+@keyframes blink { 0% { opacity: 1; } 100% { opacity: 0.2; } }
+
+/* ───────────── 5. HERO ───────────── */
+.hero {
+  position: relative;
+  min-height: 100vh; min-height: 100svh;
+  display: flex; flex-direction: column; justify-content: center;
+  padding: 112px var(--pad) 150px;
+  direction: ltr;
+}
+.hero-kicker {
+  display: grid; grid-template-columns: 1fr auto 1fr; align-items: end; gap: 16px;
+  width: 100%; max-width: var(--max); margin: 0 auto clamp(10px, 2.4vh, 28px);
+}
+.hero-kicker > .label { padding-bottom: 8px; }
+.hero-kicker > .label:first-child { justify-self: start; }
+.hero-kicker .scroll-hint { display: inline-flex; align-items: center; gap: 10px; justify-self: end; }
+.hero-kicker .scroll-hint i { animation: nudge 1.6s ease-in-out infinite; }
+@keyframes nudge { 0%, 100% { transform: translateY(-2px); } 50% { transform: translateY(4px); } }
+
+.wordmark {
+  display: flex; justify-content: center; align-items: center;
+  width: 100%;
+  font-family: var(--display);
+  font-weight: 900;
+  font-size: clamp(3.8rem, 17vw, 19rem);
+  line-height: 0.8;
+  letter-spacing: -0.035em;
+  white-space: nowrap;
+  color: var(--ink);
+  user-select: none;
+  /* פרלקסה: בגלילה הלוגוטייפ "שוקע" לאט יותר מהדף ונעלם */
+  transform: translate3d(0, calc(var(--sy, 0) * 110px), 0) scale(calc(1 - var(--sy, 0) * 0.1));
+  opacity: calc(1 - var(--sy, 0) * 0.9);
+}
+.hero-kicker, .hero-row { transform: translate3d(0, calc(var(--sy, 0) * 50px), 0); }
+.wm-l {
+  position: relative;
+  display: inline-block;
+  transition: transform 0.5s var(--spring);
+}
+.wordmark.measuring .wm-l { transition: none !important; }
+/* אור בצבע הלוגו מתחת לשם – כבוי במצב רגיל, נדלק רק בזמן אפקט או מעבר עכבר */
+.wordmark::before {
+  content: '';
+  position: absolute; z-index: -1;
+  left: 4%; right: 4%; top: 30%; bottom: -40%;
+  background: radial-gradient(ellipse 50% 50% at 50% 50%, rgba(var(--glow-rgb), 0.5), transparent 70%);
+  opacity: 0;
+  transition: opacity 0.55s ease;
+  pointer-events: none;
+}
+.wordmark.is-fx::before { opacity: 1; }
+
+/* פני האותיות: במצב רגיל – לבן נקי. כל אות בנויה משלוש "פרוסות" אופקיות (עותקים של האות
+   שנוצרים ב-app.js ונחתכים ב-clip-path). הרקע של כל פרוסה גבוה פי 2 מהאות: החצי העליון לבן,
+   והתחתון צבעוני (סגול → ורוד) עם קו גבול חד – כשהרקע זז למעלה, הצבע "ממלא" את האות מלמטה.
+   האפקטים עצמם (פריסה, גלגול, מילוי) מופעלים ב-app.js. בלי JS האות נשארת לבנה רגילה. */
+.wordmark.wm-on .wm-l { color: transparent; }
+.wm-fx {
+  position: absolute; left: -0.06em; top: -0.16em;
+  padding: 0.16em 0.06em;
+  font-style: normal;
+  color: transparent; -webkit-text-fill-color: transparent;
+  -webkit-background-clip: text; background-clip: text;
+  background-repeat: no-repeat;
+  pointer-events: none;
+}
+.wm-s {
+  background-image: linear-gradient(180deg,
+    #fff 0%, #fff 50%,
+    var(--acc-fill) 50%, var(--acc-fill) 59%, var(--acc) 76%, var(--acc2) 93%);
+  background-size: 100% 200%;
+  background-position: 0% 0%;
+  transition: background-position 0.55s cubic-bezier(.65, 0, .2, 1);
+}
+.wm-s1 { clip-path: inset(0 -40% 59% -40%);   --sx: -0.6em;  --sd: 0ms; }
+.wm-s2 { clip-path: inset(40% -40% 39% -40%); --sx: 0.6em;   --sd: 90ms; }
+.wm-s3 { clip-path: inset(60% -40% 0 -40%);   --sx: -0.36em; --sd: 180ms; }
+/* עותק צבעוני של האות – מחכה מתחת לאות ונראה רק בזמן אפקט ה"גלגול" */
+.wm-c {
+  background-image: linear-gradient(180deg, var(--acc-fill) 18%, var(--acc) 52%, var(--acc2) 86%);
+  transform: translate3d(0, 1em, 0);
+  visibility: hidden;
+}
+.wm-l.is-rolling { clip-path: inset(-0.07em -0.3em); }
+.wm-l.is-rolling .wm-c { visibility: visible; }
+/* מעבר עכבר: האות מתרוממת ומתמלאת בצבע מלמטה */
+@media (hover: hover) and (pointer: fine) {
+  .wordmark:hover::before { opacity: 0.75; }
+  .wm-l:hover { transform: translate3d(0, -0.03em, 0); }
+  .wm-l:hover .wm-s { background-position: 0% 100%; }
+}
+
+/* תמונת הפרופיל – במרכז, מעל השם, בין שתי התוויות */
+.wm-avatar { display: flex; justify-content: center; }
+.avatar {
+  position: relative; display: block;
+  width: clamp(112px, 10.5vw, 164px); aspect-ratio: 1 / 1;
+  border-radius: 50%;
+  isolation: isolate;
+  cursor: pointer;
+  transition: transform 0.6s var(--spring);
+  -webkit-tap-highlight-color: transparent;
+  /* הילה רכה בצבע הלוגו ש"נושמת" לאט */
+  box-shadow: 0 0 40px -8px rgba(var(--glow-rgb), 0.4);
+  animation: avatarHalo 5.5s ease-in-out infinite;
+}
+/* טבעת דקה ושקטה סביב התמונה (בלי סיבוב): קו עדין במעבר צבע, עם רווח קטן מהתמונה */
+.avatar::before {
+  content: '';
+  position: absolute; inset: -6px; z-index: 0;
+  border-radius: 50%;
+  padding: 1.5px;
+  background: linear-gradient(145deg, var(--acc2) 0%, var(--acc) 38%, rgba(var(--acc-rgb), 0.18) 68%, var(--acc-fill) 100%);
+  -webkit-mask: linear-gradient(#000 0 0) content-box, linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor; mask-composite: exclude;
+  transition: opacity 0.4s ease;
+}
+.avatar img {
+  position: relative; z-index: 1;
+  width: 100%; height: 100%;
+  border-radius: 50%; object-fit: cover;
+  border: 0;
+  background: #1a1528;
+}
+.avatar:hover { transform: scale(1.05); }
+.avatar:active { transform: scale(0.94); }
+.avatar-tag {
+  position: absolute; z-index: 2; right: -14px; bottom: 2px;
+  display: none;
+  padding: 6px 11px; border-radius: 999px;
+  background: var(--acc-fill); color: var(--on-acc);
+  font-family: var(--display); font-size: 0.62rem; font-weight: 800; letter-spacing: 0.16em; line-height: 1;
+  transform: rotate(-9deg);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5);
+}
+html.is-live .avatar-tag { display: block; }
+html.is-live .avatar::after {
+  content: '';
+  position: absolute; inset: -5px; z-index: 0;
+  border-radius: 50%;
+  border: 2px solid var(--acc);
+  animation: radar 1.8s ease-out infinite;
+}
+@keyframes spin  { to { transform: rotate(360deg); } }
+@keyframes avatarHalo {
+  0%, 100% { box-shadow: 0 0 38px -8px rgba(var(--glow-rgb), 0.36); }
+  50%      { box-shadow: 0 0 62px -2px rgba(var(--glow-rgb), 0.62); }
+}
+@keyframes radar { from { transform: scale(1); opacity: 0.9; } to { transform: scale(1.5); opacity: 0; } }
+
+.hero-row {
+  display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 16px;
+  width: 100%; max-width: var(--max); margin: clamp(26px, 5vh, 60px) auto 0;
+}
+.code-chip {
+  display: inline-flex; align-items: center; gap: 13px;
+  height: 60px; padding: 0 20px;
+  border-radius: 19px;
+  border: 1px solid var(--line);
+  background: rgba(20, 20, 24, 0.55);
+  -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px);
+  font-family: var(--display);
+  transition: transform 0.35s var(--spring), border-color 0.3s ease, background-color 0.3s ease;
+}
+.code-chip img { height: 20px; width: auto; filter: brightness(0) invert(1); }
+.code-chip .code-k { font-size: 0.62rem; font-weight: 600; letter-spacing: 0.24em; color: var(--mute); }
+.code-chip .code-v { font-size: 1.28rem; font-weight: 800; letter-spacing: 0.08em; color: var(--acc); }
+.code-chip i { font-size: 0.9rem; color: var(--faint); transition: color 0.3s ease, transform 0.35s var(--spring); }
+.code-chip:hover { transform: translateY(-3px); border-color: rgba(var(--acc-rgb), 0.55); background: rgba(var(--acc-rgb), 0.08); }
+.code-chip:hover i { color: var(--acc); transform: scale(1.2); }
+
+.hero-cta { display: flex; align-items: center; gap: 12px; flex-wrap: wrap; }
+.btn {
+  position: relative;
+  display: inline-flex; align-items: center; justify-content: center; gap: 12px;
+  height: 60px; padding: 0 30px;
+  border-radius: 999px;
+  font-family: var(--display); font-weight: 700; font-size: 0.76rem; letter-spacing: 0.14em; text-transform: uppercase;
+  white-space: nowrap;
+  overflow: hidden; isolation: isolate;
+  transform: translate(var(--mgx, 0px), var(--mgy, 0px)) scale(var(--sc, 1));
+  transition: transform 0.4s var(--spring), box-shadow 0.35s ease, color 0.3s ease, border-color 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+.btn i { font-size: 1.05em; }
+.btn .go { transform: rotate(-45deg); transition: transform 0.4s var(--ease); }
+.btn:hover .go { transform: rotate(0deg) translateX(3px); }
+.btn-primary { background: var(--acc-fill); color: var(--on-acc); box-shadow: 0 14px 44px -14px rgba(var(--acc-rgb), 0.75); }
+.btn-primary::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  border-radius: inherit; background: #fff;
+  transform: translateY(102%);
+  transition: transform 0.5s var(--expo);
+}
+.btn-primary:hover { --sc: 1.04; }
+.btn-primary:hover::before { transform: translateY(0); }
+.btn-ghost { border: 1px solid var(--line); background: rgba(20, 20, 24, 0.55); -webkit-backdrop-filter: blur(12px); backdrop-filter: blur(12px); }
+.btn-ghost:hover { border-color: var(--ink); --sc: 1.03; }
+.btn:active { --sc: 0.96; }
+
+/* תג עגול מסתובב – "WATCH LIVE ON KICK" */
+.spin-badge {
+  position: absolute; right: var(--pad); top: clamp(84px, 11vh, 118px); z-index: 2;
+  width: clamp(104px, 9vw, 132px); aspect-ratio: 1 / 1;
+  display: grid; place-items: center;
+  border-radius: 50%;
+  color: var(--ink);
+  transition: transform 0.5s var(--spring), color 0.3s ease;
+}
+.spin-badge svg.ring { position: absolute; inset: 0; width: 100%; height: 100%; animation: spin 16s linear infinite; }
+.spin-badge text { font-family: var(--display); font-weight: 700; font-size: 15.5px; letter-spacing: 0.12em; fill: currentColor; }
+.spin-badge .core {
+  width: 44%; height: 44%; border-radius: 50%;
+  display: grid; place-items: center;
+  background: var(--acc-fill); color: var(--on-acc);
+  transition: transform 0.5s var(--spring);
+}
+.spin-badge .core svg { width: 46%; height: 46%; fill: currentColor; }
+.spin-badge:hover { transform: scale(1.1) rotate(-10deg); color: var(--acc); }
+.spin-badge:hover .core { transform: scale(1.12) rotate(10deg); }
+
+/* ───────────── 6. הסרט הנע ───────────── */
+.tape {
+  position: relative; z-index: 3;
+  margin: -46px -5vw 0;
+  padding: 15px 0;
+  background: var(--acc-fill); color: var(--on-acc);
+  transform: rotate(-2.2deg);
+  overflow: hidden; white-space: nowrap;
+  box-shadow: 0 24px 70px -24px rgba(var(--acc-rgb), 0.5);
+  direction: ltr;
+  user-select: none;
+}
+.tape-track {
+  display: inline-flex; align-items: center; gap: 30px; padding-right: 30px;
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(0.95rem, 2.1vw, 1.55rem);
+  letter-spacing: 0.04em;
+  animation: tape 30s linear infinite;
+  will-change: transform;
+}
+.tape-track i { font-style: normal; font-size: 0.75em; }
+.tape-track .o { color: var(--acc-fill); -webkit-text-stroke: 2.8px var(--on-acc); paint-order: stroke fill; }
+.tape.rev { margin-top: clamp(70px, 11vh, 140px); transform: rotate(1.8deg); background: var(--bg-2); color: var(--ink); border-block: 1px solid var(--line); box-shadow: none; }
+.tape.rev .tape-track { animation-direction: reverse; }
+.tape.rev .tape-track .o { color: var(--bg-2); -webkit-text-stroke-color: var(--ink); }
+@keyframes tape { to { transform: translateX(-50%); } }
+
+/* ───────────── 7. מקטעים וכותרות ───────────── */
+.sec {
+  position: relative;
+  width: 100%; max-width: calc(var(--max) + var(--pad) * 2);
+  margin: 0 auto;
+  padding: clamp(84px, 13vh, 168px) var(--pad) 0;
+  direction: ltr;
+}
+.sec-head { margin-bottom: clamp(26px, 5vh, 54px); }
+.sec-idx { display: inline-flex; align-items: center; gap: 14px; color: var(--acc); margin-bottom: 16px; }
+.sec-idx::after { content: ''; width: 44px; height: 1px; background: currentColor; opacity: 0.6; }
+.sec-title {
+  font-family: var(--display); font-weight: 800;
+  font-size: clamp(2rem, 6.6vw, 5.4rem);
+  line-height: 0.96; letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+.sec-title .o { color: var(--bg); -webkit-text-stroke: 3px var(--ink); paint-order: stroke fill; }
+.sec-head-row { display: flex; align-items: flex-end; justify-content: space-between; gap: 20px; flex-wrap: wrap; }
+
+/* ───────────── 8. LINKS – כרטיסי בנטו ───────────── */
+.bento {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  grid-auto-rows: minmax(172px, auto);
+  grid-auto-flow: dense;
+  gap: 14px;
+}
+.tile {
+  position: relative;
+  display: flex; flex-direction: column; justify-content: space-between; gap: 18px;
+  min-height: 172px;
+  padding: 20px 22px 22px;
+  border-radius: 28px;
+  border: 1px solid var(--line);
+  background: linear-gradient(160deg, rgba(30, 30, 36, 0.86), rgba(13, 13, 16, 0.86));
+  color: var(--ink);
+  text-align: left;
+  overflow: hidden; isolation: isolate;
+  transform: perspective(1100px) rotateX(var(--rx, 0deg)) rotateY(var(--ry, 0deg)) scale(var(--sc, 1));
+  transition: transform 0.4s var(--ease), color 0.35s ease, opacity 0.4s ease, border-color 0.35s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+/* צבע המותג "נשפך" מהנקודה שבה העכבר נכנס לכרטיס */
+.tile-flood {
+  position: absolute; inset: -1px; z-index: -1;
+  background: var(--c);
+  -webkit-clip-path: circle(0% at var(--fx, 50%) var(--fy, 100%));
+  clip-path: circle(0% at var(--fx, 50%) var(--fy, 100%));
+  transition: clip-path 0.7s var(--expo), -webkit-clip-path 0.7s var(--expo);
+}
+.tile:hover .tile-flood, .tile.is-press .tile-flood, .tile:focus-visible .tile-flood {
+  -webkit-clip-path: circle(165% at var(--fx, 50%) var(--fy, 100%));
+  clip-path: circle(165% at var(--fx, 50%) var(--fy, 100%));
+}
+.tile:hover, .tile.is-press, .tile:focus-visible { color: var(--ct, #060607); border-color: transparent; --sc: 1.012; }
+@media (hover: hover) { .bento:hover .tile:not(:hover) { opacity: 0.5; } }
+.tile-top { display: flex; justify-content: space-between; align-items: flex-start; gap: 10px; }
+.tile-idx { font-family: var(--display); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.22em; opacity: 0.55; }
+.tile-arrow {
+  flex: none;
+  width: 42px; height: 42px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid currentColor;
+  opacity: 0.4;
+  transition: transform 0.55s var(--expo), opacity 0.3s ease;
+}
+.tile-arrow i { font-size: 0.85rem; transform: rotate(-45deg); }
+.tile:hover .tile-arrow, .tile.is-press .tile-arrow { opacity: 1; transform: rotate(45deg) scale(1.08); }
+.tile-body { display: flex; align-items: flex-end; gap: 16px; min-width: 0; }
+.tile-icon { flex: none; display: grid; place-items: center; font-size: 2.3rem; line-height: 1; transition: transform 0.55s var(--spring); }
+.tile-icon svg { width: 1em; height: 1em; fill: currentColor; }
+.tile:hover .tile-icon, .tile.is-press .tile-icon { transform: scale(1.2) rotate(-9deg); }
+.tile-txt { min-width: 0; }
+.tile-name { display: block; font-family: var(--display); font-weight: 800; font-size: clamp(1.1rem, 1.85vw, 1.55rem); line-height: 1.05; letter-spacing: -0.015em; }
+.tile-sub { display: block; margin-top: 6px; font-size: 0.88rem; font-weight: 500; opacity: 0.62; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+.tile-kick { grid-column: span 2; grid-row: span 2; padding: 24px 26px 28px; border-color: rgba(var(--acc-rgb), 0.32); }
+.tile-kick .tile-icon { font-size: clamp(3.4rem, 6vw, 5.4rem); }
+.tile-kick .tile-name { font-size: clamp(2.2rem, 4.6vw, 4rem); letter-spacing: -0.035em; }
+.tile-kick .tile-sub { font-size: 1rem; margin-top: 10px; }
+.tile-kick .tile-body { flex-direction: column; align-items: flex-start; gap: 20px; }
+.tile-kick::after {   /* לוגו K ענק ושקוף ברקע */
+  content: '';
+  position: absolute; right: -9%; bottom: -16%; z-index: -1;
+  width: 62%; aspect-ratio: 1 / 1;
+  background: currentColor;
+  opacity: 0.06;
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M1.333 0h8v5.333H12V2.667h2.667V0h8v8H20v2.667h-2.667v2.666H20V16h2.667v8h-8v-2.667H12v-2.666H9.333V24h-8Z'/%3E%3C/svg%3E") center / contain no-repeat;
+  transform: rotate(-12deg);
+  transition: transform 0.9s var(--ease), opacity 0.4s ease;
+}
+.tile-kick:hover::after, .tile-kick.is-press::after { transform: rotate(-4deg) scale(1.08); opacity: 0.14; }
+.tile-state {
+  display: inline-flex; align-items: center; gap: 9px;
+  padding: 8px 14px; border-radius: 999px;
+  border: 1px solid currentColor;
+  font-family: var(--display); font-weight: 700; font-size: 0.62rem; letter-spacing: 0.2em;
+}
+.tile-state .dot { width: 8px; height: 8px; border-radius: 50%; background: #ff4d4d; }
+html.is-live .tile-state .dot { background: #e5092a; animation: blink 1s steps(2, jump-none) infinite; }
+html.is-live .tile-kick:not(:hover) .tile-state { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); }
+.tile-discord, .tile-tip { grid-column: span 2; }
+
+/* ───────────── 9. SETUP SPECS ───────────── */
+.specs { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.spec-card {
+  position: relative;
+  padding: 26px clamp(18px, 2.4vw, 34px) 12px;
+  border-radius: 30px;
+  border: 1px solid var(--line);
+  background: linear-gradient(170deg, rgba(28, 28, 34, 0.86), rgba(12, 12, 15, 0.86));
+  overflow: hidden;
+}
+.spec-card > header { display: flex; align-items: center; gap: 14px; margin-bottom: 12px; }
+.spec-ic {
+  flex: none; width: 48px; height: 48px; border-radius: 15px;
+  display: grid; place-items: center;
+  background: var(--acc-fill); color: var(--on-acc); font-size: 1.1rem;
+  transition: transform 0.5s var(--spring);
+}
+.spec-card:hover .spec-ic { transform: rotate(-10deg) scale(1.08); }
+.spec-card h3 { font-family: var(--display); font-weight: 700; font-size: clamp(0.98rem, 1.5vw, 1.2rem); letter-spacing: -0.01em; }
+.spec-list li {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: 30px auto minmax(0, 1fr); align-items: baseline; gap: 12px;
+  padding: 17px 8px;
+  border-top: 1px solid var(--line);
+  transition: padding 0.4s var(--ease);
+}
+.spec-list li::before {
+  content: ''; position: absolute; inset: 0; z-index: -1;
+  background: linear-gradient(90deg, rgba(var(--acc-rgb), 0.14), transparent 75%);
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform 0.5s var(--expo);
+}
+.spec-list li:hover { padding-left: 18px; }
+.spec-list li:hover::before { transform: scaleX(1); }
+.spec-n { font-family: var(--display); font-size: 0.62rem; font-weight: 600; letter-spacing: 0.1em; color: var(--acc); }
+.spec-k { font-family: var(--display); font-size: 0.64rem; font-weight: 600; letter-spacing: 0.2em; text-transform: uppercase; color: var(--mute); }
+.spec-v { font-weight: 700; font-size: clamp(0.98rem, 1.35vw, 1.14rem); text-align: right; text-wrap: balance; }
+
+/* ───────────── 10. SUBSCRIBER BADGES – מסלול התקדמות ───────────── */
+.path { position: relative; overflow-x: auto; overflow-y: hidden; padding: 18px 0 10px; scrollbar-width: none; }
+.path::-webkit-scrollbar { display: none; }
+.path-nodes { position: relative; display: grid; grid-template-columns: repeat(8, minmax(104px, 1fr)); min-width: 860px; }
+.path-nodes::before, .path-nodes::after {
+  content: ''; position: absolute; left: 6.25%; right: 6.25%; top: 43px; height: 2px;
+  background: rgba(255, 255, 255, 0.12);
+}
+.path-nodes::after {
+  background: linear-gradient(90deg, var(--acc2), var(--acc));
+  box-shadow: 0 0 14px rgba(var(--acc-rgb), 0.6);
+  transform: scaleX(0); transform-origin: 0 50%;
+  transition: transform 2s var(--expo) 0.25s;
+}
+.path.in .path-nodes::after { transform: scaleX(1); }
+.path-nodes li { position: relative; z-index: 1; display: flex; flex-direction: column; align-items: center; gap: 13px; }
+.node {
+  width: 88px; height: 88px; border-radius: 50%;
+  display: grid; place-items: center;
+  background: #0b0b0e;
+  border: 1px solid rgba(255, 255, 255, 0.14);
+  transition: transform 0.5s var(--spring), border-color 0.3s ease, box-shadow 0.3s ease;
+}
+html.reveal-on .path:not(.in) .node { opacity: 0; }
+.path.in .node { animation: nodeIn 0.7s var(--spring) backwards; animation-delay: calc(var(--n) * 150ms + 300ms); }
+@keyframes nodeIn { from { opacity: 0; transform: scale(0.3) rotate(-40deg); } }
+.node img { width: 52px; height: 52px; object-fit: contain; transition: transform 0.8s var(--ease); }
+.path-nodes li:hover .node { transform: translateY(-9px) scale(1.09); border-color: var(--acc); box-shadow: 0 16px 36px -10px rgba(var(--acc-rgb), 0.55); }
+.path-nodes li:hover .node img { transform: rotateY(360deg); }
+.node-t { font-family: var(--display); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); text-align: center; transition: color 0.3s ease; }
+.path-nodes li:hover .node-t { color: var(--acc); }
+
+/* ───────────── 11. SUBSCRIBER EMOTES – שורות נעות ───────────── */
+.emotes {
+  display: grid; gap: 14px;
+  margin-inline: calc(var(--pad) * -1);
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 9%, #000 91%, transparent);
+  direction: ltr;
+}
+.emote-row { overflow: hidden; padding: 12px 0; }
+.emote-track { display: flex; gap: 14px; width: max-content; animation: emoteLoop var(--dur, 40s) linear infinite; will-change: transform; }
+.emote-row.rev .emote-track { animation-direction: reverse; }
+.emote-row:hover .emote-track { animation-play-state: paused; }
+@keyframes emoteLoop { to { transform: translateX(var(--loop, -50%)); } }
+.emote {
+  flex: none; width: 98px; height: 98px; border-radius: 26px;
+  display: grid; place-items: center;
+  background: rgba(255, 255, 255, 0.045);
+  border: 1px solid var(--line);
+  transition: transform 0.45s var(--spring), background-color 0.3s ease, border-color 0.3s ease;
+}
+.emote img { width: 58px; height: 58px; object-fit: contain; transition: transform 0.45s var(--spring); }
+.emote:hover { transform: translateY(-7px) rotate(-5deg); background: rgba(var(--acc-rgb), 0.13); border-color: rgba(var(--acc-rgb), 0.55); }
+.emote:hover img { transform: scale(1.28) rotate(8deg); }
+
+/* ───────────── 12. TOP DONATORS – פודיום ודירוג ───────────── */
+.fame-status { display: inline-flex; align-items: center; gap: 12px; direction: rtl; color: var(--mute); font-weight: 500; font-size: 0.95rem; }
+.refresh {
+  width: 44px; height: 44px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid var(--line);
+  background: rgba(20, 20, 24, 0.55);
+  color: var(--ink);
+  transition: transform 0.6s var(--expo), background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+.refresh:hover { transform: rotate(180deg); background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); }
+
+.boards { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.board {
+  position: relative; isolation: isolate;
+  padding: clamp(20px, 2.4vw, 32px);
+  border-radius: 32px;
+  border: 1px solid var(--line);
+  background: linear-gradient(170deg, rgba(28, 28, 34, 0.86), rgba(12, 12, 15, 0.86));
+  overflow: hidden;
+}
+.board::before {
+  content: ''; position: absolute; left: 0; right: 0; top: 0; height: 260px; z-index: -1;
+  background: radial-gradient(ellipse 75% 100% at 50% 0%, var(--a-soft), transparent 72%);
+}
+.board-kicks { --a: var(--acc); --a-rgb: var(--acc-rgb); --a-soft: rgba(var(--acc-rgb), 0.17); }
+.board-gifts { --a: var(--gold); --a-rgb: 255, 210, 63; --a-soft: rgba(255, 210, 63, 0.16); }
+.board-head { display: flex; align-items: flex-start; justify-content: space-between; gap: 12px; }
+.board-head h3 { display: flex; align-items: center; gap: 10px; font-family: var(--display); font-weight: 800; font-size: clamp(1.02rem, 1.7vw, 1.4rem); letter-spacing: -0.015em; }
+.board-head p { margin-top: 6px; color: var(--mute); font-size: 0.95rem; }
+.board-ic {
+  flex: none; width: 48px; height: 48px; border-radius: 15px;
+  display: grid; place-items: center;
+  background: var(--a); color: #060607; font-size: 1.15rem;
+}
+.board-ic svg { width: 22px; height: 22px; fill: currentColor; }
+
+.podium { display: grid; grid-template-columns: 1fr 1.14fr 1fr; align-items: end; gap: 10px; margin: 28px 0 16px; min-height: 262px; }
+.pod { display: flex; flex-direction: column; align-items: center; min-width: 0; text-align: center; }
+.pod-1 { order: 2; --ph: 150px; }
+.pod-2 { order: 1; --ph: 106px; }
+.pod-3 { order: 3; --ph: 76px; }
+.pod-medal { font-size: 1.7rem; line-height: 1; margin-bottom: 7px; transform-origin: 50% 0; animation: medal 2.6s ease-in-out infinite; }
+.pod-2 .pod-medal { animation-delay: -0.7s; }
+.pod-3 .pod-medal { animation-delay: -1.3s; }
+@keyframes medal { 0%, 100% { transform: rotate(-10deg); } 50% { transform: rotate(10deg); } }
+.pod-name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; font-size: clamp(0.86rem, 1.25vw, 1.06rem); }
+.pod-amt { margin: 2px 0 10px; font-family: var(--display); font-weight: 800; font-size: clamp(0.9rem, 1.45vw, 1.24rem); color: var(--a); font-variant-numeric: tabular-nums; }
+.pod-pillar {
+  position: relative;
+  width: 100%; height: var(--ph);
+  border-radius: 18px 18px 8px 8px;
+  background: linear-gradient(180deg, var(--a) 0%, rgba(var(--a-rgb), 0.5) 46%, rgba(var(--a-rgb), 0.08) 100%);
+  display: grid; place-items: start center; padding-top: 12px;
+  transform-origin: 50% 100%;
+  overflow: hidden;
+}
+.pod-1 .pod-pillar::after {   /* ברק שחולף על העמוד של מקום ראשון */
+  content: ''; position: absolute; inset: 0;
+  background: linear-gradient(115deg, transparent 35%, rgba(255, 255, 255, 0.55) 50%, transparent 65%);
+  background-size: 260% 100%;
+  animation: shine 3.6s ease-in-out infinite;
+}
+@keyframes shine { from { background-position: 160% 0; } to { background-position: -60% 0; } }
+.pod-rank { font-family: var(--display); font-weight: 900; font-size: clamp(1.6rem, 3vw, 2.6rem); line-height: 1; color: #060607; }
+html.reveal-on .board:not(.in) .pod { opacity: 0; }
+.board.in .pod { animation: revealUp 0.8s var(--ease) backwards; animation-delay: calc(var(--pi) * 120ms + 150ms); }
+.board.in .pod-pillar { animation: pillar 1s var(--expo) backwards; animation-delay: calc(var(--pi) * 120ms + 250ms); }
+@keyframes pillar { from { transform: scaleY(0); } }
+
+.rank-list { display: grid; gap: 6px; }
+.rank {
+  position: relative; isolation: isolate;
+  display: grid; grid-template-columns: 38px minmax(0, 1fr) auto; align-items: center; gap: 10px;
+  padding: 11px 14px;
+  border-radius: 14px;
+  background: rgba(255, 255, 255, 0.035);
+  overflow: hidden;
+  transition: transform 0.35s var(--ease), background-color 0.3s ease;
+}
+.rank::before {
+  content: ''; position: absolute; left: 0; top: 0; bottom: 0; z-index: -1;
+  width: var(--bw, 0%);
+  background: linear-gradient(90deg, rgba(var(--a-rgb), 0.28), rgba(var(--a-rgb), 0.05));
+  border-radius: inherit;
+  transition: width 1.3s var(--expo);
+  transition-delay: calc(var(--ri, 0) * 70ms + 300ms);
+}
+html.reveal-on .board:not(.in) .rank::before { width: 0%; }
+html.reveal-on .board:not(.in) .rank { opacity: 0; }
+.board.in .rank { animation: revealUp 0.7s var(--ease) backwards; animation-delay: calc(var(--ri, 0) * 70ms + 450ms); }
+.rank:hover { transform: translateX(6px); background: rgba(255, 255, 255, 0.07); }
+.rank-n { font-family: var(--display); font-weight: 700; font-size: 0.72rem; color: var(--mute); }
+.rank-u { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.rank-a { font-family: var(--display); font-weight: 700; font-size: 0.86rem; color: var(--a); font-variant-numeric: tabular-nums; }
+.board-empty { padding: 34px 10px; text-align: center; color: var(--mute); direction: rtl; }
+.skel { height: 262px; margin: 28px 0 16px; border-radius: 20px; background: linear-gradient(100deg, rgba(255, 255, 255, 0.04) 30%, rgba(255, 255, 255, 0.1) 50%, rgba(255, 255, 255, 0.04) 70%); background-size: 240% 100%; animation: shine 1.6s linear infinite; }
+
+/* ───────────── 13. FOOTER ───────────── */
+.foot { position: relative; margin-top: clamp(44px, 7vh, 90px); padding: 0 var(--pad) 128px; overflow: hidden; direction: ltr; }
+.foot-big {
+  font-family: var(--display); font-weight: 900;
+  font-size: clamp(3.4rem, 18.4vw, 21rem);
+  line-height: 0.82; letter-spacing: -0.04em;
+  text-align: center; white-space: nowrap;
+  color: var(--bg); -webkit-text-stroke: 3px rgba(245, 245, 240, 0.28); paint-order: stroke fill;
+  user-select: none;
+  margin-bottom: clamp(18px, 3vh, 40px);
+}
+.foot-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap;
+  max-width: var(--max); margin: 0 auto;
+  padding-top: 22px;
+  border-top: 1px solid var(--line);
+  color: var(--mute); font-size: 0.92rem;
+}
+.foot-credit b { color: var(--acc); font-weight: 800; }
+.foot-links { display: flex; gap: 24px; direction: rtl; }
+.foot-links a { position: relative; color: var(--ink); font-weight: 700; padding: 4px 0; }
+.foot-links a::after { content: ''; position: absolute; left: 0; right: 0; bottom: 0; height: 2px; background: var(--acc); transform: scaleX(0); transform-origin: 100% 50%; transition: transform 0.45s var(--expo); }
+.foot-links a:hover::after { transform: scaleX(1); transform-origin: 0 50%; }
+
+/* ───────────── 14. DOCK – סרגל ניווט צף ───────────── */
+.dock {
+  position: fixed; left: 50%; bottom: max(16px, env(safe-area-inset-bottom)); z-index: 70;
+  transform: translateX(-50%);
+  display: flex; align-items: flex-end; gap: 4px;
+  padding: 8px;
+  border-radius: 25px;
+  background: rgba(16, 16, 20, 0.74);
+  border: 1px solid var(--line);
+  -webkit-backdrop-filter: blur(18px) saturate(160%); backdrop-filter: blur(18px) saturate(160%);
+  box-shadow: 0 22px 54px -10px rgba(0, 0, 0, 0.85), inset 0 1px 0 rgba(255, 255, 255, 0.08);
+  direction: ltr;
+}
+.dock-i {
+  position: relative;
+  width: 46px; height: 46px; border-radius: 16px;
+  display: grid; place-items: center;
+  color: var(--mute); font-size: 1.05rem;
+  transform-origin: 50% 100%;
+  transform: scale(var(--s, 1));
+  transition: color 0.25s ease, background-color 0.25s ease, transform 0.16s ease-out;
+  -webkit-tap-highlight-color: transparent;
+}
+.dock-i:hover, .dock-i:focus-visible { color: var(--ink); background: rgba(255, 255, 255, 0.09); }
+.dock-i.is-active { color: var(--on-acc); background: var(--acc-fill); }
+.dock-i::after {
+  content: attr(data-tip);
+  position: absolute; left: 50%; bottom: calc(100% + 12px);
+  transform: translate(-50%, 6px) scale(calc(1 / var(--s, 1)));
+  transform-origin: 50% 100%;
+  padding: 7px 11px; border-radius: 10px;
+  background: var(--ink); color: #060607;
+  font-family: var(--display); font-size: 0.56rem; font-weight: 700; letter-spacing: 0.16em; white-space: nowrap;
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.2s ease;
+}
+@media (hover: hover) { .dock-i:hover::after { opacity: 1; } }
+.dock-sep { width: 1px; height: 28px; margin: 0 4px 9px; background: var(--line); }
+
+/* ───────────── 15. INTRO – פתיחה ───────────── */
+.intro { position: fixed; inset: 0; z-index: 9999; display: none; direction: ltr; cursor: pointer; -webkit-tap-highlight-color: transparent; }
+html[data-intro="full"] .intro, html[data-intro="quick"] .intro { display: block; animation: introFail 0.01s linear 7s forwards; }
+@keyframes introFail { to { visibility: hidden; pointer-events: none; } }
+.intro.portal { pointer-events: none; }
+/* מסך כהה עם חור בצורת הלוגו (ה"שער") */
+.intro-veil { position: absolute; left: 0; top: 0; width: 100%; height: 100%; display: block; }
+.veil-edge { fill: none; stroke: var(--acc); stroke-width: 2.5; vector-effect: non-scaling-stroke; opacity: 0; transition: opacity 0.2s ease; }
+.veil-glow { stroke: rgba(var(--acc-rgb), 0.2); stroke-width: 16; }
+.intro.portal .veil-edge { opacity: 1; }
+.intro-ui { position: absolute; inset: 0; transition: opacity 0.22s ease; }
+.intro.portal .intro-ui, .intro.portal .intro-meter { opacity: 0; }
+html[data-intro="quick"] .intro-ui, html[data-intro="quick"] .intro-meter { display: none; }
+.intro-tl, .intro-tr, .intro-skip { position: absolute; }
+.intro-tl { left: var(--pad); top: calc(var(--pad) + 4px); }
+.intro-tr { right: var(--pad); top: calc(var(--pad) + 4px); color: var(--acc); animation: blink 0.7s steps(2, jump-none) infinite; }
+.intro.lock .intro-tr { animation: none; }
+.intro-skip { left: 0; right: 0; bottom: calc(var(--pad) + 8px); text-align: center; font-size: 0.82rem; color: var(--faint); direction: rtl; }
+/* הלוגו במרכז: נמשך בקו אחד רציף (מסכה שנחשפת לאורך האותיות) */
+.intro-stage { position: absolute; left: 50%; top: 47%; width: min(64vw, 460px); transform: translate(-50%, -50%); }
+.intro-art { display: block; width: 100%; height: auto; overflow: visible; transform-origin: 52.78% 62.5%; }
+.gm-trace { fill: none; stroke: #fff; stroke-width: 22; stroke-linejoin: miter; stroke-dasharray: 100 200; stroke-dashoffset: 100; }
+.gm-t1 { animation: draw 1.2s cubic-bezier(0.6, 0, 0.2, 1) 0.12s forwards; }
+.gm-t2 { animation: draw 0.45s cubic-bezier(0.5, 0, 0.2, 1) 0.78s forwards; }
+.gm-ghost { fill: none; stroke: rgba(245, 245, 240, 0.22); stroke-width: 0.6; stroke-dasharray: 100 200; stroke-dashoffset: 100; animation: draw 1.1s var(--ease) 0.05s forwards; transition: opacity 0.3s ease; }
+.gm-fill { fill: var(--acc); }
+.gm-sweep { fill: var(--ink); transform: translateX(-215px) skewX(-22deg); transition: transform 0.5s cubic-bezier(0.6, 0, 0.2, 1); }
+@keyframes draw { to { stroke-dashoffset: 0; } }
+/* "נעילה": הלוגו הושלם – קופץ קלות ו"מתקרר" מליים ללבן בפס אלכסוני */
+.intro.lock .gm-trace { animation: none; stroke-dashoffset: 0; }
+.intro.lock .gm-ghost { opacity: 0; }
+.intro.lock .gm-sweep { transform: translateX(0) skewX(-22deg); }
+.intro.lock .intro-art { animation: lockPop 0.5s var(--ease); }
+@keyframes lockPop { 40% { transform: scale(1.05); } }
+.intro.fast .gm-sweep { transition: none; }
+.intro.fast .intro-art { animation: none; }
+/* כניסה מהירה (ביקור חוזר באותה גלישה): הלוגו כבר שלם, ומיד נפתח השער */
+html[data-intro="quick"] .gm-trace { animation: none; stroke-dashoffset: 0; }
+html[data-intro="quick"] .gm-ghost { display: none; }
+html[data-intro="quick"] .gm-sweep { transition: none; transform: translateX(0) skewX(-22deg); }
+/* ה"שער": הלוגו הלבן נעלם, ובמקומו נשאר חלון בצורת הלוגו שגדל (ב-app.js) עד שהאתר כולו נחשף */
+.intro.portal .intro-art { animation: none; opacity: 0; transition: opacity 0.16s linear; }
+/* מד התקדמות קטן מתחת ללוגו */
+.intro-meter { display: flex; align-items: center; gap: 14px; margin-top: clamp(22px, 4.4vh, 42px); transition: opacity 0.22s ease; }
+.intro-line { flex: 1 1 auto; height: 2px; background: rgba(255, 255, 255, 0.1); overflow: hidden; }
+.intro-line b { display: block; height: 100%; background: var(--acc); transform-origin: 0 50%; transform: scaleX(var(--p, 0)); }
+.intro-count { min-width: 4.4ch; text-align: right; font-family: var(--display); font-weight: 700; font-size: 0.72rem; letter-spacing: 0.14em; color: var(--mute); font-variant-numeric: tabular-nums; }
+
+/* מצב "לפני כניסה": תוכן ה-hero מוסתר עד שהפתיחה נגמרת */
+html.pre .wm-l, html.pre .wm-avatar, html.pre [data-enter], html.pre .bar > *, html.pre .dock {
+  opacity: 0;
+  animation: enterFail 0.01s linear 7s forwards;   /* אם משהו נכשל – התוכן בכל זאת יופיע */
+}
+@keyframes enterFail { to { opacity: 1; } }
+/* השם: שלוש הפרוסות של כל אות מחליקות פנימה מהצדדים כשהן צבעוניות וננעלות למקומן,
+   ואז הצבע מתרוקן מהאות כלפי מטה ומשאיר לבן נקי */
+html.entered .wm-s {
+  animation: sliceIn 1s var(--expo) backwards, wmDrain 0.85s cubic-bezier(.65, 0, .2, 1) backwards;
+  animation-delay: calc(var(--i) * 75ms + var(--sd, 0ms) + 120ms), calc(var(--i) * 85ms + 1250ms);
+}
+html.entered .wm-avatar { animation: avatarIn 1.3s var(--ease) 0.42s backwards; }
+html.entered [data-enter] { animation: revealUp 0.95s var(--ease) backwards; animation-delay: calc(var(--e, 0) * 110ms + 620ms); }
+html.entered .bar > * { animation: drop 0.85s var(--spring) 0.75s backwards; }
+html.entered .dock { animation: dockIn 0.95s var(--spring) 0.95s backwards; }
+@keyframes sliceIn  { from { transform: translate3d(var(--sx, -0.5em), 0, 0); opacity: 0; } }
+@keyframes wmDrain  { from { background-position: 0% 100%; } }
+@keyframes avatarIn { from { opacity: 0; transform: scale(0.8); } }
+@keyframes drop     { from { opacity: 0; transform: translateY(-34px); } }
+@keyframes dockIn   { from { opacity: 0; transform: translate(-50%, 90px); } }
+
+/* ───────────── 16. חלון Bit ───────────── */
+.bit-modal-overlay {
+  position: fixed; inset: 0; z-index: 100000;
+  display: flex; align-items: center; justify-content: center; padding: 20px;
+  background: rgba(4, 4, 6, 0.84);
+  -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px);
+  opacity: 0; pointer-events: none;
+  transition: opacity 0.3s ease;
+}
+.bit-modal-overlay.open { opacity: 1; pointer-events: auto; }
+.bit-modal-card {
+  position: relative;
+  width: 100%; max-width: 392px;
+  padding: 30px 24px 24px;
+  border-radius: 34px;
+  background: #0d0d10;
+  border: 1px solid rgba(0, 229, 255, 0.4);
+  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.95), 0 0 90px -30px rgba(0, 229, 255, 0.55);
+  text-align: center; direction: rtl;
+  transform: translateY(34px) scale(0.93);
+  transition: transform 0.55s var(--spring);
+}
+.bit-modal-overlay.open .bit-modal-card { transform: none; }
+.bit-modal-close {
+  position: absolute; top: 16px; left: 16px;
+  width: 40px; height: 40px; border-radius: 50%;
+  display: grid; place-items: center;
+  border: 1px solid var(--line); background: rgba(255, 255, 255, 0.06);
+  font-size: 1rem;
+  transition: transform 0.45s var(--expo), background-color 0.3s ease, color 0.3s ease;
+}
+.bit-modal-close:hover { transform: rotate(90deg); background: #00e5ff; color: #060607; }
+.bit-modal-title { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 900; font-size: 1.5rem; color: #00e5ff; }
+.bit-modal-desc { margin: 6px 0 18px; color: var(--mute); font-size: 0.95rem; }
+.bit-qr-img { width: 100%; max-width: 300px; margin: 0 auto; border-radius: 20px; border: 1px solid rgba(0, 229, 255, 0.28); }
+
+/* ───────────── 17. תפריט הנגישות (כמו במקור) ───────────── */
+.accessibility-panel {
+  position: fixed; left: 0; top: 0;
+  width: 380px; max-width: 100vw; height: 100vh; height: 100dvh;
+  background: #fff; z-index: 1000000;
+  box-shadow: 5px 0 25px rgba(0, 0, 0, .25);
+  transform: translateX(-100%); transition: transform .25s ease;
+  display: flex; flex-direction: column;
+  font-family: Arial, "Segoe UI", sans-serif; direction: rtl;
+  visibility: hidden;
+}
+.accessibility-panel.open { transform: translateX(0); visibility: visible; }
+.accessibility-header { height: 60px; min-height: 60px; background: #2161ff; color: #fff; display: flex; align-items: center; position: relative; padding: 0 18px; }
+.accessibility-title  { width: 100%; text-align: center; font-size: 22px; font-weight: bold; }
+.accessibility-close  { position: absolute; left: 10px; top: 10px; width: 38px; height: 38px; border: 0; border-radius: 9px; background: rgba(255, 255, 255, .15); color: #fff; font-size: 30px; line-height: 30px; cursor: pointer; }
+.accessibility-close:hover { background: rgba(255, 255, 255, .25); }
+.accessibility-content { overflow-y: auto; overflow-x: hidden; flex: 1; padding: 15px 18px 20px; }
+.accessibility-content::-webkit-scrollbar { width: 8px; }
+.accessibility-content::-webkit-scrollbar-thumb { background: #999; border-radius: 10px; }
+.accessibility-section-title { font-size: 14px; font-weight: bold; color: #666; margin: 12px 5px 10px; text-align: right; }
+.accessibility-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+.accessibility-item { min-height: 108px; border: 0; border-radius: 14px; background: #f2f4fa; cursor: pointer; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; padding: 12px; font-family: inherit; transition: background .15s, transform .15s; color: #333; }
+.accessibility-item:hover { background: #e9edfa; }
+.accessibility-item:active { transform: scale(.98); }
+.accessibility-item.active { background: #e3ebff; box-shadow: inset 0 0 0 2px #2161ff; }
+.accessibility-icon  { width: 30px; height: 30px; margin-bottom: 10px; color: #2161ff; font-size: 28px; display: flex; align-items: center; justify-content: center; }
+.accessibility-label { font-size: 15px; color: #222; font-weight: 500; line-height: 1.3; }
+.accessibility-reset { width: 100%; height: 50px; margin-top: 18px; background: #fff; border: 2px solid #e0e3ea; border-radius: 10px; font-family: inherit; font-size: 16px; font-weight: bold; color: #222; cursor: pointer; }
+.accessibility-reset:hover { background: #f5f6f8; }
+.accessibility-statement { display: block; text-align: center; margin-top: 14px; margin-bottom: 5px; color: #777; font-size: 13px; text-decoration: underline; cursor: pointer; }
+
+/* מצבי הנגישות. הפילטרים יושבים על html כדי שהאלמנטים הצפים יישארו במקומם */
+html:has(body.access-large-text) { font-size: 118%; }
+body.access-line-spacing * { line-height: 2 !important; }
+body.access-readable-font, body.access-readable-font * { font-family: Arial, sans-serif !important; }
+body.access-letter-spacing * { letter-spacing: 2px !important; }
+body.access-headings h1, body.access-headings h2, body.access-headings h3, body.access-headings h4, body.access-headings h5, body.access-headings h6 { outline: 3px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-links a { text-decoration: underline !important; font-weight: bold !important; }
+html:has(body.access-high-contrast) { filter: contrast(160%); }
+html:has(body.access-invert) { filter: invert(1) hue-rotate(180deg); }
+html:has(body.access-grayscale) { filter: grayscale(100%); }
+html:has(body.access-saturation) { filter: saturate(180%); }
+body.access-hide-images img { visibility: hidden !important; }
+body.access-no-animation *, body.access-no-animation *::before, body.access-no-animation *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
+html:has(body.access-no-animation) { scroll-behavior: auto; }
+body.access-no-animation [data-reveal], body.access-no-animation .node, body.access-no-animation .pod, body.access-no-animation .rank,
+body.access-no-animation .wm-l, body.access-no-animation .wm-avatar, body.access-no-animation [data-enter] { opacity: 1 !important; }
+body.access-no-animation .split .w > span { transform: none !important; }
+body.access-focus *:focus { outline: 4px solid #2161ff !important; outline-offset: 3px !important; }
+body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='48' height='48'%3E%3Cpath d='M4 2L42 25L27 28L38 43L31 47L20 32L12 42Z' fill='black' stroke='white' stroke-width='3'/%3E%3C/svg%3E") 4 2, auto !important; }
+
+#reading-guide { position: fixed; left: 0; right: 0; height: 4px; background: #2161ff; pointer-events: none; z-index: 999999; display: none; }
+#reading-mask  { position: fixed; left: 0; right: 0; top: 40%; height: 80px; background: rgba(0, 0, 0, .15); border-top: 3px solid #2161ff; border-bottom: 3px solid #2161ff; pointer-events: none; z-index: 999998; display: none; }
+.speech-status { position: fixed; bottom: 96px; left: 20px; max-width: 320px; padding: 12px 18px; background: #2161ff; color: #fff; border-radius: 10px; font-family: Arial, sans-serif; font-size: 14px; z-index: 1000001; display: none; box-shadow: 0 4px 15px rgba(0, 0, 0, .25); direction: rtl; }
+
+/* ───────────── 18. ביצת פסחא: גשם אימוג'ים ───────────── */
+.emote-rain { position: fixed; inset: 0; z-index: 9985; pointer-events: none; overflow: hidden; }
+.emote-rain img { position: absolute; top: -90px; max-width: none; will-change: transform; animation: emoteFall linear forwards; }
+@keyframes emoteFall { to { transform: translate3d(var(--dx, 0px), calc(100vh + 190px), 0) rotate(var(--rot, 360deg)); } }
+
+/* ───────────── 19. רספונסיב ───────────── */
+@media (max-width: 1020px) {
+  .spin-badge { display: none; }
+  .bento { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .tile-kick { grid-row: span 1; min-height: 250px; }
+  .boards, .specs { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 760px) {
+  .hero { padding: 96px var(--pad) 128px; }
+  .hero-kicker { justify-content: center; }
+  .hero-kicker .scroll-hint { display: none; }
+  .wordmark { font-size: 20vw; }
+  .hero-kicker { grid-template-columns: minmax(0, 1fr); justify-items: center; row-gap: 16px; }
+  .hero-kicker > .label:first-child { justify-self: center; padding-bottom: 0; }
+  .hero-row { flex-direction: column; align-items: stretch; margin-top: 30px; }
+  .code-chip { justify-content: center; }
+  .hero-cta { display: grid; grid-template-columns: minmax(0, 1fr); }
+  .btn { width: 100%; }
+  .tape { margin-top: -40px; }
+  .tile { min-height: 150px; padding: 16px 16px 18px; border-radius: 24px; }
+  .tile-kick { min-height: 230px; padding: 20px 20px 22px; }
+  .tile-arrow { width: 36px; height: 36px; }
+  .tile-icon { font-size: 1.9rem; }
+  .tile-body { flex-direction: column; align-items: flex-start; gap: 12px; }
+  .spec-list li { grid-template-columns: 28px minmax(0, 1fr); row-gap: 4px; }
+  .spec-v { grid-column: 2; text-align: left; }
+  .path { overflow: visible; }
+  .path-nodes { grid-template-columns: repeat(4, minmax(0, 1fr)); min-width: 0; row-gap: 26px; }
+  .path-nodes::before, .path-nodes::after { display: none; }
+  .node { width: 72px; height: 72px; }
+  .node img { width: 44px; height: 44px; }
+  .node-t { font-size: 0.56rem; letter-spacing: 0.08em; }
+  .emote { width: 82px; height: 82px; border-radius: 22px; }
+  .emote img { width: 50px; height: 50px; }
+  .podium { gap: 7px; min-height: 240px; }
+  .foot-row { flex-direction: column-reverse; text-align: center; }
+  .dock { gap: 2px; padding: 7px; }
+  .dock-i { width: 44px; height: 44px; }
+}
+@media (max-width: 380px) {
+  .dock-i { width: 40px; height: 40px; }
+  .btn { padding: 0 20px; letter-spacing: 0.1em; }
+}
+@media (max-height: 700px) { .spin-badge { display: none; } }
+@media (max-height: 560px) and (min-width: 761px) {
+  .hero { padding-top: 90px; padding-bottom: 110px; }
+  .wordmark { font-size: clamp(3.8rem, 26vh, 15rem); }
+}
+
+/* ───────────── 20. הפחתת תנועה ─────────────
+   המחלקה reduce-motion נקבעת בראש index.html (לא ב-Windows – ראו שם). */
+html.reduce-motion { scroll-behavior: auto; }
+html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after {
+  animation-duration: 0.01ms !important;
+  animation-delay: 0s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.01ms !important;
+  transition-delay: 0s !important;
+}
