@@ -394,11 +394,11 @@ html.is-live .avatar::after {
 .spin-badge .core {
   width: 44%; height: 44%; border-radius: 50%;
   display: grid; place-items: center;
-  background: var(--acc-fill); color: var(--on-acc);
+  background: #53fc18; color: #041a00;   /* הירוק של Kick, כמו בכרטיס Kick */
   transition: transform 0.5s var(--spring);
 }
 .spin-badge .core svg { width: 46%; height: 46%; fill: currentColor; }
-.spin-badge:hover { transform: scale(1.1) rotate(-10deg); color: var(--acc); }
+.spin-badge:hover { transform: scale(1.1) rotate(-10deg); color: #53fc18; }
 .spin-badge:hover .core { transform: scale(1.12) rotate(10deg); }
 
 /* ───────────── 6. הסרט הנע ───────────── */
