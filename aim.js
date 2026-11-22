@@ -247,6 +247,7 @@
       closeNameForm();
       paintPlayer();
       loadTop();
+      if (player.verified) syncBests();
     });
   }
   $('#nameSave').addEventListener('click', submitName);
@@ -289,6 +290,21 @@
   $$('.aim-tab').forEach(function (tab) {
     tab.addEventListener('click', function () { topInput = tab.getAttribute('data-input'); loadTop(); });
   });
+  // שיא ששמור בדפדפן ועוד לא נשלח לטופ (למשל כי השרת עוד לא היה זמין כשהוא נעשה) נשלח כאן.
+  // אם לא נשמר מספר הפגיעות של אותו סיבוב, נשלח המספר הקטן ביותר שמתאים לניקוד.
+  function syncBests() {
+    if (!player.name) return;
+    ['fps', 'mouse', 'touch'].forEach(function (k) {
+      var best = parseInt(store('gmAimBest_' + k), 10) || 0, sent = parseInt(store('gmAimSent_' + k), 10) || 0;
+      if (best <= sent) return;
+      var h = parseInt(store('gmAimBestHits_' + k), 10) || Math.ceil(best / 250);
+      api('/score', { id: player.id, input: k, score: best, hits: h, misses: 0, combo: 0 }).then(function (j) {
+        if (!j || !j.ok) return;
+        store('gmAimSent_' + k, String(best));
+        if (k === topInput) renderTop(j.top);
+      });
+    });
+  }
 
   /* ══════════════ מצב FPS: הגדרות רגישות וממיר ══════════════ */
   var cfg = { game: 'valorant', sens: 0.4, fov: 103, dpi: 0 };
@@ -718,7 +734,7 @@
     if (mode === 'fps') { draw(); if (document.exitPointerLock && document.pointerLockElement) document.exitPointerLock(); }
     paintHud(0);
     var best = getBest(), isNew = score > best && score > 0;
-    if (isNew) setBest(score);
+    if (isNew) { setBest(score); store('gmAimBestHits_' + kind(), String(hits)); }
     hudBest.textContent = Math.max(best, score);
     $('#endScore').textContent = score;
     $('#endHits').textContent = hits;
@@ -730,9 +746,12 @@
     if (isNew) sfx.best(); else sfx.end();
     // שליחת התוצאה לטופ המשותף (אם השרת תומך בזה)
     if (player.name && score > 0) {
-      var sent = kind();
+      var sent = kind(), sentScore = score;
       api('/score', { id: player.id, input: sent, score: score, hits: hits, misses: misses, combo: bestCombo }).then(function (j) {
-        if (j && j.ok) { topInput = sent; paintTabs(); renderTop(j.top); }
+        if (j && j.ok) {
+          store('gmAimSent_' + sent, String(Math.max(sentScore, parseInt(store('gmAimSent_' + sent), 10) || 0)));
+          topInput = sent; paintTabs(); renderTop(j.top);
+        } else syncBests();   // השרת לא קיבל (או לא זמין): ננסה שוב בכניסה הבאה
       });
     }
   }
@@ -784,13 +803,14 @@
   if (player.name && !player.verified) {
     api('/name', { id: player.id, name: player.name }).then(function (j) {
       if (!j) return;
-      if (j.ok) { player.name = j.name; player.changedAt = j.changedAt; player.verified = true; savePlayer(); paintPlayer(); }
+      if (j.ok) { player.name = j.name; player.changedAt = j.changedAt; player.verified = true; savePlayer(); paintPlayer(); syncBests(); }
       else if (j.error === 'taken' || j.error === 'reserved') {
         player.name = ''; player.changedAt = 0; savePlayer(); paintPlayer();
         if (state === 'idle') { openNameForm(false); nameMsg.textContent = 'השם שבחרתם כבר תפוס אצל שחקן אחר. בחרו שם חדש.'; }
       }
     });
   }
+  else if (player.name) syncBests();
   loadTop();
   // רענון אוטומטי של הטופ פעם בדקה (לא באמצע סיבוב, ורק כשהלשונית פתוחה והשרת זמין)
   setInterval(function () { if (!document.hidden && serverOk && state !== 'play' && state !== 'count') loadTop(); }, 60000);
