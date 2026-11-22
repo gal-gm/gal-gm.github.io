@@ -332,14 +332,36 @@
     } catch (e) { fail(); }
   });
 
-  /* ערכת הצבע: כפתור הצבע ב-dock מחליף בין סגול לירוק, והבחירה נשמרת */
-  on($('#themeToggle'), 'click', function () {
-    var next = html.getAttribute('data-theme') === 'purple' ? 'lime' : 'purple';
-    html.setAttribute('data-theme', next);
-    try { localStorage.setItem('gmTheme2', next); } catch (e) {}
-    toast(next === 'purple' ? 'סגול 💜' : 'ירוק 💚');
-    if (FX && FX.pulse && !still()) FX.pulse();
-  });
+  /* ערכת הצבע: כפתור הצבע ב-dock פותח בורר עם כל הצבעים. הבחירה נשמרת, ותקפה גם בדפי המשנה ובמשחק. */
+  var THEME_LIST = [['purple', 'סגול', '#7c3aed'], ['pink', 'ורוד', '#db2777'], ['red', 'אדום', '#e11d48'], ['orange', 'כתום', '#ff8a1f'],
+                    ['yellow', 'צהוב', '#ffd23f'], ['lime', 'ירוק', '#c6ff3d'], ['blue', 'כחול', '#2563eb']];
+  (function () {
+    var themeBtn = $('#themeToggle');
+    if (!themeBtn) return;
+    var pop = document.createElement('div');
+    pop.className = 'theme-pop'; pop.hidden = true; pop.setAttribute('role', 'menu'); pop.setAttribute('aria-label', 'בחירת צבע');
+    function paint() {
+      var cur = html.getAttribute('data-theme');
+      $$('.theme-dot', pop).forEach(function (d) { d.classList.toggle('is-on', d.getAttribute('data-theme') === cur); });
+    }
+    THEME_LIST.forEach(function (t) {
+      var dot = document.createElement('button');
+      dot.type = 'button'; dot.className = 'theme-dot'; dot.style.background = t[2];
+      dot.setAttribute('data-theme', t[0]); dot.setAttribute('role', 'menuitem'); dot.setAttribute('aria-label', 'צבע ' + t[1]); dot.title = t[1];
+      dot.addEventListener('click', function () {
+        html.setAttribute('data-theme', t[0]);
+        try { localStorage.setItem('gmTheme2', t[0]); } catch (e) {}
+        paint(); pop.hidden = true;
+        toast(t[1]);
+        if (FX && FX.pulse && !still()) FX.pulse();
+      });
+      pop.appendChild(dot);
+    });
+    body.appendChild(pop);
+    on(themeBtn, 'click', function (e) { e.stopPropagation(); pop.hidden = !pop.hidden; paint(); });
+    document.addEventListener('click', function (e) { if (!pop.hidden && !pop.contains(e.target)) pop.hidden = true; });
+    document.addEventListener('keydown', function (e) { if (e.key === 'Escape') pop.hidden = true; });
+  })();
 
   /* ══════════════ 5. כרטיסי הקישורים: "שפיכת" צבע מנקודת הכניסה + הטיה ══════════════ */
   $$('.tile').forEach(function (tile) {
@@ -928,6 +950,48 @@
     if (document.fonts.addEventListener) document.fonts.addEventListener('loadingdone', onResize);
   }
   window.addEventListener('load', onResize);
+
+  /* ══════════════ Aim Trainer: טופ 10 בדף הבית ══════════════ */
+  (function () {
+    var topBox = $('#aimTop10'), topList = $('#aimTop10List');
+    if (!topBox || !topList) return;
+    var AIM_API = 'https://galgm-leaderboards.gal-m1521.workers.dev/aim';
+    function message(text) {
+      topList.innerHTML = '';
+      var li = document.createElement('li');
+      li.className = 'is-empty'; li.textContent = text;
+      topList.appendChild(li);
+    }
+    function render(rows) {
+      if (!rows.length) { message('עוד אין תוצאות. תהיו הראשונים.'); return; }
+      topList.innerHTML = '';
+      rows.forEach(function (row, i) {
+        var li = document.createElement('li'), rank = document.createElement('span'), name = document.createElement('b'), score = document.createElement('span');
+        if (i < 3) li.className = 'is-top';
+        rank.className = 't-rank'; rank.textContent = ('0' + (i + 1)).slice(-2);
+        name.textContent = row.name;
+        score.className = 't-score'; score.textContent = Number(row.score).toLocaleString('en-US');
+        li.appendChild(rank); li.appendChild(name); li.appendChild(score);
+        topList.appendChild(li);
+      });
+    }
+    function load(input) {
+      fetch(AIM_API + '/top?input=' + input).then(function (r) { return r.json(); }).then(function (j) {
+        // גרסת ה-Worker שתומכת במשחק מחזירה aim: 1. עד שהיא מותקנת – אין טופ להציג.
+        if (!j || j.aim !== 1 || !j.ok) { message('הטופ ייפתח בקרוב.'); return; }
+        render(j.top || []);
+      }).catch(function () { message('הטופ לא זמין כרגע.'); });
+    }
+    $$('.aim-top10-tabs button', topBox).forEach(function (tab) {
+      tab.addEventListener('click', function () {
+        $$('.aim-top10-tabs button', topBox).forEach(function (t) { t.classList.toggle('is-on', t === tab); });
+        message('טוען…');
+        current = tab.getAttribute('data-input'); load(current);
+      });
+    });
+    var current = 'fps'; load(current);
+    setInterval(function () { if (!document.hidden) load(current); }, 60000);   // רענון אוטומטי פעם בדקה, רק כשהלשונית פתוחה
+  })();
 
   checkKickLiveStatus();
   setInterval(checkKickLiveStatus, 60000);

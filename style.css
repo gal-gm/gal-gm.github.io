@@ -32,6 +32,11 @@
 
 html[data-theme="purple"] { --acc: #a877ff; --acc-rgb: 168, 119, 255; --acc-fill: #7c3aed; --on-acc: #ffffff; --acc2: #e879f9; --acc2-rgb: 232, 121, 249; --glow-rgb: 124, 58, 237; }
 html[data-theme="lime"]   { --acc: #c6ff3d; --acc-rgb: 198, 255, 61;  --acc-fill: #c6ff3d; --on-acc: #060607; --acc2: #8b5cf6; --acc2-rgb: 139, 92, 246; --glow-rgb: 139, 92, 246; }
+html[data-theme="pink"]   { --acc: #ff7ac8; --acc-rgb: 255, 122, 200; --acc-fill: #db2777; --on-acc: #ffffff; --acc2: #c084fc; --acc2-rgb: 192, 132, 252; --glow-rgb: 219, 39, 119; }
+html[data-theme="red"]    { --acc: #ff6b6b; --acc-rgb: 255, 107, 107; --acc-fill: #e11d48; --on-acc: #ffffff; --acc2: #fb923c; --acc2-rgb: 251, 146, 60; --glow-rgb: 225, 29, 72; }
+html[data-theme="orange"] { --acc: #ff9a3c; --acc-rgb: 255, 154, 60; --acc-fill: #ff8a1f; --on-acc: #060607; --acc2: #ffd23f; --acc2-rgb: 255, 210, 63; --glow-rgb: 249, 115, 22; }
+html[data-theme="yellow"] { --acc: #ffd23f; --acc-rgb: 255, 210, 63; --acc-fill: #ffd23f; --on-acc: #060607; --acc2: #ff8a1f; --acc2-rgb: 255, 138, 31; --glow-rgb: 214, 158, 20; }
+html[data-theme="blue"]   { --acc: #5aa9ff; --acc-rgb: 90, 169, 255; --acc-fill: #2563eb; --on-acc: #ffffff; --acc2: #22d3ee; --acc2-rgb: 34, 211, 238; --glow-rgb: 37, 99, 235; }
 
 *, *::before, *::after { box-sizing: border-box; }
 
@@ -858,6 +863,43 @@ html.entered .dock { animation: dockIn 0.95s var(--spring) 0.95s backwards; }
 @keyframes drop     { from { opacity: 0; transform: translateY(-34px); } }
 @keyframes dockIn   { from { opacity: 0; transform: translate(-50%, 90px); } }
 
+/* ───────────── משחק ה-Aim Trainer: כרטיס שמוביל לדף המשחק (aim.html) ───────────── */
+.aim-card {
+  display: flex; align-items: center; gap: clamp(16px, 3vw, 30px);
+  padding: clamp(20px, 3vw, 34px); border-radius: 28px;
+  direction: rtl; text-decoration: none; color: var(--ink);
+  background: radial-gradient(ellipse 60% 130% at 100% 0%, rgba(var(--glow-rgb), 0.32), transparent 70%), rgba(16, 16, 20, 0.72);
+  border: 1px solid rgba(var(--acc-rgb), 0.32);
+  transition: transform 0.5s var(--spring), border-color 0.3s ease;
+}
+.aim-card:hover, .aim-card:focus-visible { transform: translateY(-4px); border-color: var(--acc); }
+.aim-card-ic { flex: none; display: grid; place-items: center; width: clamp(64px, 8vw, 96px); aspect-ratio: 1; border-radius: 24px; background: var(--acc-fill); color: var(--on-acc); font-size: clamp(1.6rem, 3.4vw, 2.6rem); }
+.aim-card-txt { flex: 1; min-width: 0; display: grid; gap: 4px; }
+.aim-card-txt b { font-size: clamp(1.15rem, 2.6vw, 1.9rem); font-weight: 900; line-height: 1.2; }
+.aim-card-txt span { color: var(--mute); }
+.aim-card-go { flex: none; display: inline-flex; align-items: center; gap: 10px; height: 52px; padding: 0 24px; border-radius: 999px; background: var(--ink); color: #060607; font-weight: 800; white-space: nowrap; }
+@media (max-width: 700px) {
+  .aim-card { flex-wrap: wrap; }
+  .aim-card-go { width: 100%; justify-content: center; }
+}
+/* טופ 10 של המשחק בדף הבית */
+.aim-top10 { margin-top: 18px; padding: clamp(18px, 2.6vw, 28px); border-radius: 28px; background: rgba(16, 16, 20, 0.72); border: 1px solid var(--line); }
+.aim-top10-head { display: flex; align-items: center; justify-content: space-between; gap: 14px; flex-wrap: wrap; margin-bottom: 16px; direction: ltr; }
+.aim-top10-head h3 { margin: 0; font-family: var(--display); font-weight: 900; font-size: clamp(1.3rem, 3vw, 2rem); letter-spacing: -0.02em; text-transform: uppercase; }
+.aim-top10-tabs { display: flex; gap: 6px; direction: rtl; }
+.aim-top10-tabs button { height: 40px; padding: 0 16px; border-radius: 999px; background: none; border: 1px solid var(--line); color: var(--mute); font-family: var(--text); font-weight: 700; cursor: pointer; transition: color 0.25s ease, border-color 0.25s ease; }
+.aim-top10-tabs button:hover { color: var(--ink); border-color: rgba(var(--acc-rgb), 0.6); }
+.aim-top10-tabs button.is-on { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); }
+.aim-top10-list { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; direction: ltr; }
+.aim-top10-list li { display: flex; align-items: center; gap: 14px; padding: 12px 16px; border-radius: 16px; background: rgba(255, 255, 255, 0.04); }
+.aim-top10-list li.is-top { background: rgba(var(--acc-rgb), 0.16); box-shadow: inset 0 0 0 1px rgba(var(--acc-rgb), 0.45); }
+.aim-top10-list li.is-empty { grid-column: 1 / -1; justify-content: center; direction: rtl; color: var(--mute); }
+.aim-top10-list .t-rank { font-family: var(--display); font-weight: 800; font-size: 0.82rem; color: var(--mute); min-width: 2ch; }
+.aim-top10-list li.is-top .t-rank { color: var(--acc); }
+.aim-top10-list b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; unicode-bidi: plaintext; }
+.aim-top10-list .t-score { font-family: var(--display); font-weight: 800; color: var(--acc); font-variant-numeric: tabular-nums; }
+@media (max-width: 700px) { .aim-top10-list { grid-template-columns: minmax(0, 1fr); } }
+
 /* ───────────── 16. חלון Bit ───────────── */
 .bit-modal-overlay {
   position: fixed; inset: 0; z-index: 100000;
@@ -1013,3 +1055,11 @@ html.reduce-motion *, html.reduce-motion *::before, html.reduce-motion *::after 
   transition-duration: 0.01ms !important;
   transition-delay: 0s !important;
 }
+
+/* ───── בורר הצבעים: חלונית קטנה עם עיגול לכל ערכת צבע ───── */
+.theme-pop { display: flex; gap: 10px; padding: 10px 12px; border-radius: 999px; background: rgba(20, 20, 24, 0.94); border: 1px solid var(--line); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); direction: ltr; }
+.theme-pop[hidden] { display: none; }
+.theme-dot { width: 30px; height: 30px; padding: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.25); cursor: pointer; transition: transform 0.25s cubic-bezier(.3, 1.5, .4, 1), border-color 0.2s ease; }
+.theme-dot:hover { transform: scale(1.18); }
+.theme-dot.is-on { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25); }
+.theme-pop { position: fixed; left: 50%; bottom: 100px; z-index: 9990; transform: translateX(-50%); }

@@ -28,6 +28,11 @@
 
 html[data-theme="purple"] { --acc: #a877ff; --acc-rgb: 168, 119, 255; --acc-fill: #7c3aed; --on-acc: #ffffff; --acc2-rgb: 232, 121, 249; --glow-rgb: 124, 58, 237; }
 html[data-theme="lime"]   { --acc: #c6ff3d; --acc-rgb: 198, 255, 61;  --acc-fill: #c6ff3d; --on-acc: #060607; --acc2-rgb: 139, 92, 246; --glow-rgb: 139, 92, 246; }
+html[data-theme="pink"]   { --acc: #ff7ac8; --acc-rgb: 255, 122, 200; --acc-fill: #db2777; --on-acc: #ffffff; --acc2-rgb: 192, 132, 252; --glow-rgb: 219, 39, 119; }
+html[data-theme="red"]    { --acc: #ff6b6b; --acc-rgb: 255, 107, 107; --acc-fill: #e11d48; --on-acc: #ffffff; --acc2-rgb: 251, 146, 60; --glow-rgb: 225, 29, 72; }
+html[data-theme="orange"] { --acc: #ff9a3c; --acc-rgb: 255, 154, 60; --acc-fill: #ff8a1f; --on-acc: #060607; --acc2-rgb: 255, 210, 63; --glow-rgb: 249, 115, 22; }
+html[data-theme="yellow"] { --acc: #ffd23f; --acc-rgb: 255, 210, 63; --acc-fill: #ffd23f; --on-acc: #060607; --acc2-rgb: 255, 138, 31; --glow-rgb: 214, 158, 20; }
+html[data-theme="blue"]   { --acc: #5aa9ff; --acc-rgb: 90, 169, 255; --acc-fill: #2563eb; --on-acc: #ffffff; --acc2-rgb: 34, 211, 238; --glow-rgb: 37, 99, 235; }
 
 html { background: #060607; scrollbar-width: thin; scrollbar-color: rgba(var(--acc-rgb), 0.55) #060607; }
 body {

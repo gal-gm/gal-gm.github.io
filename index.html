@@ -33,10 +33,10 @@
      אחרת ברירת המחדל. כדי להחליף ברירת מחדל משנים את המילה כאן למטה. */
   var theme = 'purple';
   try {
-    var tm = /[?&]theme=(purple|lime)\b/.exec(location.search);
+    var tm = /[?&]theme=(purple|pink|red|orange|yellow|lime|blue)\b/.exec(location.search);
     var saved = localStorage.getItem('gmTheme2');
     if (tm) theme = tm[1];
-    else if (saved === 'purple' || saved === 'lime') theme = saved;
+    else if (/^(purple|pink|red|orange|yellow|lime|blue)$/.test(saved)) theme = saved;
   } catch (e) {}
   d.setAttribute('data-theme', theme);
 })();
@@ -59,7 +59,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Unbounded:wght@200..900&display=swap">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-<link rel="stylesheet" href="style.css?v=8">
+<link rel="stylesheet" href="style.css?v=11">
 </head>
 <body>
 
@@ -390,6 +390,32 @@
       </article>
     </div>
   </section>
+
+  <!-- ═══════════════ 06 · משחק אימון כיוון ═══════════════ -->
+  <section class="sec" id="aim" data-section="aim">
+    <div class="sec-head">
+      <div class="sec-idx label" data-reveal>06</div>
+      <h2 class="sec-title split" data-reveal="split">Galg<span class="o">aim</span></h2>
+    </div>
+    <a class="aim-card" href="aim.html" data-reveal data-cursor="PLAY">
+      <span class="aim-card-ic" aria-hidden="true"><i class="fa-solid fa-crosshairs"></i></span>
+      <span class="aim-card-txt"><b>כמה מטרות תפגעו ב־30 שניות?</b><span>GALGAIM – משחק אימון כיוון קצר, עם מצב FPS וממיר רגישות. נסו לעקוף את השיא של עצמכם.</span></span>
+      <span class="aim-card-go">שחקו עכשיו <i class="fa-solid fa-arrow-left" aria-hidden="true"></i></span>
+    </a>
+
+    <!-- טופ 10 של המשחק (נטען מה-Worker; נפרד לכל מצב משחק) -->
+    <div class="aim-top10" id="aimTop10" data-reveal>
+      <div class="aim-top10-head">
+        <h3>Top 10</h3>
+        <div class="aim-top10-tabs" role="tablist" aria-label="מצב משחק">
+          <button class="is-on" type="button" data-input="fps" role="tab">FPS</button>
+          <button type="button" data-input="mouse" role="tab">עכבר</button>
+          <button type="button" data-input="touch" role="tab">מסך מגע</button>
+        </div>
+      </div>
+      <ol class="aim-top10-list" id="aimTop10List"><li class="is-empty">טוען…</li></ol>
+    </div>
+  </section>
 </main>
 
 <!-- סרט נע שני (הפוך) -->
@@ -421,8 +447,9 @@
   <a class="dock-i" href="#setup" data-target="setup" data-tip="SETUP" aria-label="Setup Specs"><i class="fa-solid fa-microchip" aria-hidden="true"></i></a>
   <a class="dock-i" href="#perks" data-target="perks" data-tip="SUB PERKS" aria-label="Subscriber Badges &amp; Emotes"><i class="fa-solid fa-medal" aria-hidden="true"></i></a>
   <a class="dock-i" href="#donators" data-target="donators" data-tip="DONATORS" aria-label="Top Donators"><i class="fa-solid fa-crown" aria-hidden="true"></i></a>
+  <a class="dock-i" href="#aim" data-target="aim" data-tip="AIM" aria-label="משחק אימון כיוון"><i class="fa-solid fa-crosshairs" aria-hidden="true"></i></a>
   <span class="dock-sep" aria-hidden="true"></span>
-  <button class="dock-i" id="themeToggle" type="button" data-tip="COLOR" aria-label="החלפת צבע האתר: סגול או ירוק" title="החלפת צבע"><i class="fa-solid fa-palette" aria-hidden="true"></i></button>
+  <button class="dock-i" id="themeToggle" type="button" data-tip="COLOR" aria-label="בחירת צבע האתר" aria-haspopup="true" title="החלפת צבע"><i class="fa-solid fa-palette" aria-hidden="true"></i></button>
   <button class="dock-i" id="accessibilityOpen" type="button" data-tip="נגישות" aria-label="פתיחת כלי נגישות" title="כלי נגישות"><i class="fa-solid fa-universal-access" aria-hidden="true"></i></button>
 </nav>
 
@@ -484,7 +511,7 @@
 
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
-<script src="fx.js?v=4"></script>
-<script src="app.js?v=7"></script>
+<script src="fx.js?v=5"></script>
+<script src="app.js?v=10"></script>
 </body>
 </html>

@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="he" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>GALGAIM – Aim Trainer | GalGM</title>
+<meta name="description" content="משחק אימון כיוון של GalGM: כמה מטרות תצליחו לפגוע ב-30 שניות?">
+<meta name="theme-color" content="#060607">
+<script>
+/* ערכת הצבע שנבחרה בדף הבית (סגול / ליים) – נקבעת לפני הציור הראשון */
+(function () {
+  var t = 'purple';
+  try { var s = localStorage.getItem('gmTheme2'); if (/^(purple|pink|red|orange|yellow|lime|blue)$/.test(s)) t = s; } catch (e) {}
+  document.documentElement.setAttribute('data-theme', t);
+})();
+</script>
+<link rel="icon" type="image/png" sizes="64x64" href="data:image/png;base64,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">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Heebo:wght@400;500;700;800;900&family=Unbounded:wght@200..900&display=swap">
+<link rel="stylesheet" href="aim.css?v=10">
+</head>
+<body>
+
+<header class="aim-bar">
+  <a class="aim-brand" href="index.html" aria-label="GalGM – חזרה לדף הבית">
+    <svg viewBox="0 0 126 64" aria-hidden="true"><path d="M9 0H73L93 30L113 0H126V55L117 64H113V24L93 54L73 24V64H60V13H13V51H39V40H26V27H52V64H0V9Z"/></svg>
+  </a>
+  <div class="aim-bar-side">
+    <button class="aim-chip" id="nameBtn" type="button" hidden>שם</button>
+    <button class="aim-chip" id="themeBtn" type="button" aria-haspopup="true">צבע</button>
+    <button class="aim-chip" id="soundBtn" type="button" aria-pressed="true">צליל: פועל</button>
+    <a class="aim-chip" href="index.html">חזרה לאתר</a>
+  </div>
+</header>
+
+<main class="aim-wrap">
+  <div class="aim-head">
+    <h1 class="aim-title"><span>GALG</span>AIM</h1>
+    <div class="aim-label">AIM TRAINER</div>
+    <p class="aim-sub">כמה מטרות תצליחו לפגוע ב־30 שניות?</p>
+  </div>
+
+  <!-- בורר מצב: FPS (עכבר נעול, מבט מסתובב) או סמן רגיל -->
+  <div class="aim-modes" id="modeBox" role="tablist" aria-label="מצב משחק">
+    <button class="aim-mode" type="button" data-mode="fps" role="tab">מצב FPS</button>
+    <button class="aim-mode" type="button" data-mode="classic" role="tab">סמן רגיל</button>
+  </div>
+
+  <!-- הגדרות רגישות וממיר (רק במצב FPS) -->
+  <section class="aim-sens" id="sensBox" hidden>
+    <div class="sens-row">
+      <label class="sens-field"><span>המשחק שלכם</span><select id="sensGame"></select></label>
+      <label class="sens-field"><span id="sensLabel">הרגישות במשחק</span><input id="sensValue" type="number" inputmode="decimal" min="0.001" step="0.001"></label>
+      <label class="sens-field"><span>שדה ראייה אופקי</span><input id="sensFov" type="number" inputmode="decimal" min="60" max="130" step="0.01"></label>
+      <label class="sens-field"><span>DPI של העכבר (לא חובה)</span><input id="sensDpi" type="number" inputmode="numeric" min="100" max="32000" step="50" placeholder="800"></label>
+    </div>
+    <p class="sens-note" id="sensNote"></p>
+    <details class="sens-conv">
+      <summary>ממיר רגישות: אותה רגישות בשאר המשחקים</summary>
+      <ul class="sens-list" id="sensList"></ul>
+    </details>
+  </section>
+
+  <div class="aim-stage" id="stage">
+  <div class="aim-hud">
+    <div class="hud-item"><span class="hud-k">זמן</span><span class="hud-v" id="hudTime">30.0</span></div>
+    <div class="hud-item"><span class="hud-k">ניקוד</span><span class="hud-v" id="hudScore">0</span></div>
+    <div class="hud-item"><span class="hud-k">דיוק</span><span class="hud-v" id="hudAcc">100%</span></div>
+    <div class="hud-item"><span class="hud-k">שיא אישי</span><span class="hud-v" id="hudBest">0</span></div>
+  </div>
+
+  <div class="aim-actions">
+    <button class="aim-chip" id="fsBtn" type="button"><span id="fsText">מסך מלא</span> <kbd>F</kbd></button>
+    <button class="aim-chip is-off" id="pauseBtn" type="button"><span id="pauseText">השהה</span> <kbd>P</kbd></button>
+    <button class="aim-chip is-off" id="restartBtn" type="button">התחל מחדש <kbd>R</kbd></button>
+  </div>
+
+  <div class="arena" id="arena" aria-label="אזור המשחק">
+    <!-- מצב FPS: סצנה, כוונת ויד עם אקדח -->
+    <canvas class="scene" id="scene" hidden></canvas>
+    <div class="crosshair" id="crosshair" hidden aria-hidden="true"><i></i></div>
+    <svg class="gun" id="gun" viewBox="0 0 420 300" hidden aria-hidden="true">
+      <defs>
+        <linearGradient id="gunSleeve" x1="0" y1="0" x2="1" y2="1"><stop offset="0" style="stop-color: var(--acc-fill)"/><stop offset="1" stop-color="#14101c"/></linearGradient>
+        <linearGradient id="gunTop" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#3a3a4c"/><stop offset="1" stop-color="#22222e"/></linearGradient>
+        <linearGradient id="gunGlow" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="var(--acc2)"/><stop offset="1" stop-color="var(--acc-fill)"/></linearGradient>
+      </defs>
+      <!-- הבזק ירי בקצה הקנה -->
+      <g class="gun-flash" id="gunFlash">
+        <path d="M150 104L118 60L146 88L152 40L162 86L196 58L170 98L206 112L166 114L150 150L146 116L104 126Z" fill="#fff"/>
+        <path d="M150 104L128 76L147 94L152 62L158 92L182 74L164 100L188 110L160 110L150 134L148 112L120 118Z" fill="var(--acc2)"/>
+      </g>
+      <g class="gun-body">
+        <!-- שרוול -->
+        <path d="M286 236L346 188L420 214V300H300Z" fill="url(#gunSleeve)"/>
+        <path d="M346 188L420 214V226L340 198Z" fill="var(--acc)" opacity="0.7"/>
+        <!-- גוף האקדח: צד שמאל, גג, ואחוריים -->
+        <path d="M150 96L246 152L254 214L156 128Z" fill="#14141c"/>
+        <path d="M150 96L184 90L308 140L246 152Z" fill="url(#gunTop)"/>
+        <path d="M246 152L308 140L316 200L254 214Z" fill="#1e1e2a"/>
+        <path d="M160 113L249 166L250 174L161 121Z" fill="url(#gunGlow)"/>
+        <!-- כוונות -->
+        <path d="M158 93L172 90L174 82L160 85Z" fill="#101016"/>
+        <circle cx="166" cy="86" r="3.2" fill="var(--acc2)"/>
+        <path d="M250 147L268 143L270 153L252 157Z" fill="#101016"/><path d="M288 138L306 134L308 144L290 148Z" fill="#101016"/>
+        <circle cx="260" cy="150" r="3" fill="var(--acc)"/><circle cx="298" cy="141" r="3" fill="var(--acc)"/>
+        <!-- מסגרת ושמורת הדק -->
+        <path d="M186 160L214 196L258 236L254 214L190 150Z" fill="#0f0f15"/>
+        <path d="M254 214L316 200L348 300H276Z" fill="#17171f"/>
+        <!-- היד: גב כף היד, אגודל ואצבעות -->
+        <path d="M300 196L336 188L372 230L392 300H300L282 250L296 222Z" fill="#221d2e"/>
+        <path d="M336 188L372 230L358 236L326 198Z" fill="#2f2840"/>
+        <path d="M300 196L268 186L228 170L220 181L258 204L292 224Z" fill="#2c2639"/>
+        <path d="M228 170L220 181L232 188L240 175Z" fill="#3a3350"/>
+        <path d="M268 226L246 232L248 252L272 250Z" fill="#2a2437"/>
+        <path d="M272 250L250 256L254 276L278 274Z" fill="#262033"/>
+        <path d="M278 274L258 280L262 300H284Z" fill="#221d2e"/>
+        <path d="M250 234L262 231L263 240L251 243ZM254 258L266 255L267 264L255 267ZM262 282L273 279L274 288L263 291Z" fill="url(#gunGlow)"/>
+        <path d="M318 214L344 206L352 228L326 238Z" fill="url(#gunGlow)" opacity="0.85"/>
+      </g>
+    </svg>
+    <div class="arena-panel" id="pauseScreen" hidden>
+      <h2>המשחק בהפסקה</h2>
+      <p class="aim-hint">הזמן עצור. המקש P ממשיך את המשחק.</p>
+      <div class="pause-actions">
+        <button class="aim-btn" id="resumeBtn" type="button">המשך</button>
+        <button class="aim-btn ghost" id="pauseRestart" type="button">התחל מחדש</button>
+        <button class="aim-btn ghost" id="pauseExit" type="button">יציאה מהסיבוב</button>
+      </div>
+    </div>
+
+    <!-- מסך פתיחה -->
+    <div class="arena-panel" id="startScreen">
+      <!-- בחירת שם שחקן (פעם ראשונה, או החלפה פעם בשבוע) -->
+      <div class="aim-name" id="nameBox" hidden>
+        <h2 id="nameTitle">בחרו שם שחקן</h2>
+        <div class="aim-name-row">
+          <input id="nameInput" type="text" maxlength="16" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="3 עד 16 תווים" aria-label="שם שחקן">
+          <button class="aim-btn" id="nameSave" type="button">שמור</button>
+        </div>
+        <p class="aim-msg" id="nameMsg" role="status"></p>
+        <p class="aim-hint">אותיות, ספרות, מקף וקו תחתון, בלי רווחים. את השם אפשר להחליף פעם בשבוע.</p>
+        <button class="aim-link" id="nameCancel" type="button" hidden>ביטול</button>
+      </div>
+      <div class="aim-ready" id="readyBox">
+      <h2>מוכנים?</h2>
+      <ul class="aim-rules">
+        <li>על המסך יש תמיד שלוש מטרות. פגיעה במטרה מקפיצה חדשה במקומה.</li>
+        <li>פגיעה מהירה שווה יותר נקודות, ורצף פגיעות מוסיף בונוס.</li>
+        <li>לחיצה שמפספסת מורידה נקודות ושוברת את הרצף.</li>
+      </ul>
+      <p class="aim-hint" id="fpsHint" hidden>במצב FPS העכבר ננעל: מכוונים עם העכבר ויורים בלחיצה. P או Esc עוצרים את המשחק ומשחררים את העכבר.</p>
+      <p class="aim-as">משחקים בשם <b id="asName"></b></p>
+      <button class="aim-btn" id="startBtn" type="button">התחל</button>
+      </div>
+    </div>
+
+    <!-- ספירה לאחור -->
+    <div class="arena-count" id="countdown" hidden>3</div>
+
+    <!-- מסך סיום -->
+    <div class="arena-panel" id="endScreen" hidden>
+      <div class="aim-new" id="newBest" hidden>שיא חדש!</div>
+      <h2>נגמר הזמן</h2>
+      <div class="aim-score"><span id="endScore">0</span><small>נקודות</small></div>
+      <div class="aim-stats">
+        <div><b id="endHits">0</b><span>פגיעות</span></div>
+        <div><b id="endAcc">0%</b><span>דיוק</span></div>
+        <div><b id="endReact">0</b><span>זמן ממוצע לפגיעה</span></div>
+        <div><b id="endCombo">0</b><span>הרצף הכי ארוך</span></div>
+      </div>
+      <button class="aim-btn" id="againBtn" type="button">שחק שוב</button>
+    </div>
+  </div>
+  </div>
+
+  <p class="aim-note" id="aimNote">השיא האישי נשמר בדפדפן הזה, בנפרד למשחק עם עכבר ולמשחק במסך מגע.</p>
+
+  <!-- טבלת הטופ המשותפת – מוצגת רק כשהשרת זמין -->
+  <section class="aim-top" id="topBox" hidden>
+    <div class="aim-top-head">
+      <h2>Top 10</h2>
+      <div class="aim-tabs" role="tablist">
+        <button class="aim-tab" type="button" data-input="fps" role="tab">FPS</button>
+        <button class="aim-tab is-on" type="button" data-input="mouse" role="tab">עכבר</button>
+        <button class="aim-tab" type="button" data-input="touch" role="tab">מסך מגע</button>
+      </div>
+    </div>
+    <ol class="aim-top-list" id="topList"></ol>
+  </section>
+</main>
+
+<script src="aim.js?v=10"></script>
+</body>
+</html>

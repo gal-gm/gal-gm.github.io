@@ -1,0 +1,270 @@
+/* ============================================================
+   Aim Trainer – משחק אימון כיוון קטן (aim.html)
+   אותה שפה עיצובית של האתר: רקע כהה, גופן Unbounded, וערכת הצבע
+   לפי data-theme על ה-html (סגול ברירת מחדל, ליים דרך כפתור הצבע בדף הבית).
+   ============================================================ */
+:root {
+  --bg: #060607;
+  --ink: #f5f5f0;
+  --mute: rgba(245, 245, 240, 0.62);
+  --line: rgba(255, 255, 255, 0.1);
+  --acc: #a877ff;
+  --acc-rgb: 168, 119, 255;
+  --acc-fill: #7c3aed;
+  --on-acc: #ffffff;
+  --acc2: #e879f9;
+  --glow-rgb: 124, 58, 237;
+  --display: 'Unbounded', 'Heebo', system-ui, sans-serif;
+  --text: 'Heebo', system-ui, -apple-system, 'Segoe UI', sans-serif;
+  --spring: cubic-bezier(.3, 1.5, .4, 1);
+}
+html[data-theme="lime"] { --acc: #c6ff3d; --acc-rgb: 198, 255, 61; --acc-fill: #c6ff3d; --on-acc: #060607; --acc2: #8b5cf6; --glow-rgb: 139, 92, 246; }
+html[data-theme="pink"]   { --acc: #ff7ac8; --acc-rgb: 255, 122, 200; --acc-fill: #db2777; --on-acc: #ffffff; --acc2: #c084fc; --glow-rgb: 219, 39, 119; }
+html[data-theme="red"]    { --acc: #ff6b6b; --acc-rgb: 255, 107, 107; --acc-fill: #e11d48; --on-acc: #ffffff; --acc2: #fb923c; --glow-rgb: 225, 29, 72; }
+html[data-theme="orange"] { --acc: #ff9a3c; --acc-rgb: 255, 154, 60; --acc-fill: #ff8a1f; --on-acc: #060607; --acc2: #ffd23f; --glow-rgb: 249, 115, 22; }
+html[data-theme="yellow"] { --acc: #ffd23f; --acc-rgb: 255, 210, 63; --acc-fill: #ffd23f; --on-acc: #060607; --acc2: #ff8a1f; --glow-rgb: 214, 158, 20; }
+html[data-theme="blue"]   { --acc: #5aa9ff; --acc-rgb: 90, 169, 255; --acc-fill: #2563eb; --on-acc: #ffffff; --acc2: #22d3ee; --glow-rgb: 37, 99, 235; }
+
+*, *::before, *::after { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0; min-height: 100vh;
+  background:
+    radial-gradient(ellipse 60% 44% at 12% 0%, rgba(var(--glow-rgb), 0.24), transparent 70%),
+    radial-gradient(ellipse 50% 40% at 92% 100%, rgba(var(--glow-rgb), 0.14), transparent 70%),
+    var(--bg);
+  color: var(--ink);
+  font-family: var(--text);
+  line-height: 1.5;
+}
+a { color: inherit; }
+button { font: inherit; }
+:focus-visible { outline: 3px solid var(--acc); outline-offset: 3px; }
+
+/* ───── פס עליון ───── */
+.aim-bar { display: flex; align-items: center; justify-content: space-between; gap: 12px; padding: 18px clamp(16px, 4vw, 44px); direction: ltr; }
+.aim-brand { display: grid; place-items: center; width: 54px; height: 54px; border-radius: 16px; background: rgba(20, 20, 24, 0.7); border: 1px solid var(--line); transition: transform 0.35s var(--spring), background-color 0.25s ease; }
+.aim-brand svg { width: 32px; height: auto; fill: var(--ink); }
+.aim-brand:hover { transform: scale(1.06) rotate(-6deg); background: var(--acc-fill); }
+.aim-brand:hover svg { fill: var(--on-acc); }
+.aim-bar-side { display: flex; gap: 10px; direction: rtl; }
+.aim-chip {
+  display: inline-flex; align-items: center; height: 42px; padding: 0 16px; border-radius: 999px;
+  background: rgba(20, 20, 24, 0.7); border: 1px solid var(--line); color: var(--mute);
+  font-family: var(--text); font-weight: 700; font-size: 0.9rem; text-decoration: none; cursor: pointer;
+  transition: color 0.25s ease, border-color 0.25s ease, transform 0.3s var(--spring);
+}
+.aim-chip:hover { color: var(--ink); border-color: rgba(var(--acc-rgb), 0.6); transform: translateY(-2px); }
+
+/* ───── כותרת ───── */
+.aim-wrap { width: min(1120px, 100%); margin: 0 auto; padding: 6px clamp(16px, 4vw, 44px) 56px; }
+.aim-head { text-align: center; margin-bottom: 22px; }
+.aim-label { direction: ltr; font-family: var(--display); font-weight: 700; font-size: 0.66rem; letter-spacing: 0.32em; color: var(--acc); }
+.aim-title { margin: 10px 0 6px; direction: ltr; font-family: var(--display); font-weight: 900; font-size: clamp(2.2rem, 7vw, 4.6rem); line-height: 0.95; letter-spacing: -0.03em; text-transform: uppercase; }
+.aim-title span { background: linear-gradient(90deg, var(--acc), var(--acc2)); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.aim-sub { margin: 0; color: var(--mute); font-size: 1.05rem; }
+
+/* ───── לוח הנתונים ───── */
+.aim-hud { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; margin-bottom: 12px; }
+.hud-item { padding: 10px 14px; border-radius: 16px; background: rgba(16, 16, 20, 0.72); border: 1px solid var(--line); text-align: center; }
+.hud-k { display: block; font-size: 0.78rem; font-weight: 700; color: var(--mute); }
+.hud-v { display: block; direction: ltr; font-family: var(--display); font-weight: 800; font-size: clamp(1.05rem, 2.6vw, 1.6rem); font-variant-numeric: tabular-nums; line-height: 1.25; }
+#hudBest { color: var(--acc); }
+
+/* ───── אזור המשחק ───── */
+.arena {
+  position: relative; direction: ltr;
+  width: 100%; aspect-ratio: 16 / 9; max-height: 68vh; min-height: 320px;
+  border-radius: 26px; overflow: hidden;
+  border: 1px solid rgba(var(--acc-rgb), 0.35);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 100% 44px,
+    linear-gradient(90deg, rgba(255, 255, 255, 0.035) 1px, transparent 1px) 0 0 / 44px 100%,
+    radial-gradient(ellipse 70% 60% at 50% 50%, rgba(var(--glow-rgb), 0.16), transparent 72%),
+    #0b0b10;
+  touch-action: none; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.arena.is-play { cursor: crosshair; }
+.arena.is-miss { animation: missFlash 0.22s ease-out; }
+@keyframes missFlash { 0% { box-shadow: inset 0 0 0 4px rgba(255, 77, 94, 0.9); } 100% { box-shadow: inset 0 0 0 4px rgba(255, 77, 94, 0); } }
+
+/* מטרה: טבעת בצבע האתר עם נקודה לבנה באמצע */
+.target {
+  position: absolute; border-radius: 50%; pointer-events: none;
+  transform: translate(-50%, -50%);
+  background:
+    radial-gradient(circle, #fff 0 16%, transparent 17%),
+    radial-gradient(circle, transparent 0 38%, rgba(255, 255, 255, 0.9) 39% 45%, transparent 46%),
+    radial-gradient(circle at 35% 30%, var(--acc2), var(--acc-fill) 70%);
+  box-shadow: 0 0 0 3px rgba(var(--acc-rgb), 0.35), 0 0 26px rgba(var(--glow-rgb), 0.7);
+  animation: targetIn 0.16s ease-out;
+}
+@keyframes targetIn { from { transform: translate(-50%, -50%) scale(0.4); opacity: 0; } }
+.target.is-hit { animation: targetHit 0.2s ease-out forwards; }
+@keyframes targetHit { to { transform: translate(-50%, -50%) scale(1.6); opacity: 0; } }
+.pop { position: absolute; transform: translate(-50%, -50%); pointer-events: none; font-family: var(--display); font-weight: 800; font-size: 0.95rem; color: #fff; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.7); animation: popUp 0.6s ease-out forwards; }
+.pop.is-miss { color: #ff6b7a; }
+@keyframes popUp { to { transform: translate(-50%, -160%); opacity: 0; } }
+
+/* מסכי פתיחה וסיום */
+.arena-panel {
+  position: absolute; inset: 0; z-index: 5; direction: rtl;
+  display: flex; flex-direction: column; align-items: center; justify-content: center; gap: 14px;
+  padding: 20px; text-align: center;
+  background: rgba(6, 6, 7, 0.78); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px);
+}
+.arena-panel[hidden], .arena-count[hidden], .aim-new[hidden] { display: none; }
+.arena-panel h2 { margin: 0; font-weight: 900; font-size: clamp(1.5rem, 4vw, 2.3rem); }
+.aim-rules { margin: 0; padding: 0; list-style: none; max-width: 520px; color: var(--mute); font-size: 0.98rem; display: grid; gap: 6px; }
+.aim-btn {
+  margin-top: 6px; height: 56px; padding: 0 44px; border: 0; border-radius: 999px; cursor: pointer;
+  background: var(--acc-fill); color: var(--on-acc);
+  font-family: var(--text); font-weight: 900; font-size: 1.15rem;
+  box-shadow: 0 14px 44px -14px rgba(var(--acc-rgb), 0.8);
+  transition: transform 0.3s var(--spring);
+}
+.aim-btn:hover { transform: scale(1.06); }
+.aim-btn:active { transform: scale(0.96); }
+.arena-count { position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; font-family: var(--display); font-weight: 900; font-size: clamp(5rem, 18vw, 11rem); color: var(--ink); text-shadow: 0 0 60px rgba(var(--glow-rgb), 0.9); }
+.aim-new { padding: 6px 16px; border-radius: 999px; background: linear-gradient(90deg, var(--acc-fill), var(--acc2)); color: #fff; font-weight: 900; font-size: 0.95rem; }
+.aim-score { direction: ltr; display: flex; align-items: baseline; gap: 10px; font-family: var(--display); font-weight: 900; font-size: clamp(2.6rem, 9vw, 4.6rem); line-height: 1; color: var(--acc); }
+.aim-score small { direction: rtl; font-family: var(--text); font-size: 1rem; font-weight: 700; color: var(--mute); }
+.aim-stats { display: grid; grid-template-columns: repeat(4, auto); gap: 8px 26px; }
+.aim-stats b { display: block; direction: ltr; font-family: var(--display); font-weight: 800; font-size: 1.2rem; }
+.aim-stats span { display: block; font-size: 0.8rem; color: var(--mute); }
+.aim-note { margin: 14px 0 0; text-align: center; color: var(--mute); font-size: 0.86rem; }
+
+@media (max-width: 700px) {
+  .aim-hud { grid-template-columns: repeat(2, 1fr); }
+  .arena { aspect-ratio: 3 / 4; max-height: 70vh; border-radius: 20px; }
+  .aim-stats { grid-template-columns: repeat(2, auto); }
+  .aim-chip { height: 38px; padding: 0 12px; font-size: 0.82rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .target, .target.is-hit, .pop, .arena.is-miss { animation-duration: 0.01s; }
+}
+
+/* ───── שם שחקן ───── */
+.aim-name, .aim-ready { display: flex; flex-direction: column; align-items: center; gap: 12px; width: 100%; }
+.aim-name[hidden], .aim-ready[hidden], .aim-link[hidden], .aim-chip[hidden], .aim-top[hidden] { display: none; }
+.aim-name-row { display: flex; gap: 10px; width: min(440px, 100%); }
+.aim-name-row input {
+  flex: 1; min-width: 0; height: 56px; padding: 0 18px; border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(var(--acc-rgb), 0.45); color: var(--ink);
+  font-family: var(--text); font-weight: 700; font-size: 1.1rem; text-align: center; direction: ltr;
+}
+.aim-name-row input::placeholder { color: var(--mute); font-weight: 500; direction: rtl; }
+.aim-name-row .aim-btn { margin-top: 0; padding: 0 26px; }
+.aim-btn:disabled { opacity: 0.55; cursor: default; transform: none; }
+.aim-msg { margin: 0; min-height: 1.4em; font-weight: 700; color: #ffb3bd; }
+.aim-hint { margin: 0; max-width: 460px; font-size: 0.86rem; color: var(--mute); }
+.aim-link { background: none; border: 0; color: var(--mute); font-weight: 700; text-decoration: underline; cursor: pointer; }
+.aim-as { margin: 0; color: var(--mute); }
+.aim-as b { color: var(--acc); direction: ltr; unicode-bidi: isolate; }
+#nameBtn { direction: rtl; max-width: 46vw; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* ───── טבלת הטופ ───── */
+.aim-top { margin-top: 28px; padding: 20px clamp(16px, 3vw, 26px) 22px; border-radius: 24px; background: rgba(16, 16, 20, 0.72); border: 1px solid var(--line); }
+.aim-top-head { display: flex; align-items: center; justify-content: space-between; gap: 12px; margin-bottom: 14px; direction: ltr; }
+.aim-top-head h2 { margin: 0; font-family: var(--display); font-weight: 900; font-size: clamp(1.2rem, 3vw, 1.7rem); text-transform: uppercase; letter-spacing: -0.02em; }
+.aim-tabs { display: flex; gap: 6px; direction: rtl; }
+.aim-tab { height: 38px; padding: 0 14px; border-radius: 999px; background: none; border: 1px solid var(--line); color: var(--mute); font-family: var(--text); font-weight: 700; cursor: pointer; }
+.aim-tab.is-on { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); }
+.aim-top-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; direction: ltr; }
+.aim-top-list li { display: flex; align-items: center; gap: 14px; padding: 10px 14px; border-radius: 14px; background: rgba(255, 255, 255, 0.04); }
+.aim-top-list li.is-me { background: rgba(var(--acc-rgb), 0.2); box-shadow: inset 0 0 0 1px rgba(var(--acc-rgb), 0.6); }
+.aim-top-list li.is-empty { justify-content: center; direction: rtl; color: var(--mute); }
+.aim-top-list b { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; unicode-bidi: plaintext; }
+.top-rank { font-family: var(--display); font-weight: 700; font-size: 0.8rem; color: var(--mute); }
+.top-score { font-family: var(--display); font-weight: 800; color: var(--acc); font-variant-numeric: tabular-nums; }
+
+/* ───── כפתור "התחל מחדש" (מעל אזור המשחק, מוצג רק בזמן ספירה או סיבוב) ───── */
+.aim-actions { display: flex; justify-content: flex-end; margin: 0 0 10px; }
+.aim-actions .aim-chip { gap: 8px; height: 38px; }
+.aim-actions .aim-chip.is-off { visibility: hidden; }
+.aim-actions kbd { padding: 1px 7px; border-radius: 6px; border: 1px solid var(--line); font-family: var(--display); font-size: 0.7rem; color: var(--mute); }
+@media (hover: none) { .aim-actions kbd { display: none; } }
+
+/* ═════════════ מצב FPS ═════════════ */
+/* בורר המצב */
+.aim-modes { display: flex; justify-content: center; gap: 8px; margin: 0 0 14px; }
+.aim-modes[hidden], .aim-sens[hidden], .scene[hidden], .crosshair[hidden], .gun[hidden], #fpsHint[hidden] { display: none; }
+.aim-mode { height: 42px; padding: 0 20px; border-radius: 999px; background: rgba(20, 20, 24, 0.7); border: 1px solid var(--line); color: var(--mute); font-family: var(--text); font-weight: 800; cursor: pointer; transition: transform 0.3s var(--spring); }
+.aim-mode:hover { transform: translateY(-2px); color: var(--ink); }
+.aim-mode.is-on { background: var(--acc-fill); border-color: var(--acc-fill); color: var(--on-acc); }
+
+/* הגדרות רגישות וממיר */
+.aim-sens { margin: 0 0 12px; padding: 14px clamp(14px, 2.4vw, 20px); border-radius: 20px; background: rgba(16, 16, 20, 0.72); border: 1px solid var(--line); }
+.sens-row { display: grid; grid-template-columns: repeat(4, 1fr); gap: 10px; }
+.sens-field { display: grid; gap: 5px; min-width: 0; }
+.sens-field span { font-size: 0.8rem; font-weight: 700; color: var(--mute); }
+.sens-field select, .sens-field input {
+  width: 100%; height: 44px; padding: 0 12px; border-radius: 12px;
+  background: rgba(255, 255, 255, 0.06); border: 1px solid rgba(var(--acc-rgb), 0.35); color: var(--ink);
+  font-family: var(--text); font-weight: 700; font-size: 1rem; direction: ltr;
+}
+.sens-field select option { background: #15151b; color: var(--ink); }
+.sens-note { margin: 10px 0 0; font-size: 0.88rem; color: var(--mute); }
+.sens-conv { margin-top: 8px; }
+.sens-conv summary { cursor: pointer; font-weight: 800; color: var(--acc); }
+.sens-list { margin: 10px 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 6px; direction: ltr; }
+.sens-list li { display: flex; justify-content: space-between; gap: 10px; padding: 8px 12px; border-radius: 12px; background: rgba(255, 255, 255, 0.04); }
+.sens-list li.is-me { box-shadow: inset 0 0 0 1px rgba(var(--acc-rgb), 0.6); background: rgba(var(--acc-rgb), 0.16); }
+.sens-list b { font-family: var(--display); font-weight: 800; color: var(--acc); font-variant-numeric: tabular-nums; }
+
+/* הסצנה, הכוונת והאקדח */
+.arena.is-fps { background: #07070b; }
+.arena.is-fps.is-play { cursor: none; }
+.scene { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.crosshair { position: absolute; left: 50%; top: 50%; z-index: 3; width: 26px; height: 26px; margin: -13px 0 0 -13px; pointer-events: none; }
+.crosshair::before, .crosshair::after { content: ''; position: absolute; background: #fff; box-shadow: 0 0 0 1px rgba(0, 0, 0, 0.6); }
+.crosshair::before { left: 0; right: 0; top: 12px; height: 2px; -webkit-mask: linear-gradient(90deg, #000 0 8px, transparent 8px 18px, #000 18px); mask: linear-gradient(90deg, #000 0 8px, transparent 8px 18px, #000 18px); }
+.crosshair::after { top: 0; bottom: 0; left: 12px; width: 2px; -webkit-mask: linear-gradient(#000 0 8px, transparent 8px 18px, #000 18px); mask: linear-gradient(#000 0 8px, transparent 8px 18px, #000 18px); }
+.crosshair i { position: absolute; left: 11px; top: 11px; width: 4px; height: 4px; border-radius: 50%; background: var(--acc2); box-shadow: 0 0 8px var(--acc2); }
+
+.gun { position: absolute; right: -3%; bottom: -7%; z-index: 2; width: 58%; height: auto; pointer-events: none; overflow: visible;
+  transform: translate(var(--gx, 0px), var(--gy, 0px)); transition: transform 0.18s ease-out; transform-origin: 100% 100%;
+  filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.55)); }
+.gun-body { transform-box: view-box; transform-origin: 85% 90%; }
+.gun.is-fire .gun-body { animation: gunKick 0.16s ease-out; }
+@keyframes gunKick { 0% { transform: translate(0, 0) rotate(0deg); } 30% { transform: translate(12px, 16px) rotate(4.5deg); } 100% { transform: translate(0, 0) rotate(0deg); } }
+.gun-flash { opacity: 0; transform-box: fill-box; transform-origin: 50% 50%; }
+.gun.is-fire .gun-flash { animation: gunFlash 0.09s ease-out; }
+@keyframes gunFlash { 0% { opacity: 1; transform: scale(0.6) rotate(-8deg); } 100% { opacity: 0; transform: scale(1.25) rotate(6deg); } }
+.arena.is-fps .pop { z-index: 4; }
+.arena.is-fps .arena-panel, .arena.is-fps .arena-count { z-index: 6; }
+
+@media (max-width: 800px) {
+  .sens-row { grid-template-columns: repeat(2, 1fr); }
+}
+
+/* ───── נעילת הדף בזמן סיבוב במצב FPS (כדי שפליק חזק לא יגלול את הדף) ───── */
+html { scrollbar-gutter: stable; }
+html.aim-lock, html.aim-lock body { overflow: hidden; overscroll-behavior: none; }
+
+/* ───── שם המשחק: GALG בצבע האתר, AIM בלבן; מתחתיו "AIM TRAINER" קטן ───── */
+.aim-title { margin: 0; }
+.aim-title span { background: none; -webkit-background-clip: border-box; background-clip: border-box; color: var(--acc); }
+.aim-head .aim-label { margin: 10px 0 8px; }
+
+/* ───── כפתורי הפעולה והפסקה ───── */
+.aim-actions { gap: 8px; flex-wrap: wrap; justify-content: flex-start; }
+.aim-actions .aim-chip[hidden] { display: none; }
+.pause-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.pause-actions .aim-btn { margin-top: 0; padding: 0 28px; }
+.aim-btn.ghost { background: rgba(255, 255, 255, 0.08); color: var(--ink); border: 1px solid var(--line); box-shadow: none; }
+
+/* ───── מסך מלא: לוח הנתונים למעלה, ואזור המשחק ממלא את כל השאר ───── */
+.aim-stage:fullscreen { display: flex; flex-direction: column; width: 100vw; height: 100vh; padding: 14px 18px 18px; background: var(--bg); }
+.aim-stage:fullscreen .arena { flex: 1; min-height: 0; max-height: none; aspect-ratio: auto; }
+.aim-stage:-webkit-full-screen { display: flex; flex-direction: column; width: 100vw; height: 100vh; padding: 14px 18px 18px; background: var(--bg); }
+.aim-stage:-webkit-full-screen .arena { flex: 1; min-height: 0; max-height: none; aspect-ratio: auto; }
+
+/* ───── בורר הצבעים: חלונית קטנה עם עיגול לכל ערכת צבע ───── */
+.theme-pop { display: flex; gap: 10px; padding: 10px 12px; border-radius: 999px; background: rgba(20, 20, 24, 0.94); border: 1px solid var(--line); box-shadow: 0 18px 50px rgba(0, 0, 0, 0.6); -webkit-backdrop-filter: blur(14px); backdrop-filter: blur(14px); direction: ltr; }
+.theme-pop[hidden] { display: none; }
+.theme-dot { width: 30px; height: 30px; padding: 0; border-radius: 50%; border: 2px solid rgba(255, 255, 255, 0.25); cursor: pointer; transition: transform 0.25s cubic-bezier(.3, 1.5, .4, 1), border-color 0.2s ease; }
+.theme-dot:hover { transform: scale(1.18); }
+.theme-dot.is-on { border-color: #fff; box-shadow: 0 0 0 3px rgba(255, 255, 255, 0.25); }
+.aim-bar-side { position: relative; }
+.aim-bar-side .theme-pop { position: absolute; top: calc(100% + 10px); left: 0; z-index: 60; }
