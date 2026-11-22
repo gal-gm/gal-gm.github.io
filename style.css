@@ -912,13 +912,10 @@ html.entered .dock { animation: dockIn 0.95s var(--spring) 0.95s backwards; }
 .bit-modal-overlay.open { opacity: 1; pointer-events: auto; }
 .bit-modal-card {
   position: relative;
-  width: 100%; max-width: 392px;
-  padding: 30px 24px 24px;
-  border-radius: 34px;
-  background: #0d0d10;
-  border: 1px solid rgba(0, 229, 255, 0.4);
-  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.95), 0 0 90px -30px rgba(0, 229, 255, 0.55);
-  text-align: center; direction: rtl;
+  width: min(100%, 392px, calc((100vh - 40px) * 0.8)); width: min(100%, 392px, calc((100dvh - 40px) * 0.8));
+  border-radius: 7.5% / 6%;
+  box-shadow: 0 40px 90px -20px rgba(0, 0, 0, 0.95), 0 0 90px -30px rgba(var(--acc-rgb), 0.6);
+  direction: rtl;
   transform: translateY(34px) scale(0.93);
   transition: transform 0.55s var(--spring);
 }
@@ -927,14 +924,12 @@ html.entered .dock { animation: dockIn 0.95s var(--spring) 0.95s backwards; }
   position: absolute; top: 16px; left: 16px;
   width: 40px; height: 40px; border-radius: 50%;
   display: grid; place-items: center;
-  border: 1px solid var(--line); background: rgba(255, 255, 255, 0.06);
-  font-size: 1rem;
+  border: 1px solid var(--line); background: rgba(13, 13, 16, 0.72);
+  font-size: 1rem; z-index: 1;
   transition: transform 0.45s var(--expo), background-color 0.3s ease, color 0.3s ease;
 }
-.bit-modal-close:hover { transform: rotate(90deg); background: #00e5ff; color: #060607; }
-.bit-modal-title { display: flex; align-items: center; justify-content: center; gap: 10px; font-weight: 900; font-size: 1.5rem; color: #00e5ff; }
-.bit-modal-desc { margin: 6px 0 18px; color: var(--mute); font-size: 0.95rem; }
-.bit-qr-img { width: 100%; max-width: 300px; margin: 0 auto; border-radius: 20px; border: 1px solid rgba(0, 229, 255, 0.28); }
+.bit-modal-close:hover { transform: rotate(90deg); background: var(--acc-fill); color: var(--on-acc); }
+.bit-qr-img { display: block; width: 100%; height: auto; }
 
 /* ───────────── 17. תפריט הנגישות (כמו במקור) ───────────── */
 .accessibility-panel {
