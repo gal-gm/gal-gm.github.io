@@ -553,8 +553,9 @@
     box.className = 'emote-rain';
     box.setAttribute('aria-hidden', 'true');
     var count = window.innerWidth < 700 ? 28 : 48;
+    var rainIds = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 17];   // בלי 16 (ה-L) – הוא לא נופל בגשם
     for (var i = 0; i < count; i++) {
-      var id = 1 + ((Math.random() * 17) | 0);
+      var id = rainIds[(Math.random() * rainIds.length) | 0];
       var img = new Image();
       img.alt = '';
       img.src = 'Subscriber%20emotes/' + id + (/^(4|5|8|9|11|14|15|16|17)$/.test(id) ? '.gif' : '.png') + '?v=3';
