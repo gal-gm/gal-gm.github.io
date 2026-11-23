@@ -567,8 +567,8 @@
     var tries, i, clear, x = 0, y = 0;
     if (mode === 'fps') {
       for (tries = 0; tries < 40; tries++) {
-        // אזור המטרות על הקיר (הוגדל ב-15% לרוחב ולגובה)
-        x = (Math.random() * 2 - 1) * 5.06; y = 0.4 + (Math.random() * 2 - 1) * 2.415;
+        // אזור המטרות על הקיר
+        x = (Math.random() * 2 - 1) * 4.4; y = 0.4 + (Math.random() * 2 - 1) * 2.1;
         clear = true;
         for (i = 0; i < targets.length; i++) if (Math.hypot(targets[i].x - x, targets[i].y - y) < T_R * 2.6) { clear = false; break; }
         if (clear) break;
