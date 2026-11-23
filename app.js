@@ -577,6 +577,26 @@
     if (avatarClicks.length >= 5) { avatarClicks = []; emoteRain(); }
   });
 
+  /* ══════════════ 10ב. אפקט אלמנט על תגי המנויים ══════════════
+     כל תג מקבל את שם האלמנט שלו ו-12 חלקיקים; ההנפשה עצמה ב-style.css ופועלת רק במעבר עכבר. */
+  (function () {
+    var els = ['stone', 'plant', 'water', 'ice', 'wind', 'fire', 'bolt', 'light'];
+    var rnd = [0.13, -0.72, 0.58, -0.31, 0.91, -0.94, 0.36, -0.08, 0.77, -0.52, 0.24, -0.86];
+    $$('.path-nodes li').forEach(function (li, n) {
+      var node = $('.node', li);
+      if (!node || !els[n]) return;
+      li.setAttribute('data-el', els[n]);
+      for (var i = 0; i < 12; i++) {
+        var p = document.createElement('i');
+        p.className = i % 3 === 2 ? 'ep alt' : 'ep';
+        p.setAttribute('aria-hidden', 'true');
+        p.style.cssText = '--x:' + rnd[i] + ';--y:' + rnd[(i * 5 + 3) % 12] + ';--s:' + ((rnd[(i * 7 + 1) % 12] + 1) / 2).toFixed(2) +
+          ';--k:' + (i / 12).toFixed(3) + ';--d:' + (((i * 5) % 12) / 12).toFixed(3) + ';--a:' + (i * 30 + 15) + 'deg';
+        node.appendChild(p);
+      }
+    });
+  })();
+
   /* ══════════════ 11. סטטוס השידור ב-Kick ══════════════ */
   function setLive(isLive) {
     html.classList.toggle('is-live', isLive);

@@ -608,6 +608,165 @@ html.reveal-on .path:not(.in) .node { opacity: 0; }
 .node-t { font-family: var(--display); font-size: 0.66rem; font-weight: 600; letter-spacing: 0.12em; text-transform: uppercase; color: var(--mute); text-align: center; transition: color 0.3s ease; }
 .path-nodes li:hover .node-t { color: var(--acc); }
 
+/* ── אפקט אלמנט במעבר עכבר על תג ──
+   לכל תג יש data-el (אבן, צמח, מים, קרח, רוח, אש, ברק, אור). app.js מוסיף לכל עיגול 12 חלקיקים (.ep)
+   עם מספרים קבועים (--x, --y, --s, --k, --d, --a), וה-CSS כאן מנפיש אותם רק בזמן המעבר.
+   בלי אנימציות (תפריט הנגישות) החלקיקים פשוט נשארים שקופים. */
+.path { padding: 50px 28px 12px; margin: -32px -28px 0; }
+.node { position: relative; isolation: isolate; }
+.path-nodes li:hover { z-index: 3; }
+.path-nodes li[data-el] { --el: 139, 92, 246; --R: 44px; }
+.path-nodes li[data-el="stone"] { --el: 190, 184, 178; }
+.path-nodes li[data-el="plant"] { --el: 74, 222, 128; }
+.path-nodes li[data-el="water"] { --el: 56, 189, 248; }
+.path-nodes li[data-el="ice"]   { --el: 165, 243, 252; }
+.path-nodes li[data-el="wind"]  { --el: 153, 246, 228; }
+.path-nodes li[data-el="fire"]  { --el: 255, 122, 20; }
+.path-nodes li[data-el="bolt"]  { --el: 70, 140, 255; }
+.path-nodes li[data-el="light"] { --el: 255, 214, 90; }
+.path-nodes li[data-el]:hover .node { border-color: rgb(var(--el)); box-shadow: 0 16px 36px -10px rgba(var(--el), 0.6), 0 0 28px -6px rgba(var(--el), 0.55); }
+.path-nodes li[data-el]:hover .node-t { color: rgb(var(--el)); }
+.node::before, .node::after, .node .ep { position: absolute; opacity: 0; pointer-events: none; }
+.node::before, .node::after { content: ''; inset: 0; border-radius: 50%; z-index: -1; }
+.node .ep { left: 50%; top: 50%; z-index: 2; }
+@keyframes elIn { to { opacity: 1; } }
+
+/* אבן: התג רועד ושברי סלע נושרים ממנו */
+[data-el="stone"] .ep {
+  width: calc(6px + var(--s) * 6px); height: calc(6px + var(--s) * 6px); margin: -5px 0 0 -5px;
+  background: linear-gradient(135deg, #f5f5f4, #8a817b 55%, #44403c);
+  clip-path: polygon(22% 0, 82% 10%, 100% 56%, 66% 100%, 14% 86%, 0 36%);
+}
+li[data-el="stone"]:hover .ep { animation: stX 1s linear infinite, stY 1s cubic-bezier(0.35, 0, 0.85, 0.45) infinite; animation-delay: calc(var(--k) * -1s); }
+li[data-el="stone"]:hover .node img { animation: stQuake 0.26s linear infinite; }
+@keyframes stX { from { translate: calc(var(--x) * 30px) 0; } to { translate: calc(var(--x) * 54px) 0; } }
+@keyframes stY {
+  0% { transform: translateY(14px) rotate(0deg); opacity: 0; }
+  12%, 80% { opacity: 1; }
+  100% { transform: translateY(80px) rotate(calc(var(--x) * 320deg)); opacity: 0; }
+}
+@keyframes stQuake { 0%, 100% { translate: 0 0; } 25% { translate: 2px -1px; } 50% { translate: -2px 1px; } 75% { translate: 1px 2px; } }
+
+/* צמח: גבעול צומח סביב העיגול ועלים עולים למעלה */
+@property --elp { syntax: '<angle>'; inherits: false; initial-value: 0deg; }
+[data-el="plant"] .node::before {
+  inset: -7px; background: conic-gradient(#4ade80 var(--elp), transparent 0);
+  -webkit-mask: radial-gradient(farthest-side, transparent calc(100% - 3.5px), #000 calc(100% - 3px));
+  mask: radial-gradient(farthest-side, transparent calc(100% - 3.5px), #000 calc(100% - 3px));
+}
+li[data-el="plant"]:hover .node::before { animation: plVine 1.1s ease-out forwards; }
+@keyframes plVine { from { --elp: 0deg; opacity: 1; } to { --elp: 360deg; opacity: 1; } }
+[data-el="plant"] .ep { width: 12px; height: 12px; margin: -6px 0 0 -6px; border-radius: 0 100% 0 100%; background: linear-gradient(135deg, #d9f99d, #22c55e 55%, #15803d); }
+li[data-el="plant"]:hover .ep { animation: plX 2.2s ease-in-out infinite, plY 2.2s linear infinite; animation-delay: calc(var(--k) * -2.2s); }
+@keyframes plX { 0%, 100% { translate: calc(var(--x) * 42px - 9px) 0; } 50% { translate: calc(var(--x) * 42px + 9px) 0; } }
+@keyframes plY {
+  0% { transform: translateY(38px) rotate(0deg) scale(0.3); opacity: 0; }
+  15%, 75% { opacity: 1; }
+  100% { transform: translateY(-74px) rotate(calc(var(--x) * 300deg + 160deg)) scale(1); opacity: 0; }
+}
+
+/* מים: אדוות שמתפשטות וטיפות שמתיזות כמו מזרקה */
+[data-el="water"] .node::before, [data-el="water"] .node::after { border: 2px solid rgba(125, 211, 252, 0.9); }
+li[data-el="water"]:hover .node::before { animation: waRing 1.5s ease-out infinite; }
+li[data-el="water"]:hover .node::after { animation: waRing 1.5s ease-out -0.75s infinite; }
+@keyframes waRing { from { transform: scale(1); opacity: 0.95; } to { transform: scale(1.6); opacity: 0; } }
+[data-el="water"] .ep { width: calc(5px + var(--s) * 4px); height: calc(5px + var(--s) * 4px); margin: -4px 0 0 -4px; border-radius: 50%; background: radial-gradient(circle at 35% 30%, #fff 0 20%, #7dd3fc 32%, #0ea5e9); }
+li[data-el="water"]:hover .ep { animation: waX 1.15s linear infinite, waY 1.15s linear infinite; animation-delay: calc(var(--k) * -1.15s); }
+@keyframes waX { from { translate: calc(var(--x) * 14px) 0; } to { translate: calc(var(--x) * 60px) 0; } }
+@keyframes waY {
+  0% { transform: translateY(-28px) scale(0.5); opacity: 0; animation-timing-function: cubic-bezier(0.2, 0.6, 0.4, 1); }
+  12% { opacity: 1; }
+  45% { transform: translateY(-70px) scale(1); animation-timing-function: cubic-bezier(0.6, 0, 0.9, 0.5); }
+  85% { opacity: 1; }
+  100% { transform: translateY(14px) scale(0.8); opacity: 0; }
+}
+
+/* קרח: כפור על העיגול, שלג יורד ונצנוצים */
+[data-el="ice"] .node::before { background: radial-gradient(circle, transparent 42%, rgba(165, 243, 252, 0.5) 100%); box-shadow: inset 0 0 16px rgba(255, 255, 255, 0.75); }
+li[data-el="ice"]:hover .node::before { animation: elIn 0.7s ease-out forwards; }
+[data-el="ice"] .ep { width: calc(3px + var(--s) * 3px); height: calc(3px + var(--s) * 3px); margin: -3px 0 0 -3px; border-radius: 50%; background: #fff; box-shadow: 0 0 5px #a5f3fc; }
+li[data-el="ice"]:hover .ep { animation: icX 2.4s ease-in-out infinite, icY 2.4s linear infinite; animation-delay: calc(var(--k) * -2.4s); }
+@keyframes icX { 0%, 100% { translate: calc(var(--x) * 50px - 6px) 0; } 50% { translate: calc(var(--x) * 50px + 6px) 0; } }
+@keyframes icY { 0% { transform: translateY(-76px); opacity: 0; } 15%, 80% { opacity: 1; } 100% { transform: translateY(56px); opacity: 0; } }
+[data-el="ice"] .ep.alt, [data-el="light"] .ep {
+  width: 14px; height: 14px; margin: -7px 0 0 -7px; border-radius: 0; box-shadow: none;
+  clip-path: polygon(50% 0, 60% 40%, 100% 50%, 60% 60%, 50% 100%, 40% 60%, 0 50%, 40% 40%);
+}
+[data-el="ice"] .ep.alt { background: linear-gradient(#fff, #a5f3fc); }
+li[data-el="ice"]:hover .ep.alt { animation: icTw 1.3s ease-in-out infinite; animation-delay: calc(var(--d) * -1.3s); }
+@keyframes icTw {
+  0%, 100% { transform: rotate(var(--a)) translateY(calc(var(--R) * -1.14)) scale(0); opacity: 0; }
+  50% { transform: rotate(var(--a)) translateY(calc(var(--R) * -1.14)) scale(1.15); opacity: 1; }
+}
+
+/* רוח: משבים שחולפים על התג והתג מתנדנד */
+[data-el="wind"] .ep { width: calc(26px + var(--s) * 18px); height: 12px; margin: -6px 0 0 -18px; border-top: 2px solid rgba(240, 253, 250, 0.95); border-radius: 50%; }
+[data-el="wind"] .ep.alt { border-top-color: rgba(153, 246, 228, 0.9); }
+li[data-el="wind"]:hover .ep { animation: wiX 1.2s linear infinite, wiY 1.2s ease-in-out infinite; animation-delay: calc(var(--d) * -1.2s); }
+li[data-el="wind"]:hover .node img { animation: wiSway 1.2s ease-in-out infinite; }
+@keyframes wiX { from { translate: -70px calc(var(--y) * 40px); } to { translate: 70px calc(var(--y) * 40px); } }
+@keyframes wiY {
+  0% { transform: translateY(0) scaleX(0.4); opacity: 0; }
+  25% { transform: translateY(-6px) scaleX(1); opacity: 1; }
+  75% { transform: translateY(6px) scaleX(1); opacity: 1; }
+  100% { transform: translateY(0) scaleX(0.4); opacity: 0; }
+}
+@keyframes wiSway { 0%, 100% { rotate: -6deg; translate: -2px 0; } 50% { rotate: 6deg; translate: 2px 0; } }
+
+/* אש: להבות שעולות מאחורי התג, זוהר מהבהב וגיצים */
+[data-el="fire"] .node::before { background: radial-gradient(circle at 50% 100%, rgba(255, 122, 20, 0.8), rgba(224, 36, 0, 0.3) 55%, transparent 78%); }
+li[data-el="fire"]:hover .node::before { animation: fiGlow 0.5s ease-in-out infinite alternate; }
+@keyframes fiGlow { from { opacity: 0.55; } to { opacity: 1; } }
+[data-el="fire"] .ep {
+  width: 22px; height: 22px; margin: -11px 0 0 -11px; z-index: -1; border-radius: 0 50% 50% 50%;
+  background: linear-gradient(135deg, #e02400, #ff6a00 38%, #ffc933 72%, #fff3a0);
+  filter: blur(0.5px);
+}
+li[data-el="fire"]:hover .ep { animation: fiX 0.95s ease-in-out infinite, fiY 0.95s ease-in infinite; animation-delay: calc(var(--k) * -0.95s); }
+@keyframes fiX { 0%, 100% { translate: calc(var(--x) * 30px - 4px) 0; } 50% { translate: calc(var(--x) * 30px + 4px) 0; } }
+@keyframes fiY {
+  0% { transform: translateY(22px) rotate(45deg) scale(calc(1 + var(--s) * 0.7)); opacity: 0; }
+  18%, 60% { opacity: 1; }
+  100% { transform: translateY(-72px) rotate(45deg) scale(0.12); opacity: 0; }
+}
+[data-el="fire"] .ep.alt { width: 4px; height: 4px; margin: -2px 0 0 -2px; z-index: 2; border-radius: 50%; background: #ffe58a; box-shadow: 0 0 6px 1px #ff8a1f; filter: none; }
+li[data-el="fire"]:hover .ep.alt { animation: fiX 1.5s ease-in-out infinite, fiEm 1.5s ease-out infinite; animation-delay: calc(var(--d) * -1.5s); }
+@keyframes fiEm { 0% { transform: translateY(10px); opacity: 0; } 15%, 70% { opacity: 1; } 100% { transform: translateY(-82px); opacity: 0; } }
+
+/* ברק: ברקים שמבזיקים סביב התג והעיגול מהבהב */
+[data-el="bolt"] .node::before { box-shadow: 0 0 0 2px #7dd3fc, 0 0 28px 7px rgba(47, 123, 255, 0.85), inset 0 0 20px rgba(125, 211, 252, 0.75); }
+li[data-el="bolt"]:hover .node::before { animation: boFlash 1.2s steps(1) infinite; }
+li[data-el="bolt"]:hover .node img { animation: boImg 1.2s steps(1) infinite; }
+@keyframes boFlash { 0%, 9%, 20%, 55%, 64% { opacity: 0; } 4%, 13%, 50%, 60% { opacity: 1; } }
+@keyframes boImg { 0%, 9%, 20%, 55%, 64% { filter: none; } 4%, 13%, 50%, 60% { filter: brightness(1.5); } }
+[data-el="bolt"] .ep {
+  width: 16px; height: calc(26px + var(--s) * 10px); margin: -18px 0 0 -8px;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 32' preserveAspectRatio='none'%3E%3Cpath d='M9 1L3 12L11 16L5 31' fill='none' stroke='white' stroke-width='2.4' stroke-linejoin='round' stroke-linecap='round'/%3E%3C/svg%3E") center / 100% 100% no-repeat;
+  filter: drop-shadow(0 0 2px #7dd3fc) drop-shadow(0 0 5px #2563eb);
+  transform: rotate(var(--a)) translateY(calc(var(--R) * -1 - 17px));
+}
+[data-el="bolt"] .ep.alt { transform: rotate(var(--a)) translateY(calc(var(--R) * -1 - 17px)) scaleX(-1); }
+li[data-el="bolt"]:hover .ep { animation: boZap 1.2s steps(1) infinite; animation-delay: calc(var(--d) * -1.2s); }
+@keyframes boZap { 0%, 9%, 24% { opacity: 0; } 2%, 13% { opacity: 1; } }
+
+/* אור: קרניים מסתובבות, הילה פועמת ונצנוצי זהב */
+[data-el="light"] .node::before {
+  inset: -30px; background: repeating-conic-gradient(rgba(255, 220, 110, 0.8) 0 7deg, transparent 7deg 30deg);
+  -webkit-mask: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0, #000 42%, transparent 70%);
+  mask: radial-gradient(circle, rgba(0, 0, 0, 0.3) 0, #000 42%, transparent 70%);
+}
+li[data-el="light"]:hover .node::before { animation: elIn 0.5s ease-out forwards, liSpin 9s linear infinite; }
+@keyframes liSpin { to { transform: rotate(360deg); } }
+[data-el="light"] .node::after { box-shadow: 0 0 30px 8px rgba(255, 214, 90, 0.6); }
+li[data-el="light"]:hover .node::after { animation: liPulse 1.3s ease-in-out infinite alternate; }
+@keyframes liPulse { from { opacity: 0.35; transform: scale(0.96); } to { opacity: 1; transform: scale(1.06); } }
+[data-el="light"] .ep { background: linear-gradient(#fff, #ffe58a); }
+li[data-el="light"]:hover .ep { animation: liTw 1.5s ease-in-out infinite; animation-delay: calc(var(--d) * -1.5s); }
+@keyframes liTw {
+  0%, 100% { transform: translate(calc(var(--x) * 58px), calc(var(--y) * 58px)) rotate(0deg) scale(0); opacity: 0; }
+  50% { transform: translate(calc(var(--x) * 58px), calc(var(--y) * 58px)) rotate(90deg) scale(calc(0.7 + var(--s) * 0.7)); opacity: 1; }
+}
+
 /* ───────────── 11. SUBSCRIBER EMOTES – שורות נעות ───────────── */
 .emotes {
   display: grid; gap: 14px;
@@ -1021,6 +1180,7 @@ body.access-big-cursor, body.access-big-cursor * { cursor: url("data:image/svg+x
   .path-nodes { grid-template-columns: repeat(4, minmax(0, 1fr)); min-width: 0; row-gap: 26px; }
   .path-nodes::before, .path-nodes::after { display: none; }
   .node { width: 72px; height: 72px; }
+  .path-nodes li[data-el] { --R: 36px; }
   .node img { width: 44px; height: 44px; }
   .node-t { font-size: 0.56rem; letter-spacing: 0.08em; }
   .emote { width: 82px; height: 82px; border-radius: 22px; }
