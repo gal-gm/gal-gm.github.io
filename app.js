@@ -554,10 +554,10 @@
     box.setAttribute('aria-hidden', 'true');
     var count = window.innerWidth < 700 ? 28 : 48;
     for (var i = 0; i < count; i++) {
-      var id = 1 + ((Math.random() * 13) | 0);
+      var id = 1 + ((Math.random() * 17) | 0);
       var img = new Image();
       img.alt = '';
-      img.src = 'Subscriber%20emotes/' + id + (id === 8 ? '.gif' : '.png');
+      img.src = 'Subscriber%20emotes/' + id + (/^(4|5|6|8|9|11|14|15|16|17)$/.test(id) ? '.gif' : '.png');
       img.style.cssText = 'left:' + (Math.random() * 100).toFixed(1) + 'vw;width:' + (30 + Math.random() * 38).toFixed(0) + 'px;' +
         'animation-duration:' + (2.4 + Math.random() * 2.6).toFixed(2) + 's;animation-delay:' + (Math.random() * 1.7).toFixed(2) + 's;' +
         '--rot:' + ((Math.random() * 720 - 360) | 0) + 'deg;--dx:' + ((Math.random() * 160 - 80) | 0) + 'px';
